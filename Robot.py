@@ -3,11 +3,11 @@ class Robot :
     
     def __init__(self,a,b):
         print("Creation d'un robot")
-        self.__x = a
-        self.__y = b
-        self.__direction = 0.
-        self.__vitesse = 0.
-        self.__acceleration = 0.
+        self.x = a
+        self.y = b
+        self.direction = 0.
+        self.vitesse = 0.
+        self.acceleration = 0.
         
     def deplace(self, dx, dy):
         """
@@ -16,10 +16,11 @@ class Robot :
         """
         self.__x = self.__x + dx
         self.__y = self.__y + dy
-        print("Le robot s'est déplacé en [",self.__x,",",self.__y,"]")
+        print("Le robot s'est deplace en [",self.__x,",",self.__y,"]")
         
     def affichePosition(self):
         """
+        None --> None
         Affiche la position du robot.
         """
         print("Position du robot [",self.__x,",",self.__y,"]")
