@@ -11,12 +11,12 @@ class Robot :
         
     def deplace(self, dx, dy):
         """
-        int,int
-        Deplace le robot de dx en abscisse et dy en ordonne
+        int * int --> None
+        Déplace le robot de dx en abscisse et dy en ordonnée.
         """
         self.__x = self.__x + dx
         self.__y = self.__y + dy
-        print("Le tobot s'est déplacé en [",self.__x,",",self.__y,"]")
+        print("Le robot s'est déplacé en [",self.__x,",",self.__y,"]")
         
     def affichePosition(self):
         """
