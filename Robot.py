@@ -1,10 +1,10 @@
 class Robot :
     "Definition d'un robot"
     
-    def __init__(self,x,y):
+    def __init__(self,a,b):
         print("Creation d'un robot")
-        self.__abscisse = x
-        self.__ordonne = y
+        self.__x = a
+        self.__y = b
         self.__direction = 0.
         self.__vitesse = 0.
         self.__acceleration = 0.
@@ -44,14 +44,14 @@ class Robot :
         int
         Change l'abscisse du robot
         """
-        self.__X = newX
+        self.__x = newX
         
     def setY(self,newY):
         """
         int
         Change l'Ordonne du robot
         """
-        self.__Y = newY
+        self.__y = newY
         
     def getRobotAbscisse(self):
         """"
