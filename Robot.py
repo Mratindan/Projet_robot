@@ -20,9 +20,9 @@ class Robot :
         
     def affichePosition(self):
         """
-        Affiche la position du tobot.
+        Affiche la position du robot.
         """
-        print("Position du tobot [",self.__x,",",self.__y,"]")
+        print("Position du robot [",self.__x,",",self.__y,"]")
             
             
     def setVitesse(self,newVitesse):
