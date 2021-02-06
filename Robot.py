@@ -24,13 +24,20 @@ class Robot :
         """
         print("Position du robot [", self.position.x, ",", self.position.y, "]")
             
-            
     def setVitesse(self,newVitesse):
         """
         float
         Change la vitessee du robot
         """
         self.__vitesse = newVitesse
+        
+    def setAcceleration(self,acceleration):
+        """
+        float->None
+        Change l'acceleration du robot
+        """
+        self.acceleration=acceleration
+        
 
     def setDirection(self,newDirection):
         """
