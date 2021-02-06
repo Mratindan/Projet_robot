@@ -3,5 +3,4 @@ class Obstacle:
 
 
 def __init__(self, abscisse, ordonnee):
-    self.abscisse = abscisse
-    self.ordonnee = ordonnee
+    self.position = Point(abscisse, ordonnee)
