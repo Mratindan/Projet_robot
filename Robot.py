@@ -1,10 +1,9 @@
 class Robot :
     "Definition d'un robot"
     
-    def __init__(self,a,b):
+    def __init__(self, a, b):
         print("Creation d'un robot")
-        self.x = a
-        self.y = b
+        self.position = Point(a, b)
         self.direction = 0.
         self.vitesse = 0.
         self.acceleration = 0.
@@ -14,16 +13,16 @@ class Robot :
         int * int --> None
         Déplace le robot de dx en abscisse et dy en ordonnée.
         """
-        self.x = self.x + dx
-        self.y = self.y + dy
-        print("Le robot s'est deplace en [",self.__x,",",self.__y,"]")
+        self.position.x += dx
+        self.position.y += dy
+        print("Le robot s'est deplace en [", self.position.x, ",", self.position.y, "]")
         
     def affichePosition(self):
         """
         None --> None
         Affiche la position du robot.
         """
-        print("Position du robot [",self.__x,",",self.__y,"]")
+        print("Position du robot [", self.position.x, ",", self.position.y, "]")
             
             
     def setVitesse(self,newVitesse):
