@@ -14,8 +14,8 @@ class Robot :
         int * int --> None
         Déplace le robot de dx en abscisse et dy en ordonnée.
         """
-        self.__x = self.__x + dx
-        self.__y = self.__y + dy
+        self.x = self.x + dx
+        self.y = self.y + dy
         print("Le robot s'est deplace en [",self.__x,",",self.__y,"]")
         
     def affichePosition(self):
