@@ -25,3 +25,14 @@ class Vecteur:
         if Vecteur==Vecteur2:
             return True
         return False
+    def addition(self,v1)
+        """
+        Addition de deux vecteurs
+        """
+        return Vecteur(Point(self.point1.x+v1.point1.x,self.point1.y+v1.point1.y),Point(self.point2.x+v1.point2.x,self.point2.y+v1.point2.y))
+    
+    def scalaire(self,v1)
+        """
+        Produit scalaire entre deux vecteurs
+        """
+        return self.calculNorme()*v1.calculNorme()*math.cos(self.calculAngle(v1))
