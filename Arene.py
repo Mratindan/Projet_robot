@@ -40,7 +40,8 @@ class Arene:
         """
         if (0 > pos_largeur) or (self.largeur < pos_largeur) or (0 > pos_hauteur) or (self.hauteur < pos_hauteur) :
             print("estVide : cette case n'est pas accessible")
-            return None 
+            return None
+        print("estVide : la case est accessible")
         return self.terrain[pos_largeur][pos_hauteur] == ' '
 
     #def placerRobot(self):
@@ -98,6 +99,11 @@ print("Essayons de le supprimer a nouveau")
 arene.supprimerObstacle(10,10)
 arene.afficherArene()
 
+
+
+arene.estVide(31,15)
+arene.estVide(2,5)
+arene.estVide(10,9)
 
 """if arene.estVide(1, 0):
     print("La case est vide")
