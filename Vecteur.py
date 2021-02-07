@@ -32,12 +32,12 @@ class Vecteur:
         """
         return Vecteur(Point(self.point1.x,self.point1.y),Point(self.point2.x,self.point2.y))
 
-    def rotation(self):
+    def rotation(self,angle):
         """
         None -> Vecteur
         Calcule la rotation d'un vecteur
         """
-        R = numpy.array([(math.cos(x), -math.sin(x)),(math.sin(x),math.cos(x))])
+        R = numpy.array([(math.cos(angle), -math.sin(angle)),(math.sin(angle),math.cos(angle))])
         Vecteur2 = R * Vecteur()
         return Vecteur2
 
