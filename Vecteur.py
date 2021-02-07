@@ -6,6 +6,14 @@ from numpy import *
 class Vecteur:
     "Classe vecteur permettant de définir les déplacements de notre futur robot"
 
+    def distance(self, point):
+		"""
+		Point -> float
+		Retourne la distance entre le point courant et le point en parametre.
+		"""
+
+		return math.sqrt((point.x - self.x) * (point.x - self.x) + (point.y - self.y) * (point.y - self.y))
+
     def __init__(self,point1,point2):
         self.point1 = point1
         self.point2 = point2
