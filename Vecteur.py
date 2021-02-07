@@ -20,3 +20,8 @@ class Vecteur:
         R = numpy.array([(math.cos(x), -math.sin(x)),(math.sin(x),math.cos(x))])
         Vecteur2 = R * Vecteur()
         return Vecteur2
+    def estEgal(self,Vecteur, Vecteur2):
+        "Teste l'egalité entre deux vecteurs"
+        if Vecteur==Vecteur2:
+            return True
+        return False
