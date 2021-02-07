@@ -44,8 +44,8 @@ class Arene:
         print("estVide : la case est accessible")
         return self.terrain[pos_largeur][pos_hauteur] == ' '
 
-    #def placerRobot(self):
-    #   self.terrain[self.robot.x][self.robot.y] = "R"
+    def placerRobot(self):
+       self.terrain[self.robot.x][self.robot.y] = "R"
 
     def placerObstacle(self, posLargeur, posHauteur):
         """
