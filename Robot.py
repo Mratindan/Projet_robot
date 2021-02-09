@@ -1,3 +1,5 @@
+from Point import Point
+
 class Robot :
     "Definition d'un robot"
     

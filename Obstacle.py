@@ -1,3 +1,5 @@
+from Point import Point 
+
 class Obstacle:
     "Definition de la classe Obstacle"
 

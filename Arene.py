@@ -1,3 +1,4 @@
+from Point import Point
 import time
 class Arene:
     "Terrain sur lequel peut évoluer un robot et des objets quelconques"
