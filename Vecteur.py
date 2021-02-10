@@ -81,4 +81,7 @@ v3 = Vecteur(p1, p2)
 #print("point2 de v : (", v.point2.x, ",", v.point2.y, ")")
 
 print("PS entre v1 et v2 : ", v1.produitScalaire(v2,30))
-print(
+
+add = v1.addition(v2)
+print("point1 de v : (", add.point1.x, ",", add.point1.y, ")")
+print("point2 de v : (", add.point2.x, ",", add.point2.y, ")")
