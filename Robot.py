@@ -8,7 +8,6 @@ class Robot :
         self.position = Point(a, b)
         self.direction = 0.
         self.vitesse = 0.
-        self.acceleration = 0.
         
     def deplace(self, dx, dy):
         """
