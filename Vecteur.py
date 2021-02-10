@@ -10,8 +10,8 @@ class Vecteur:
         self.point1 = point1
         self.point2 = point2
 
-    def __eq__():
-        return self.point1.x == Vecteur2.point1.x and self.point1.y == Vecteur2.point1.y and self.point2.x == Vecteur2.point2.x and self.point2.y == Vecteur2.point2.y
+    def __eq__(self, vecteur):
+        return self.point1.x == vecteur.point1.x and self.point1.y == vecteur.point1.y and self.point2.x == vecteur.point2.x and self.point2.y == vecteur.point2.y
 
     def calculNorme(self):
         """
@@ -75,8 +75,10 @@ print("p1 : (", p2.x, ",", p2.y, ")")
 
 v1 = Vecteur(p1, p2)
 v2 = Vecteur(p3,p4)
+v3 = Vecteur(p1, p2)
 
 #print("point1 de v : (", v.point1.x, ",", v.point1.y, ")")
 #print("point2 de v : (", v.point2.x, ",", v.point2.y, ")")
 
 print("PS entre v1 et v2 : ", v1.produitScalaire(v2,30))
+print(
