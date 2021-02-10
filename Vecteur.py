@@ -10,6 +10,9 @@ class Vecteur:
         self.point1 = point1
         self.point2 = point2
 
+    def __eq__():
+        return self.point1.x == Vecteur2.point1.x and self.point1.y == Vecteur2.point1.y and self.point2.x == Vecteur2.point2.x and self.point2.y == Vecteur2.point2.y
+
     def calculNorme(self):
         """
         None -> float
@@ -33,14 +36,12 @@ class Vecteur:
         Vecteur2 = R * Vecteur()
         return Vecteur2
 
-    def estEgal(self,Vecteur, Vecteur2):
+    def estEgal(self, vecteur):
         """
         Vecteur * Vecteur -> boolean
         Teste l'egalité entre deux vecteurs
         """
-        if Vecteur==Vecteur2:
-            return True
-        return False
+        return vecteur == self
 
     def addition(self,v1):
         """
