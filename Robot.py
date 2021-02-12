@@ -1,6 +1,7 @@
 import math
 from Point import Point
 from Vecteur import Vecteur
+from Polynome import Polynome
 
 class Robot :
     "Definition d'un robot"
