@@ -61,7 +61,7 @@ class Vecteur:
         """
         return self.calculNorme()*v1.calculNorme()*math.cos(self.calculAngle(v1))
 
-    def produitScalaireTest(self,v2):
+    def produitScalaire(self,v2):
         """
         Permet de retourner le produit scalaire entre 2 vecteurs
         """
