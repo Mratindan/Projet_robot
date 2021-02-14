@@ -61,19 +61,6 @@ class Vecteur:
         """
         return self.calculNorme()*v1.calculNorme()*math.cos(self.calculAngle(v1))
 
-    """def produitScalaire(self,v2):
-                    
-                    Permet de calculer le produit scalaire entre 2 vecteurs définis par des coordonées
-                    
-                    return self.point1 * v2.point1 + self.point2 * v2.point2
-            
-                def produitScalaire2(self,v2):
-                    
-                    Permet de calculer le produit scalaire entre 2 vecteurs définis par des points (eux même définis par des coordonées)
-                    
-                    return (self.point2.getX()-self.point1.getX())*(v2.point2.getX()-v2.point1.getX()) + (self.point2.getY()-self.point1.getY())*(v2.point2.getY()-v2.point1.getY())"""
-
-
     def produitScalaireTest(self,v2):
         """
         Permet de retourner le produit scalaire entre 2 vecteurs
