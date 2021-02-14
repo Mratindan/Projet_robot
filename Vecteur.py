@@ -10,8 +10,12 @@ class Vecteur:
         self.point1 = point1
         self.point2 = point2
 
-    def __eq__(self, vecteur):
-        return self.point1.x == vecteur.point1.x and self.point1.y == vecteur.point1.y and self.point2.x == vecteur.point2.x and self.point2.y == vecteur.point2.y
+    def __init__(self,x,y):
+        self.point1 = x
+        self.point2 = y
+
+    def __eq__(self, Vecteur2):
+        return self.point1.x == Vecteur2.point1.x and self.point1.y == Vecteur2.point1.y and self.point2.x == Vecteur2.point2.x and self.point2.y == Vecteur2.point2.y
 
     def calculNorme(self):
         """
@@ -36,12 +40,12 @@ class Vecteur:
         Vecteur2 = R * Vecteur()
         return Vecteur2
 
-    def estEgal(self, vecteur):
+    def estEgal(self,Vecteur2):
         """
         Vecteur * Vecteur -> boolean
         Teste l'egalité entre deux vecteurs
         """
-        return vecteur == self
+        return self == Vecteur2
 
     def addition(self,v1):
         """
@@ -57,31 +61,67 @@ class Vecteur:
         """
         return self.calculNorme()*v1.calculNorme()*math.cos(self.calculAngle(v1))
 
-    def produitScalaire(self,v2,angle):
-    	"""
-		Permet de calculer le produit scalaire entre 2 vecteurs
-    	"""
-    	return self.calculNorme()*v2.calculNorme()*math.cos(angle)
+    """def produitScalaire(self,v2):
+                    
+                    Permet de calculer le produit scalaire entre 2 vecteurs définis par des coordonées
+                    
+                    return self.point1 * v2.point1 + self.point2 * v2.point2
+            
+                def produitScalaire2(self,v2):
+                    
+                    Permet de calculer le produit scalaire entre 2 vecteurs définis par des points (eux même définis par des coordonées)
+                    
+                    return (self.point2.getX()-self.point1.getX())*(v2.point2.getX()-v2.point1.getX()) + (self.point2.getY()-self.point1.getY())*(v2.point2.getY()-v2.point1.getY())"""
+
+
+    def produitScalaireTest(self,v2):
+        """
+        Permet de retourner le produit scalaire entre 2 vecteurs
+        """
+
+        if type(self.point1) != type(v2.point1):
+            print("Erreur, l'objet sur lequel est appelée la méthode, et l'argument ne sont pas définis de la même façon.")
+            return
+        else:
+            if isinstance(self.point1,int) and isinstance(v2.point1,int):
+                return self.point1 * v2.point1 + self.point2 * v2.point2
+            else:
+                return (self.point2.getX()-self.point1.getX())*(v2.point2.getX()-v2.point1.getX()) + (self.point2.getY()-self.point1.getY())*(v2.point2.getY()-v2.point1.getY())
+
 
 # Test rapide constructeur de Point et Vecteur
 
-p1 = Point(1, 2)
-p2 = Point(3/4, -0.5)
-p3 = Point(3,5)
-p4 = Point(4,-3)
+p1 = Point(-3, 4)
+p2 = Point(0, 0)
+
+p3 = Point(-1,5)
+p4 = Point(0,-0)
+
+
 
 print("p1 : (", p1.x, ",", p1.y, ")")
-print("p1 : (", p2.x, ",", p2.y, ")")
+print("p2 : (", p2.x, ",", p2.y, ")")
+print("p3 : (", p3.x, ",", p3.y, ")")
+print("p4 : (", p4.x, ",", p4.y, ")")
+
 
 v1 = Vecteur(p1, p2)
 v2 = Vecteur(p3,p4)
-v3 = Vecteur(p1, p2)
+
+v3 = Vecteur(-3,4)
+v4 = Vecteur(-1,5)
+
+v5 = Vecteur(1,2)
+
+print("Produit scalaire entre vecteurs 1 et 2 : ", v3.produitScalaireTest(v4))
+print("Produit scalaire entre vecteurs 3 et 4 : ", v1.produitScalaireTest(v2))
+
+
+
+
+
+
 
 #print("point1 de v : (", v.point1.x, ",", v.point1.y, ")")
 #print("point2 de v : (", v.point2.x, ",", v.point2.y, ")")
-
-print("PS entre v1 et v2 : ", v1.produitScalaire(v2,30))
-
-add = v1.addition(v2)
-print("point1 de v : (", add.point1.x, ",", add.point1.y, ")")
-print("point2 de v : (", add.point2.x, ",", add.point2.y, ")")
+#print("PS entre v1 et v2 : ", v1.produitScalaire(v2,30))
