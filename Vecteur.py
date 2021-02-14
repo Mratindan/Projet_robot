@@ -100,8 +100,8 @@ v4 = Vecteur(-1,5)
 
 v5 = Vecteur(1,2)
 
-print("Produit scalaire entre vecteurs 1 et 2 : ", v3.produitScalaireTest(v4))
-print("Produit scalaire entre vecteurs 3 et 4 : ", v1.produitScalaireTest(v2))
+print("Produit scalaire entre vecteurs 1 et 2 : ", v3.produitScalaire(v4))
+print("Produit scalaire entre vecteurs 3 et 4 : ", v1.produitScalaire(v2))
 
 
 
