@@ -1,5 +1,7 @@
 import math
 #import numpy
+import numpy
+
 from Point import Point
 #from numpy import *
 
