@@ -54,6 +54,7 @@ class Arene:
         Permet de placer un obstacle dans l'arène
         """
         if arene.estVide(posLargeur,posHauteur):
+            listeObstacles.append(Obstacle())
             self.terrain[posLargeur][posHauteur] = 'O'
         else:
             print("La case est deja occupee, impossible de placer quoi que ce soit en ({},{})".format(posLargeur,posHauteur))
@@ -70,17 +71,6 @@ class Arene:
         else:
             print("La position donnee ({},{}) est deja vide.".format(posLargeur,posHauteur))
             return
-
-    """def ajouterObstacle(self, posLargeur, posHauteur):
-                    
-                    int * int
-                    #Permet d'ajouter un obstacle
-                    
-                    if arene.estVide(posLargeur,posHauteur):
-                        listeObstacles.append(Obstacle())
-                        placerObstacle(posLargeur,posHauteur)"""
-            
-
 
 
 # Test rapide   
