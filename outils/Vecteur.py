@@ -1,7 +1,5 @@
 import math
 #import numpy
-import numpy
-
 from Point import Point
 #from numpy import *
 
@@ -77,14 +75,27 @@ class Vecteur:
             else:
                 return (self.point2.getX()-self.point1.getX())*(v2.point2.getX()-v2.point1.getX()) + (self.point2.getY()-self.point1.getY())*(v2.point2.getY()-v2.point1.getY())
 
+    def calculAngle(self,v2):
+        """
+        Permet de récupérer l'angle (en °) entre 2 vecteurs, à partir de son produit scalaire
+        """
+        if type(self.point1) != type(v2.point1):
+            print("Erreur, l'objet sur lequel est appelée la méthode, et l'argument ne sont pas définis de la même façon.")
+            return
+        else:
+            if isinstance(self.point1,int) and isinstance(v2.point1,int):
+                return (math.acos((self.point1*v2.point1 + self.point2*v2.point2)/(math.sqrt(((self.point1)**2)+((self.point2)**2))*math.sqrt(((v2.point1)**2)+((v2.point2)**2)))))*(180/math.pi)
+            else:
+                return (math.acos(((self.produitScalaire(v2) / (self.calculNorme() * v2.calculNorme())))))*(180/math.pi)
+
 
 # Test rapide constructeur de Point et Vecteur
 
-p1 = Point(-3, 4)
+p1 = Point(4, 1)
 p2 = Point(0, 0)
 
-p3 = Point(-1,5)
-p4 = Point(0,-0)
+p3 = Point(4,-2)
+p4 = Point(0,0)
 
 
 
@@ -102,8 +113,19 @@ v4 = Vecteur(-1,5)
 
 v5 = Vecteur(1,2)
 
-print("Produit scalaire entre vecteurs 1 et 2 : ", v3.produitScalaire(v4))
-print("Produit scalaire entre vecteurs 3 et 4 : ", v1.produitScalaire(v2))
+vecteurTestAngle1 = Vecteur(4,1)
+vecteurTestAngle2 = Vecteur(4,-2)
+
+
+print("Produit scalaire entre vecteurs 3 et 4 : ", v3.produitScalaire(v4))
+print("Produit scalaire entre vecteurs 1 et 2 : ", v1.produitScalaire(v2))
+
+
+print("Norme de v1 : ", v1.calculNorme())
+print("Norme de v2 : ", v2.calculNorme())
+print("Angle (cosinus) entre v1 et v2 : ", v1.calculAngle(v2))
+print("Angle entre vecteurs tests ", vecteurTestAngle1.calculAngle(vecteurTestAngle2))
+
 
 
 
