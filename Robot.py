@@ -3,7 +3,7 @@ from Point import Point
 from Vecteur import Vecteur
 from Polynome import Polynome
 
-class Robot :
+class Robot:
     "Definition d'un robot"
     
     def __init__(self, a, b):
@@ -52,5 +52,15 @@ class Robot :
         #utiliser methode rotation de la classe vecteur? (tester d'abord) -> pas de changment de norme
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
-        #creer une methode pour transformer le vecteur position en fonction utilisable
         
+r=Robot(1,1)
+r.changePosition(9,30,0)
+print("x= ")
+r.positionVecteur.point1.affichePolynome('t')
+print("y= ")
+r.positionVecteur.point2.affichePolynome('t')
+r.changePosition(7,80,5)
+print("x= ")
+r.positionVecteur.point1.affichePolynome('t')
+print("y= ")
+r.positionVecteur.point2.affichePolynome('t')
