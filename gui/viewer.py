@@ -28,7 +28,7 @@ class Viewer :
         for i in range(6) :
             io.rowconfigure(i, weight = 1)
         
-        terrain.create_rectangle(100, 50, 300, 250, fill='red', outline='red')
+        terrain.create_rectangle(100, 50, 300, 250, fill = 'red', outline = 'red')
         
 
 simulation = Tk()
