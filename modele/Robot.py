@@ -3,16 +3,17 @@ from Point import Point
 from Vecteur import Vecteur
 from Polynome import Polynome
 
-class Robot :
+class Robot:
     "Definition d'un robot"
     
     def __init__(self, a, b):
+        "a et b ne doivent pas valoir 0 tous les deux"
         print("Creation d'un robot")
         self.position = Point(a, b)
         self.positionNorme=0.
         self.vitesse = 0.
         self.acceleration=0.
-        self.positionVecteur=Vecteur(Polynome(0,0,1),Polynome(0,0,1))
+        self.positionVecteur=Vecteur(Polynome(0,0,a),Polynome(0,0,b))
         self.vitesseVecteur=Vecteur(Polynome(0,0,0),Polynome(0,0,0))
         self.accelerationVecteur=Vecteur(0,0)
         self.positionVecteurTemps=Vecteur(0,0)
@@ -36,9 +37,9 @@ class Robot :
             
     def changePosition(self,acceleration,angle,temps):
         """
-        float*float->None
+        float*float*float->None
         change le vecteur mouvement du robot
-        l'angle est lu dans le sens des aiguilles d'une montre
+        l'angle est lu dans le sens des aiguilles d'une montre ?
         """
         self.position.x=self.positionVecteur.point1.calcul(temps)
         self.position.y=self.positionVecteur.point2.calcul(temps)
@@ -52,5 +53,15 @@ class Robot :
         #utiliser methode rotation de la classe vecteur? (tester d'abord) -> pas de changment de norme
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
-        #creer une methode pour transformer le vecteur position en fonction utilisable
         
+r=Robot(1,1)
+r.changePosition(9,30,0)
+print("x= ")
+r.positionVecteur.point1.affichePolynome('t')
+print("y= ")
+r.positionVecteur.point2.affichePolynome('t')
+r.changePosition(7,80,5)
+print("x= ")
+r.positionVecteur.point1.affichePolynome('t')
+print("y= ")
+r.positionVecteur.point2.affichePolynome('t')
