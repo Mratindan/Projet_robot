@@ -10,4 +10,4 @@ class TestRoue(unittest.TestCase):
             self.assertIsInstance(self.roue, Roue)
 
 if __name__ =='__main__':
-    unittest.main() 
+    unittest.main()

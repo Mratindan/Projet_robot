@@ -108,4 +108,4 @@ class Arene:
 # else:
 #     print("La case n'est pas vide")"""
 #
-# 
+
