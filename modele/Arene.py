@@ -1,5 +1,9 @@
-from Point import Point
+
+
+from Projet_robot.modele.Obstacle import Obstacle
+
 import time
+
 class Arene:
     "Terrain sur lequel peut évoluer un robot et des objets quelconques"
 
@@ -8,7 +12,7 @@ class Arene:
         self.hauteur = hauteur
         self.terrain = [[' '] * largeur for i in range(hauteur)]
         self.listeObstacles = []
-        self.robot = None 
+        self.robot = None
 
     def afficherArene(self):
         """
@@ -46,15 +50,15 @@ class Arene:
         return self.terrain[pos_largeur][pos_hauteur] == ' '
 
     def placerRobot(self):
-       self.terrain[self.robot.x][self.robot.y] = "R"
+       self.terrain[self.robot.position.getX()][self.robot.position.getY()] = "R"
 
     def placerObstacle(self, posLargeur, posHauteur):
         """
         int * int
         Permet de placer un obstacle dans l'arène
         """
-        if arene.estVide(posLargeur,posHauteur):
-            listeObstacles.append(Obstacle())
+        if Arene.estVide(posLargeur,posHauteur):
+            self.listeObstacles.append(Obstacle())
             self.terrain[posLargeur][posHauteur] = 'O'
         else:
             print("La case est deja occupee, impossible de placer quoi que ce soit en ({},{})".format(posLargeur,posHauteur))
@@ -66,14 +70,14 @@ class Arene:
         int * int
         Permet de retirer un obstacle present dans l'arène
         """
-        if not(arene.estVide(posLargeur,posHauteur)) and (arene.terrain[posLargeur][posHauteur] == 'O'):
+        if not(Arene.estVide(posLargeur,posHauteur)) and (Arene.terrain[posLargeur][posHauteur] == 'O'):
             self.terrain[posLargeur][posHauteur] = ' '
         else:
             print("La position donnee ({},{}) est deja vide.".format(posLargeur,posHauteur))
             return
 
 
-# Test rapide   
+# Test rapide
 arene = Arene(30, 15)
 arene.afficherArene()
 print("Placons un obstacle en (10,10)")
@@ -106,5 +110,5 @@ if arene.estVide(20, 30):
     print("La case est vide")
 else:
     print("La case n'est pas vide")"""
-            
+
 

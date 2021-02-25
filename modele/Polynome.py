@@ -8,6 +8,7 @@ class Polynome:
         
     def calcul(self,x):
         return (self.a*pow(x,2)+self.b*x+self.c)
+    
     def affichePolynome(self,x):
         print(self.a,x,"^2 +",self.b,x,"+",self.c)
     
