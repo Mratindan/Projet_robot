@@ -4,6 +4,7 @@ from Projet_robot.outils.Vecteur import Vecteur
 from Projet_robot.outils.Point import Point
 
 class TestVecteur(unittest.TestCase):
+    
     def setUp(self):
         self.p1 = Point(4, 1)
         self.p2 = Point(0, 0)
