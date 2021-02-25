@@ -1,6 +1,7 @@
 import math
 #import numpy
-from Point import Point
+#from Point import Point
+from Projet_robot.outils.Point import Point
 #from numpy import *
 
 class Vecteur:
@@ -53,7 +54,7 @@ class Vecteur:
         Addition de deux vecteurs
         """
         return Vecteur(Point(self.point1.x+v1.point1.x,self.point1.y+v1.point1.y),Point(self.point2.x+v1.point2.x,self.point2.y+v1.point2.y))
-    
+
     def produitVectoriel(self,v1):
         """
         Vecteur -> float
@@ -91,46 +92,40 @@ class Vecteur:
 
 # Test rapide constructeur de Point et Vecteur
 
-p1 = Point(4, 1)
-p2 = Point(0, 0)
-
-p3 = Point(4,-2)
-p4 = Point(0,0)
-
-
-
-print("p1 : (", p1.x, ",", p1.y, ")")
-print("p2 : (", p2.x, ",", p2.y, ")")
-print("p3 : (", p3.x, ",", p3.y, ")")
-print("p4 : (", p4.x, ",", p4.y, ")")
-
-
-v1 = Vecteur(p1, p2)
-v2 = Vecteur(p3,p4)
-
-v3 = Vecteur(-3,4)
-v4 = Vecteur(-1,5)
-
-v5 = Vecteur(1,2)
-
-vecteurTestAngle1 = Vecteur(4,1)
-vecteurTestAngle2 = Vecteur(4,-2)
-
-
-print("Produit scalaire entre vecteurs 3 et 4 : ", v3.produitScalaire(v4))
-print("Produit scalaire entre vecteurs 1 et 2 : ", v1.produitScalaire(v2))
-
-
-print("Norme de v1 : ", v1.calculNorme())
-print("Norme de v2 : ", v2.calculNorme())
-print("Angle (cosinus) entre v1 et v2 : ", v1.calculAngle(v2))
-print("Angle entre vecteurs tests ", vecteurTestAngle1.calculAngle(vecteurTestAngle2))
-
-
-
-
-
-
+# p1 = Point(4, 1)
+# p2 = Point(0, 0)
+#
+# p3 = Point(4,-2)
+# p4 = Point(0,0)
+#
+#
+#
+# print("p1 : (", p1.x, ",", p1.y, ")")
+# print("p2 : (", p2.x, ",", p2.y, ")")
+# print("p3 : (", p3.x, ",", p3.y, ")")
+# print("p4 : (", p4.x, ",", p4.y, ")")
+#
+#
+# v1 = Vecteur(p1, p2)
+# v2 = Vecteur(p3,p4)
+#
+# v3 = Vecteur(-3,4)
+# v4 = Vecteur(-1,5)
+#
+# v5 = Vecteur(1,2)
+#
+# vecteurTestAngle1 = Vecteur(4,1)
+# vecteurTestAngle2 = Vecteur(4,-2)
+#
+#
+# print("Produit scalaire entre vecteurs 3 et 4 : ", v3.produitScalaire(v4))
+# print("Produit scalaire entre vecteurs 1 et 2 : ", v1.produitScalaire(v2))
+#
+#
+# print("Norme de v1 : ", v1.calculNorme())
+# print("Norme de v2 : ", v2.calculNorme())
+# print("Angle (cosinus) entre v1 et v2 : ", v1.calculAngle(v2))
+# print("Angle entre vecteurs tests ", vecteurTestAngle1.calculAngle(vecteurTestAngle2))
 
 
 #print("point1 de v : (", v.point1.x, ",", v.point1.y, ")")
