@@ -1,5 +1,7 @@
-from Point import Point
+from Projet_robot.modele.Obstacle import Obstacle
+
 import time
+
 class Arene:
     "Terrain sur lequel peut évoluer un robot et des objets quelconques"
 
@@ -8,7 +10,7 @@ class Arene:
         self.hauteur = hauteur
         self.terrain = [[' '] * largeur for i in range(hauteur)]
         self.listeObstacles = []
-        self.robot = None 
+        self.robot = None
 
     def afficherArene(self):
         """
@@ -19,19 +21,19 @@ class Arene:
 
         # Bord du haut
         for k in range(largeur_bord):
-            print("#", end = '')
+            print("#", end='')
         print("")
 
         # Terrain en lui-même et bord sur les côtés
         for i in range(self.hauteur):
-            print("#", end = '')
+            print("#", end='')
             for j in range(self.largeur):
-                print(self.terrain[i][j], end = '')
+                print(self.terrain[i][j], end='')
             print("#")
-        
+
         # Bord du bas
         for k in range(largeur_bord):
-            print("#", end = '')
+            print("#", end='')
         print("")
 
     def estVide(self, pos_largeur, pos_hauteur):
@@ -39,25 +41,26 @@ class Arene:
         int * int -> boolean
         Renvoie true si une case est vide et false sinon
         """
-        if (0 > pos_largeur) or (self.largeur < pos_largeur) or (0 > pos_hauteur) or (self.hauteur < pos_hauteur) :
+        if (0 > pos_largeur) or (self.largeur < pos_largeur) or (0 > pos_hauteur) or (self.hauteur < pos_hauteur):
             print("estVide : cette case n'est pas accessible")
             return None
         print("estVide : la case est accessible")
         return self.terrain[pos_largeur][pos_hauteur] == ' '
 
     def placerRobot(self):
-       self.terrain[self.robot.x][self.robot.y] = "R"
+        self.terrain[self.robot.position.getX()][self.robot.position.getY()] = "R"
 
     def placerObstacle(self, posLargeur, posHauteur):
         """
         int * int
         Permet de placer un obstacle dans l'arène
         """
-        if arene.estVide(posLargeur,posHauteur):
-            listeObstacles.append(Obstacle())
+        if Arene.estVide(posLargeur, posHauteur):
+            self.listeObstacles.append(Obstacle())
             self.terrain[posLargeur][posHauteur] = 'O'
         else:
-            print("La case est deja occupee, impossible de placer quoi que ce soit en ({},{})".format(posLargeur,posHauteur))
+            print("La case est deja occupee, impossible de placer quoi que ce soit en ({},{})".format(posLargeur,
+                                                                                                      posHauteur))
             self.terrain[posLargeur][posHauteur] = 'O'
             return
 
@@ -66,45 +69,43 @@ class Arene:
         int * int
         Permet de retirer un obstacle present dans l'arène
         """
-        if not(arene.estVide(posLargeur,posHauteur)) and (arene.terrain[posLargeur][posHauteur] == 'O'):
+        if not (Arene.estVide(posLargeur, posHauteur)) and (Arene.terrain[posLargeur][posHauteur] == 'O'):
             self.terrain[posLargeur][posHauteur] = ' '
         else:
-            print("La position donnee ({},{}) est deja vide.".format(posLargeur,posHauteur))
+            print("La position donnee ({},{}) est deja vide.".format(posLargeur, posHauteur))
             return
 
 
-# Test rapide   
-arene = Arene(30, 15)
-arene.afficherArene()
-print("Placons un obstacle en (10,10)")
-arene.placerObstacle(10,10)
-arene.afficherArene()
-print("Essayons de placer un autre obstacle en (10,10)")
-arene.placerObstacle(10,10)
-time.sleep(5)
-
-print("Supprimons maintenant l'obstacle que nous venons de creer")
-arene.supprimerObstacle(10,10)
-arene.afficherArene()
-print("Essayons de le supprimer a nouveau")
-arene.supprimerObstacle(10,10)
-arene.afficherArene()
-
-
-
-arene.estVide(31,15)
-arene.estVide(2,5)
-arene.estVide(10,9)
-
-"""if arene.estVide(1, 0):
-    print("La case est vide")
-else:
-    print("La case n'est pas vide")
-
-
-if arene.estVide(20, 30):
-    print("La case est vide")
-else:
-    print("La case n'est pas vide")"""
-            
-
+# # Test rapide
+# arene = Arene(30, 15)
+# arene.afficherArene()
+# print("Placons un obstacle en (10,10)")
+# arene.placerObstacle(10, 10)
+# arene.afficherArene()
+# print("Essayons de placer un autre obstacle en (10,10)")
+# arene.placerObstacle(10, 10)
+# time.sleep(5)
+#
+# print("Supprimons maintenant l'obstacle que nous venons de creer")
+# arene.supprimerObstacle(10, 10)
+# arene.afficherArene()
+# print("Essayons de le supprimer a nouveau")
+# arene.supprimerObstacle(10, 10)
+# arene.afficherArene()
+#
+# arene.estVide(31, 15)
+# arene.estVide(2, 5)
+# arene.estVide(10, 9)
+#
+# """if arene.estVide(1, 0):
+#     print("La case est vide")
+# else:
+#     print("La case n'est pas vide")
+#
+#
+# if arene.estVide(20, 30):
+#     print("La case est vide")
+# else:
+#     print("La case n'est pas vide")"""
+#
+# 
