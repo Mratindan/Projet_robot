@@ -1,7 +1,6 @@
 import math
 #import numpy
-#from Point import Point
-from Projet_robot.outils.Point import Point
+from Point import Point
 #from numpy import *
 
 class Vecteur:
@@ -126,6 +125,12 @@ print("Norme de v1 : ", v1.calculNorme())
 print("Norme de v2 : ", v2.calculNorme())
 print("Angle (cosinus) entre v1 et v2 : ", v1.calculAngle(v2))
 print("Angle entre vecteurs tests ", vecteurTestAngle1.calculAngle(vecteurTestAngle2))
+
+
+
+
+
+
 
 
 #print("point1 de v : (", v.point1.x, ",", v.point1.y, ")")

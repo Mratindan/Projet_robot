@@ -23,7 +23,10 @@ class Point:
 
 point1 = Point(1,2)
 point2 = Point(4,6)
+
 point3 = Point(-2,-1)
 point4 = Point(6,-3)
+
+
 print("Distance entre les points (1,2) et (4,6) = ", point1.distance(point2))
 print("Distance entre les points (-2,-1) et (6,-3) = ", point4.distance(point3))
