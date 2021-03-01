@@ -16,14 +16,14 @@ class Viewer :
         # Le cadre principale qui contiendra la toile, les boutons etc
         cadre = ttk.Frame(simulation)
         # La toile dans laquelle sera dessinée la simulation
-        terrain = Canvas(cadre, borderwidth = 2, relief = 'ridge', width = 600, height = 600, background = "white")
+        self.terrain = Canvas(cadre, borderwidth = 2, relief = 'ridge', width = 600, height = 600, background = "white")
         # Les boutons
         play = ttk.Button(cadre, text = "Play")
         stop = ttk.Button(cadre, text = "Stop")
 
         # Placement des widgets
         cadre.grid(column = 0, row = 0, sticky = (N, S, E, W))
-        terrain.grid(column = 0, row = 0, columnspan = 6, rowspan = 6, sticky = (N, S, E, W))
+        self.terrain.grid(column = 0, row = 0, columnspan = 6, rowspan = 6, sticky = (N, S, E, W))
         play.grid(column = 6, row = 3, sticky = (W, E))
         stop.grid(column = 8, row = 3, sticky = (W, E))
 
@@ -34,7 +34,7 @@ class Viewer :
         for i in range(6, 9) :
             cadre.columnconfigure(i, weight = 1)
                 
-        terrain.create_rectangle(100, 50, 300, 250, fill = 'red', outline = 'red')
+        self.terrain.create_rectangle(100, 50, 300, 250, fill = 'red', outline = 'red')
         
 
 simulation = Tk()
