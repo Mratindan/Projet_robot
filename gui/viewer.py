@@ -8,7 +8,7 @@ class Viewer :
 
         # Création de la fenêtre principale de l'application
         simulation.title("Gopigo Simulator")
-        # columnconfigure et rowconfigure pour permettre à la fenêtre de s'adapter si l'utilisateur resize 
+        # Détermination du comportement de la fenêtre lors des resize
         simulation.columnconfigure(0, weight = 1)
         simulation.rowconfigure(0, weight = 1)
         
@@ -27,14 +27,13 @@ class Viewer :
         play.grid(column = 6, row = 3, sticky = (W, E))
         stop.grid(column = 8, row = 3, sticky = (W, E))
 
-        # Pour déterminer le comportement du cadre lors des resize
+        # Détermination du comportement du cadre lors des resize
         for i in range(6) :
             cadre.columnconfigure(i, weight = 5)
+            cadre.rowconfigure(i, weight = 1)
         for i in range(6, 9) :
             cadre.columnconfigure(i, weight = 1)
-        for i in range(6) :
-            cadre.rowconfigure(i, weight = 1)
-        
+                
         terrain.create_rectangle(100, 50, 300, 250, fill = 'red', outline = 'red')
         
 
