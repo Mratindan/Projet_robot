@@ -46,8 +46,10 @@ class Viewer :
 
         self.run()
 
-    # Permet de mettre à jour le dessin du robot
     def update(self):
+        """ 
+        Permet de mettre à jour le dessin du robot 
+        """
         self.x += self.dx 
         self.y += self.dy
 
@@ -56,8 +58,10 @@ class Viewer :
         # Permet de redessiner le terrain après un certain nombre de millisecondes
         self.terrain.update(50, self.dessiner)
 
-    # Permet de faire tourner la simulation
     def run(self):
+        """
+        Permet de faire tourner la simulation
+        """
         self.dessiner()
         
 
