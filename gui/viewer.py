@@ -56,13 +56,13 @@ class Viewer :
         self.terrain.coords(self.robot, self.x, self.y, self.x + self.width, self.y + self.height)
 
         # Permet de redessiner le terrain après un certain nombre de millisecondes
-        self.terrain.update(50, self.dessiner)
+        self.terrain.after(50, self.update)
 
     def run(self):
         """
         Permet de faire tourner la simulation
         """
-        self.dessiner()
+        self.update()
         
 
 simulation = Tk()
