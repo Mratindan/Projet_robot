@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import ttk
-
+import math
 
 class Viewer :
 
-    def __init__(self, simulation) :
+    def __init__(self, simulation):
 
         # Création de la fenêtre principale de l'application
         simulation.title("Gopigo Simulator")
@@ -28,13 +28,37 @@ class Viewer :
         stop.grid(column = 8, row = 3, sticky = (W, E))
 
         # Détermination du comportement du cadre lors des resize
-        for i in range(6) :
+        for i in range(6):
             cadre.columnconfigure(i, weight = 5)
             cadre.rowconfigure(i, weight = 1)
-        for i in range(6, 9) :
+        for i in range(6, 9):
             cadre.columnconfigure(i, weight = 1)
-                
-        self.terrain.create_rectangle(100, 50, 300, 250, fill = 'red', outline = 'red')
+        
+
+        # Essai provisoire : création d'un rectangle qui se déplace continuellement
+        self.width = 20
+        self.height = 20
+        self.x = 0
+        self.y = 0
+        self.dx = 2
+        self.dy = 1
+        self.robot = self.terrain.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height, fill = 'red', outline = 'red')
+
+        self.run()
+
+    # Permet de mettre à jour le dessin du robot
+    def update(self):
+        self.x += self.dx 
+        self.y += self.dy
+
+        self.terrain.coords(self.robot, self.x, self.y, self.x + self.width, self.y + self.height)
+
+        # Permet de redessiner le terrain après un certain nombre de millisecondes
+        self.terrain.update(50, self.dessiner)
+
+    # Permet de faire tourner la simulation
+    def run(self):
+        self.dessiner()
         
 
 simulation = Tk()
