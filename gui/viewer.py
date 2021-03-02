@@ -8,16 +8,12 @@ class Sim :
         self.y = y
         self.width = 20
         self.height = 20
-        self.dir = [1, 2]
+        self.dir = [1, 0]
     
-    def controle_carre(self, l)
-        """
-        Fait "dessiner" un carré de côté l à l'objet.
-        """
-        
-
-
-
+    def change_dir(self, dx, dy):
+        self.dir[0] = dx
+        self.dir[1] = dy
+    
 
 class Viewer :
 
@@ -30,6 +26,7 @@ class Viewer :
         # Variables nécessaires pour faire tourner la simulation
         self.after_id = None
         self.robot = objet
+        self.cpt = 0
 
         # Nommage de la fenêtre principale de l'application
         simulation.title("Gopigo Simulator")
@@ -72,15 +69,64 @@ class Viewer :
         """
 
         self.arene.coords(self.dessin_robot, self.robot.x, self.robot.y, self.robot.x + self.robot.width, self.robot.y + self.robot.height)
-
-        # Permet de redessiner le terrain après un certain nombre de millisecondes
         self.after_id = self.arene.after(50, self.update)
+    
+    def outil_crayon(self):
+        """
+        Crayon pour un robot
+        """
+        self.arene.create_line(self.robot.x, self.robot.y, self.robot.x + 1, self.robot.y + 1, fill='green', width=3)
+
+
+        
+    def tracer_carre(self):
+        """
+        Pour faire "dessiner" un carré à un objet. (Fonction qui est censée être dans le module controleur)
+        """
+
+        # Déplacement sur le côté haut (vers la droite)
+        if (self.cpt < 200):
+            self.robot.change_dir(1, 0)#on change la direction ici
+            self.robot.x += self.robot.dir[0]
+            self.robot.y += self.robot.dir[1]
+            self.outil_crayon()
+            self.cpt += 1
+            print(self.cpt)
+        
+        # Déplacement sur le côté droit (vers le bas)
+        if (200 <= self.cpt) and (self.cpt < 400):
+            self.robot.change_dir(0, 1)
+            self.robot.x += self.robot.dir[0]
+            self.robot.y += self.robot.dir[1]
+            self.outil_crayon()
+            self.cpt += 1
+        
+        # Déplacement sur le côté bas (vers la gauche)
+        if (400 <= self.cpt) and (self.cpt < 600):
+            self.robot.change_dir(-1, 0)
+            self.robot.x += self.robot.dir[0]
+            self.robot.y += self.robot.dir[1]
+            self.outil_crayon()
+            self.cpt += 1
+
+         # Déplacement sur le côté gauche (vers le haut)
+        if (600 <= self.cpt) and (self.cpt < 800):
+            self.robot.change_dir(0, -1)
+            self.robot.x += self.robot.dir[0]
+            self.robot.y += self.robot.dir[1]
+            self.outil_crayon()
+            self.cpt += 1
+
+        
+        self.after_id2 = self.arene.after(50, self.tracer_carre)
     
     def run(self):
         """
-        Permet de faire tourner la simulation
+        Permet de faire tourner la simulation comme on le souhaite
         """
+        self.tracer_carre()
         self.update()
+        # Permet de redessiner le terrain après un certain nombre de millisecondes
     
     def stop(self):
        """
@@ -89,11 +135,6 @@ class Viewer :
        if self.after_id:
            self.arene.after_cancel(self.after_id)
            self.after_id = None
-
-    def outil_crayon(self, objet):
-        """
-        Crayon pour un objet
-        """
 
 
 
