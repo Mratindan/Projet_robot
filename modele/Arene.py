@@ -12,30 +12,6 @@ class Arene:
         self.listeObstacles = []
         self.robot = None
 
-    def afficherArene(self):
-        """
-        None -> None
-        Permet d'afficher l'état actuel du terrain
-        """
-        largeur_bord = self.largeur + 2
-
-        # Bord du haut
-        for k in range(largeur_bord):
-            print("#", end='')
-        print("")
-
-        # Terrain en lui-même et bord sur les côtés
-        for i in range(self.hauteur):
-            print("#", end='')
-            for j in range(self.largeur):
-                print(self.terrain[i][j], end='')
-            print("#")
-
-        # Bord du bas
-        for k in range(largeur_bord):
-            print("#", end='')
-        print("")
-
     def estVide(self, pos_largeur, pos_hauteur):
         """
         int * int -> boolean

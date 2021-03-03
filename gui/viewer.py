@@ -85,7 +85,7 @@ class Viewer :
         """
 
         # Déplacement sur le côté haut (vers la droite)
-        if (self.cpt < 200):
+        if (self.cpt < 50):
             self.robot.change_dir(1, 0)#on change la direction ici
             self.robot.x += self.robot.dir[0]
             self.robot.y += self.robot.dir[1]
@@ -94,7 +94,7 @@ class Viewer :
             print(self.cpt)
         
         # Déplacement sur le côté droit (vers le bas)
-        if (200 <= self.cpt) and (self.cpt < 400):
+        if (50 <= self.cpt) and (self.cpt < 100):
             self.robot.change_dir(0, 1)
             self.robot.x += self.robot.dir[0]
             self.robot.y += self.robot.dir[1]
@@ -102,7 +102,7 @@ class Viewer :
             self.cpt += 1
         
         # Déplacement sur le côté bas (vers la gauche)
-        if (400 <= self.cpt) and (self.cpt < 600):
+        if (100 <= self.cpt) and (self.cpt < 150):
             self.robot.change_dir(-1, 0)
             self.robot.x += self.robot.dir[0]
             self.robot.y += self.robot.dir[1]
@@ -110,7 +110,7 @@ class Viewer :
             self.cpt += 1
 
          # Déplacement sur le côté gauche (vers le haut)
-        if (600 <= self.cpt) and (self.cpt < 800):
+        if (150 <= self.cpt) and (self.cpt < 200):
             self.robot.change_dir(0, -1)
             self.robot.x += self.robot.dir[0]
             self.robot.y += self.robot.dir[1]
