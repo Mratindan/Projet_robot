@@ -29,6 +29,7 @@ class Arene:
 
     def placer_obstacles(self, posLargeur, posHauteur):
         """
+        test
         int * int
         Permet de placer un obstacle dans l'arène
         """
