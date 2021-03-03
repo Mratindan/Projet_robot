@@ -12,17 +12,6 @@ class Arene:
         self.listeObstacles = []
         self.robot = None
 
-    def estVide(self, pos_largeur, pos_hauteur):
-        """
-        int * int -> boolean
-        Renvoie true si une case est vide et false sinon
-        """
-        if (0 > pos_largeur) or (self.largeur < pos_largeur) or (0 > pos_hauteur) or (self.hauteur < pos_hauteur):
-            print("estVide : cette case n'est pas accessible")
-            return None
-        print("estVide : la case est accessible")
-        return self.terrain[pos_largeur][pos_hauteur] == ' '
-
     def placerRobot(self):
         self.terrain[self.robot.position.getX()][self.robot.position.getY()] = "R"
 
