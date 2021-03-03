@@ -2,6 +2,14 @@ from Projet_robot.modele.Obstacle import Obstacle
 
 import time
 
+class Obstacle:
+    "Definition de la classe Obstacle"
+
+
+def __init__(self, abscisse, ordonnee):
+    self.position = Point(abscisse, ordonnee)
+
+
 class Arene:
     "Terrain sur lequel peut évoluer un robot et des objets quelconques"
 

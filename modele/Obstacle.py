@@ -1,5 +1,3 @@
-from Projet_robot.outils.Point import Point
-
 class Obstacle:
     "Definition de la classe Obstacle"
 
