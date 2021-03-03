@@ -9,6 +9,13 @@ class Obstacle:
 def __init__(self, abscisse, ordonnee):
     self.position = Point(abscisse, ordonnee)
 
+class Roue(object):
+
+    def __init__(self):
+        self.moteurAllume=False
+        self.vitesseRotation=0.
+
+    def set_vitesse(self):
 
 class Arene:
     "Terrain sur lequel peut évoluer un robot et des objets quelconques"
@@ -20,7 +27,7 @@ class Arene:
         self.listeObstacles = []
         self.robot = None
 
-    def placerObstacle(self, posLargeur, posHauteur):
+    def placer_obstacles(self, posLargeur, posHauteur):
         """
         int * int
         Permet de placer un obstacle dans l'arène
