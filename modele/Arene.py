@@ -12,9 +12,6 @@ class Arene:
         self.listeObstacles = []
         self.robot = None
 
-    def placerRobot(self):
-        self.terrain[self.robot.position.getX()][self.robot.position.getY()] = "R"
-
     def placerObstacle(self, posLargeur, posHauteur):
         """
         int * int
