@@ -17,7 +17,7 @@ class Sim :
 
 class Viewer :
 
-    def __init__(self, simulation, objet):
+    def __init__(self, simulation, objet, arene):
         """
         simulation : Tk
         Initialise une fenêtre graphique 
@@ -27,6 +27,7 @@ class Viewer :
         self.after_id = None
         self.robot = objet
         self.cpt = 0
+        self.modele_arene = arene
 
         # Nommage de la fenêtre principale de l'application
         simulation.title("Gopigo Simulator")
@@ -62,6 +63,11 @@ class Viewer :
             cadre.rowconfigure(i, weight = 1)
         for i in range(6, 9):
             cadre.columnconfigure(i, weight = 1)
+    
+    def dessiner_obstacles():
+        """
+        Dessine les obstacles à partir de la liste self.arene_modele.list_obstacles
+        """
 
     def update(self):
         """ 
@@ -109,7 +115,7 @@ class Viewer :
             self.outil_crayon()
             self.cpt += 1
 
-         # Déplacement sur le côté gauche (vers le haut)
+        # Déplacement sur le côté gauche (vers le haut)
         if (150 <= self.cpt) and (self.cpt < 200):
             self.robot.change_dir(0, -1)
             self.robot.x += self.robot.dir[0]
