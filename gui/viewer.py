@@ -1,6 +1,15 @@
 from tkinter import *
 from tkinter import ttk
 
+class Arene_tmp :
+    """
+    En attendant qu'il y ait les import nécessaires pour utiliser un objet arene ici. 
+    """
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
 class Sim :
     def __init__(self, x, y):
         """ Représente un objet avec une position initiale (x, y) """
@@ -39,7 +48,7 @@ class Viewer :
         # Le cadre principale qui contiendra la toile, les boutons etc
         cadre = ttk.Frame(simulation)
         # La toile dans laquelle sera dessinée la simulation
-        self.arene = Canvas(cadre, borderwidth = 2, relief = 'ridge', width = 600, height = 600, background = "white")
+        self.arene = Canvas(cadre, borderwidth = 2, relief = 'ridge', width = self.modele_arene.width, height = self.modele_arene.height, background = "white")
         # Les boutons
         play = ttk.Button(cadre, text = "Play", command = self.run)
         stop = ttk.Button(cadre, text = "Stop", command = self.stop)
@@ -143,8 +152,8 @@ class Viewer :
            self.after_id = None
 
 
-
+fausse_arene = Arene_tmp(600, 600)
 wall_e = Sim(200, 200)
 simulation = Tk()
-Viewer(simulation, wall_e)
+Viewer(simulation, wall_e, fausse_arene)
 simulation.mainloop()
