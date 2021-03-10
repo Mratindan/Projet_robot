@@ -25,26 +25,26 @@ class Controleur_carre(threading.Thread):
         """
 
         # Déplacement sur le côté haut (vers la droite)
-        if (self.cpt < 50):
+        if (self.cpt < 20):
             self.robot.change_dir(1, 0)#on change la direction ici
             self.robot.crayon = True
             
         # Déplacement sur le côté droit (vers le bas)
-        if (50 <= self.cpt) and (self.cpt < 100):
+        if (20 <= self.cpt) and (self.cpt < 40):
             self.robot.change_dir(0, 1)
             self.robot.crayon = True
         
         # Déplacement sur le côté bas (vers la gauche)
-        if (100 <= self.cpt) and (self.cpt < 150):
+        if (40 <= self.cpt) and (self.cpt < 60):
             self.robot.change_dir(-1, 0)
             self.robot.crayon = True
 
         # Déplacement sur le côté gauche (vers le haut)
-        if (150 <= self.cpt) and (self.cpt < 200):
+        if (60 <= self.cpt) and (self.cpt < 80):
             self.robot.change_dir(0, -1)
             self.robot.crayon = True
 
-        if (self.cpt >= 200):
+        if (self.cpt >= 80):
             self.robot.change_dir(0, 0)
             self.robot.crayon = False
             self.done = True
@@ -52,10 +52,10 @@ class Controleur_carre(threading.Thread):
 
     def run(self):       
         while True:
-            print("cpt = ", self.cpt)
+            print("(Thread du controleur) cpt = ", self.cpt)
             self.tracer_carre()
             self.update_step()
-            time.sleep(0.1)
+            time.sleep(0.3)
             if self.done:
                 break
 
@@ -67,8 +67,8 @@ class Robot_tmp :
         """
         self.x = x
         self.y = y
-        self.width = 20
-        self.height = 20
+        self.width = 10
+        self.height = 10
         self.dir = [0, 0]
         self.crayon = False # Définit si le robot utilise un crayon ou pas
     
@@ -107,7 +107,7 @@ class Arene_tmp(threading.Thread) :
     
     def run(self):
         while True:
-            print("Controleur de l'arene")
+            print("Thread de l'arene")
             self.update()
             time.sleep(0.1)
             if self.controleur.done:
