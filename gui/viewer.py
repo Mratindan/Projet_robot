@@ -3,9 +3,10 @@ from tkinter import ttk
 import time
 import threading
 
-class Controleur_carre(threading.Thread):
+
+class Controleur_robot(threading.Thread):
     """
-    Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici.
+    La classe mère de tous les contrôleurs.
     """
 
     def __init__(self, robot):
@@ -15,7 +16,28 @@ class Controleur_carre(threading.Thread):
         self.done = False 
 
 
-    def update_step(self):
+    def update(self):
+        self.done = True           
+
+
+    def run(self):     
+        while True:
+            print("(Thread du controleur) cpt = ", self.cpt)
+            self.update()
+            time.sleep(0.3)
+            if self.done:
+                break
+
+
+class Controleur_carre(Controleur_robot) :
+    """Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici."""
+
+    def __init__(self, robot):
+        Controleur_robot.__init__(self, robot)
+
+
+    def update(self):
+        self.tracer_carre()
         self.cpt += 1            
 
 
@@ -48,16 +70,6 @@ class Controleur_carre(threading.Thread):
             self.robot.change_dir(0, 0)
             self.robot.crayon = False
             self.done = True
-
-
-    def run(self):       
-        while True:
-            print("(Thread du controleur) cpt = ", self.cpt)
-            self.tracer_carre()
-            self.update_step()
-            time.sleep(0.3)
-            if self.done:
-                break
 
 
 class Robot_tmp :
@@ -207,6 +219,9 @@ class Viewer :
            self.dessin_arene.after_cancel(self.after_id)
            self.after_id = None
 
+
+
+# La simulation (c'est ce script qui est à déplacer dans simulation.py quand ce sera possible) 
 
 # Notre robot
 wall_e = Robot_tmp(200, 200)
