@@ -2,11 +2,12 @@ from tkinter import *
 from tkinter import ttk
 import time
 import threading
+from abc import ABC, abstractmethod
 
 
-class Controleur_robot(threading.Thread):
+class Controleur_robot(threading.Thread, ABC):
     """
-    La classe mère de tous les contrôleurs.
+    La classe mère de tous les contrôleurs. (Ne pas oublier les import lors de la copie dans un autre fichier)
     """
 
     def __init__(self, robot):
@@ -16,8 +17,9 @@ class Controleur_robot(threading.Thread):
         self.done = False 
 
 
+    @abstractmethod
     def update(self):
-        self.done = True           
+        pass           
 
 
     def run(self):     
@@ -37,8 +39,8 @@ class Controleur_carre(Controleur_robot) :
 
 
     def update(self):
-        self.tracer_carre()
-        self.cpt += 1            
+       self.tracer_carre()
+       self.cpt += 1            
 
 
     def tracer_carre(self):
