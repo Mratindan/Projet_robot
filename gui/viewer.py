@@ -24,7 +24,8 @@ class Controleur_robot(threading.Thread, ABC):
 
     def run(self):     
         while True:
-            print("(Thread du controleur) cpt = ", self.cpt)
+            print(threading.current_thread)
+            #print("(Thread du controleur) cpt = ", self.cpt)
             self.update()
             time.sleep(0.3)
             if self.done:
@@ -121,7 +122,8 @@ class Arene_tmp(threading.Thread) :
     
     def run(self):
         while True:
-            print("Thread de l'arene")
+            #print("Thread de l'arene")
+            print(threading.current_thread)
             self.update()
             time.sleep(0.1)
             if self.controleur.done:
@@ -155,7 +157,7 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "Play", command = self.run)
+        self.play = ttk.Button(self.cadre, text = "Play", command = self.start_simulation)
         self.stop = ttk.Button(self.cadre, text = "Stop", command = self.stop)
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
@@ -202,17 +204,24 @@ class Viewer :
     
     def run(self):
         """
-        Démarre la simulation
+        Eventuellement à supprimer. Seulement utile si on a besoin de plusieurs sortes de méthodes update.
         """
         self.update()
 
-    def start(self):
+    def lancer(self):
         """
         Lance l'interface graphique de la simulation
         """
         self.run()
         self.simulation.mainloop()
     
+    def start_simulation(self):
+        """
+        Cette méthode permet de lancer les threads du controleur et de l'arene qui ont été passé à l'interface graphique.
+        """
+        self.arene.controleur.start() # Lance le controleur
+        self.arene.start() # Lance l'arene
+
     def stop(self):
        """
        Arrête la simulation
@@ -237,7 +246,5 @@ arene = Arene_tmp(600, 600, wall_e, ctrl)
 # Viewer
 interface_graphique = Viewer(arene)
 
-# Démarrage des threads
-ctrl.start()
-arene.start()
-interface_graphique.start()
+# On lance l'interface graphique et à partir de là on pourra appuyer sur play pour lancer les threads controleur et arene
+interface_graphique.lancer()
