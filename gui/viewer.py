@@ -24,8 +24,7 @@ class Controleur_robot(threading.Thread, ABC):
 
     def run(self):     
         while True:
-            print(threading.current_thread)
-            #print("(Thread du controleur) cpt = ", self.cpt)
+            #print(threading.current_thread)
             self.update()
             time.sleep(0.3)
             if self.done:
@@ -122,8 +121,7 @@ class Arene_tmp(threading.Thread) :
     
     def run(self):
         while True:
-            #print("Thread de l'arene")
-            print(threading.current_thread)
+            #print(threading.current_thread)
             self.update()
             time.sleep(0.1)
             if self.controleur.done:
@@ -144,6 +142,7 @@ class Viewer :
         self.after_id = None
         self.arene = arene
         self.robot = self.arene.robot
+        self.is_started = False # Permet de savoir si les threads controleur et arene ont été lancé (à partir de cette interface graphique) ou pas
 
         # Nommage de la fenêtre principale de l'application
         self.simulation.title("Gopigo Simulator")
@@ -158,7 +157,7 @@ class Viewer :
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
         self.play = ttk.Button(self.cadre, text = "Play", command = self.start_simulation)
-        self.stop = ttk.Button(self.cadre, text = "Stop", command = self.stop)
+        self.stop = ttk.Button(self.cadre, text = "Stop") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
         self.simulation.bind("<space>", lambda e: self.stop.invoke())
@@ -219,12 +218,14 @@ class Viewer :
         """
         Cette méthode permet de lancer les threads du controleur et de l'arene qui ont été passé à l'interface graphique.
         """
-        self.arene.controleur.start() # Lance le controleur
-        self.arene.start() # Lance l'arene
+        if (not self.is_started):
+            self.arene.controleur.start() # Lance le controleur
+            self.arene.start() # Lance l'arene
+            self.is_started = True
 
     def stop(self):
        """
-       Arrête la simulation
+       Arrête la simulation (Non fonctionnel pour l'instant)
        """
        if self.after_id:
            self.dessin_arene.after_cancel(self.after_id)
