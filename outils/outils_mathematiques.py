@@ -52,13 +52,15 @@ class Vecteur:
         """
         return Vecteur(Point(self.point1.x,self.point1.y),Point(self.point2.x,self.point2.y))
 
-    def rotation(self,angle):
+    def rotation(self,angle,norme):
         """
         None -> Vecteur
         Calcule la rotation d'un vecteur
         """
         R = numpy.array([(math.cos(angle), -math.sin(angle)),(math.sin(angle),math.cos(angle))])
         Vecteur2 = R * Vecteur()
+        Vecteur2.point1=Vecteur2.point1*(norme/self.calculNorme())
+        Vecteur2.point2=Vecteur2.point2*(norme/self.calculNorme())
         return Vecteur2
 
     def estEgal(self,Vecteur2):
