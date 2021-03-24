@@ -1,6 +1,6 @@
-from Projet_robot.modele.Obstacle import Obstacle
-
+import threading
 import time
+import robot_simple
 
 class Obstacle:
     "Definition de la classe Obstacle"

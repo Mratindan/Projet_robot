@@ -1,10 +1,11 @@
-from gui.viewer import *
-from modele.obstacle import *
+import viewer
+import modele
+import arene
 
 # La simulation (c'est ce script qui est à déplacer dans simulation.py quand ce sera possible) 
 
 # Notre robot
-wall_e = Robot_tmp(200, 200)
+wall_e = Robot_simple(200, 200)
 
 # Controleur
 ctrl = Controleur_carre(wall_e)

@@ -1,4 +1,4 @@
-
+import modele
 
 class Controleur_robot(threading.Thread, ABC):
     """

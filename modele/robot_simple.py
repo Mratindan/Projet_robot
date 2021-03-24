@@ -1,6 +1,6 @@
 
 
-class Robot_tmp :
+class Robot_simple :
     def __init__(self, x, y):
         """ 
         Représente un robot avec une position initiale (x, y) 
