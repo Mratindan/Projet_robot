@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 import time
 import threading
-import modele
-import outils
+from modele import Arene, Robot_simple
+from controleur import Controleur_carre
 
 class Viewer :
 
@@ -33,7 +33,7 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "Play", command = self.start_simulation)
+        self.play = ttk.Button(self.cadre, text = "Play", command = self.lancer)
         self.stop = ttk.Button(self.cadre, text = "Stop") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
@@ -93,15 +93,6 @@ class Viewer :
         self.run()
         self.simulation.mainloop()
     
-    def start_simulation(self):
-        """
-        Cette méthode permet de lancer les threads du controleur et de l'arene qui ont été passé à l'interface graphique.
-        """
-        if (not self.is_started):
-            self.arene.controleur.start() # Lance le controleur
-            self.arene.start() # Lance l'arene
-            self.is_started = True
-
     def stop(self):
        """
        Arrête la simulation (Non fonctionnel pour l'instant)

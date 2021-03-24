@@ -1,8 +1,8 @@
 import threading
 import time
-from . import robot_simple
+from .robot_simple import Robot_simple
 from random import randint
-from outils import outils_mathematiques
+from outils import Point, Vecteur
 
 class Obstacle:
     "Definition de la classe Obstacle"
@@ -44,7 +44,7 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
-        self.robot_simple.se_deplacer()
+        self.robot.se_deplacer()
     
     def run(self):
         while True:

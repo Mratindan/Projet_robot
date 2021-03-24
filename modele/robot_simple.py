@@ -1,5 +1,3 @@
-
-
 class Robot_simple :
     def __init__(self, x, y):
         """ 

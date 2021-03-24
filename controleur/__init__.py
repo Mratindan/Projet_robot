@@ -1,1 +1,1 @@
-from . import controleur_robot
+from .controleur_robot import Controleur_carre

@@ -1,3 +1,2 @@
-from . import arene
-from . import obstacle
-from . import robot_simple
+from .arene import Arene
+from .robot_simple import Robot_simple

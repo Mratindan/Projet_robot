@@ -1,20 +1,23 @@
-import gui
-import modele
-import controleur
+from gui import Viewer 
+from modele import Arene, Robot_simple
+from controleur import Controleur_carre
 
-# La simulation (c'est ce script qui est à déplacer dans simulation.py quand ce sera possible) 
+def start_simulation(arene, interface_graphique) :
+            arene.controleur.start()
+            arene.start()
+            interface_graphique.lancer()
 
 # Notre robot
-wall_e = modele.robot_simple.Robot_simple(200, 200)
+wall_e = Robot_simple(200, 200)
 
 # Controleur
-ctrl = controleur.controleur_robot.Controleur_carre(wall_e)
+ctrl = Controleur_carre(wall_e)
 
 # Arene
-arene = modele.arene.Arene(600, 600, wall_e, ctrl)
+arene = Arene(600, 600, wall_e, ctrl)
 
 # Viewer
-interface_graphique = gui.viewer.Viewer(arene)
+interface_graphique = Viewer(arene)
 
-# On lance l'interface graphique et à partir de là on pourra appuyer sur play pour lancer les threads controleur et arene
-interface_graphique.lancer()
+# On lance la simulation
+start_simulation(arene, interface_graphique)

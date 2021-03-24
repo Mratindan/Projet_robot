@@ -2,6 +2,7 @@ import modele
 import threading
 import time
 from abc import ABC, abstractmethod
+from modele import Robot_simple
 
 class Controleur_robot(threading.Thread, ABC):
     """
