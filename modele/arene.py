@@ -13,18 +13,16 @@ class Point:
 class Obstacle:
     "Definition de la classe Obstacle"
 
-<<<<<<< HEAD
-
     def __init__(self, abscisse, ordonnee,height,width):
         self.position = Point(abscisse, ordonnee)
         self.height = height
         self.width = width
-=======
+
     def __init__(self, abscisse, ordonnee):
         self.position = Point(abscisse, ordonnee)
         self.height = 0
         self.width = 0
->>>>>>> 359e02e0369034d1317dbdcb73e8bf4fe29b68af
+
 
 class Roue:
 
