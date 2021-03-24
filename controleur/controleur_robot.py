@@ -29,7 +29,8 @@ class Actions_elementaires(threading.Thread, ABC):
             if self.done:
                 break
     
-    def aller_tout_droit(self):
+    def aller_tout_droit(self, distance):
+
     
     def tourner_angle_droit(self, sens):
         """
