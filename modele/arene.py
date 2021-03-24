@@ -1,25 +1,19 @@
 import threading
 import time
-import robot_simple
+from . import robot_simple
 from random import randint
-
-class Point:
-    "Définition de la classe point"
-    #Classe requise pour la classe Obstacle, permet d'indiquer la position du coin supérieur gauche d'un Obstacle
-    def __init__(self,width,height):
-        self.width = width
-        self.height = height
+from outils import outils_mathematiques
 
 class Obstacle:
     "Definition de la classe Obstacle"
 
     def __init__(self, abscisse, ordonnee,height,width):
-        self.position = Point(abscisse, ordonnee)
+        self.position = outils_mathematiques.Point(abscisse, ordonnee)
         self.height = height
         self.width = width
 
     def __init__(self, abscisse, ordonnee):
-        self.position = Point(abscisse, ordonnee)
+        self.position = outils_mathematiques.Point(abscisse, ordonnee)
         self.height = 0
         self.width = 0
 
@@ -50,7 +44,7 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
-        self.robot.se_deplacer()
+        self.robot_simple.se_deplacer()
     
     def run(self):
         while True:

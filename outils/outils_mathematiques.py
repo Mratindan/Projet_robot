@@ -1,7 +1,6 @@
 import math
 #import numpy
 #from Point import Point
-from Projet_robot.outils.Point import Point
 #from numpy import *
 
 class Point:

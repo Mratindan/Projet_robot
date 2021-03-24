@@ -1,4 +1,7 @@
 import modele
+import threading
+import time
+from abc import ABC, abstractmethod
 
 class Controleur_robot(threading.Thread, ABC):
     """

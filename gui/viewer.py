@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import ttk
 import time
 import threading
-from abc import ABC, abstractmethod
 import modele
 import outils
 
