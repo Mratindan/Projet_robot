@@ -4,7 +4,7 @@ import time
 from abc import ABC, abstractmethod
 from modele import Robot_simple
 
-class Controleur_robot(threading.Thread, ABC):
+class Actions_elementaires(threading.Thread, ABC):
     """
     La classe mère de tous les contrôleurs. (Ne pas oublier les import lors de la copie dans un autre fichier)
     """
@@ -28,9 +28,17 @@ class Controleur_robot(threading.Thread, ABC):
             time.sleep(0.3)
             if self.done:
                 break
+    
+    def aller_tout_droit(self):
+    
+    def tourner_angle_droit(self, sens):
+        """
+        Permet de donner l'ordre au robot de tourner à 90°
+        Si la valeur de sens est 1, il tourne dans le sens des aiguilles d'une montre.
+        Si la valeur de sens est -1, il tourne dans le sens contraire des aiguilles d'une montre.
+        """
 
-
-class Controleur_carre(Controleur_robot) :
+class Controleur_carre(Actions_elementaires) :
     """Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici."""
 
     def __init__(self, robot):
