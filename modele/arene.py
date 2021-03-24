@@ -5,11 +5,10 @@ import time
 class Obstacle:
     "Definition de la classe Obstacle"
 
-
     def __init__(self, abscisse, ordonnee):
-    self.position = Point(abscisse, ordonnee)
-    self.height = 0
-    self.width = 0
+        self.position = Point(abscisse, ordonnee)
+        self.height = 0
+        self.width = 0
 
 class Roue:
 
@@ -19,15 +18,32 @@ class Roue:
 
     def set_vitesse(self):
 
-class Arene:
-    "Terrain sur lequel peut évoluer un robot et des objets quelconques"
+class Arene(threading.Thread) :
+    """
+    Le modèle de l'arène, en attendant qu'il y ait les import nécessaires pour utiliser un objet arene ici. 
+    """
 
-    def __init__(self, largeur, hauteur, robot, controleur):
-        self.width = largeur
-        self.height = hauteur
-        self.liste_obstacles = []
+    def __init__(self, width, height, robot, controleur):
+        threading.Thread.__init__(self)
+        self.width = width
+        self.height = height
         self.robot = robot
         self.controleur = controleur
+        self.list_obstacles = []
+
+    def update(self):
+        """
+        Met à jour le modèle
+        """
+        self.robot.se_deplacer()
+    
+    def run(self):
+        while True:
+            #print(threading.current_thread)
+            self.update()
+            time.sleep(0.1)
+            if self.controleur.done:
+                break
 
     def initialiser_obstacles(self, n):
         """

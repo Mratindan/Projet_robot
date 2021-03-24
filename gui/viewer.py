@@ -4,130 +4,6 @@ import time
 import threading
 from abc import ABC, abstractmethod
 
-
-class Controleur_robot(threading.Thread, ABC):
-    """
-    La classe mère de tous les contrôleurs. (Ne pas oublier les import lors de la copie dans un autre fichier)
-    """
-
-    def __init__(self, robot):
-        threading.Thread.__init__(self)
-        self.robot = robot
-        self.cpt = 0
-        self.done = False 
-
-
-    @abstractmethod
-    def update(self):
-        pass           
-
-
-    def run(self):     
-        while True:
-            #print(threading.current_thread)
-            self.update()
-            time.sleep(0.3)
-            if self.done:
-                break
-
-
-class Controleur_carre(Controleur_robot) :
-    """Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici."""
-
-    def __init__(self, robot):
-        Controleur_robot.__init__(self, robot)
-
-
-    def update(self):
-       self.tracer_carre()
-       self.cpt += 1            
-
-
-    def tracer_carre(self):
-        """
-        Pour faire "dessiner" un carré à un robot.
-        """
-
-        # Déplacement sur le côté haut (vers la droite)
-        if (self.cpt < 20):
-            self.robot.change_dir(1, 0)#on change la direction ici
-            self.robot.crayon = True
-            
-        # Déplacement sur le côté droit (vers le bas)
-        if (20 <= self.cpt) and (self.cpt < 40):
-            self.robot.change_dir(0, 1)
-            self.robot.crayon = True
-        
-        # Déplacement sur le côté bas (vers la gauche)
-        if (40 <= self.cpt) and (self.cpt < 60):
-            self.robot.change_dir(-1, 0)
-            self.robot.crayon = True
-
-        # Déplacement sur le côté gauche (vers le haut)
-        if (60 <= self.cpt) and (self.cpt < 80):
-            self.robot.change_dir(0, -1)
-            self.robot.crayon = True
-
-        if (self.cpt >= 80):
-            self.robot.change_dir(0, 0)
-            self.robot.crayon = False
-            self.done = True
-
-
-class Robot_tmp :
-    def __init__(self, x, y):
-        """ 
-        Représente un robot avec une position initiale (x, y) 
-        """
-        self.x = x
-        self.y = y
-        self.width = 10
-        self.height = 10
-        self.dir = [0, 0]
-        self.crayon = False # Définit si le robot utilise un crayon ou pas
-    
-    def change_dir(self, dx, dy):
-        """
-        Permet de changer la direction du robot
-        """
-        self.dir[0] = dx
-        self.dir[1] = dy
-    
-    def se_deplacer(self):
-        """
-        Permet au robot de se déplacer
-        """
-        self.x += self.dir[0]
-        self.y += self.dir[1]
-
-
-class Arene_tmp(threading.Thread) :
-    """
-    Le modèle de l'arène, en attendant qu'il y ait les import nécessaires pour utiliser un objet arene ici. 
-    """
-
-    def __init__(self, width, height, robot, controleur):
-        threading.Thread.__init__(self)
-        self.width = width
-        self.height = height
-        self.robot = robot
-        self.controleur = controleur
-
-    def update(self):
-        """
-        Met à jour le modèle
-        """
-        self.robot.se_deplacer()
-    
-    def run(self):
-        while True:
-            #print(threading.current_thread)
-            self.update()
-            time.sleep(0.1)
-            if self.controleur.done:
-                break
-
-
 class Viewer :
 
     def __init__(self, arene):
@@ -183,6 +59,8 @@ class Viewer :
         """
         Dessine les obstacles à partir de la liste self.arene.list_obstacles
         """
+        for obstacle in self.arene.list_obstacles :
+            self.dessin_arene.create_rectangle(self.obstacle.position.x, self.obstacle.position.y, self.obstacle.position.x + self.obstacle.width, self.obstacle.position.y + self.obstacle.height, fill = 'green', outline = 'red')
     
     def outil_crayon(self):
         """
@@ -230,6 +108,3 @@ class Viewer :
        if self.after_id:
            self.dessin_arene.after_cancel(self.after_id)
            self.after_id = None
-
-
-
