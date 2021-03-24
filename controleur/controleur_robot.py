@@ -29,15 +29,17 @@ class Actions_elementaires(threading.Thread, ABC):
             if self.done:
                 break
     
-    def aller_tout_droit(self, distance):
 
+    def aller_tout_droit(self, distance):
+        self.robot.se_deplacer()
     
-    def tourner_angle_droit(self, sens):
+
+    def tourner_angle_droit(self):
         """
-        Permet de donner l'ordre au robot de tourner à 90°
-        Si la valeur de sens est 1, il tourne dans le sens des aiguilles d'une montre.
-        Si la valeur de sens est -1, il tourne dans le sens contraire des aiguilles d'une montre.
+        Permet de donner l'ordre au robot de tourner à 90° dans le sens des aiguilles d'une montre.
         """
+        
+
 
 class Controleur_carre(Actions_elementaires) :
     """Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici."""
