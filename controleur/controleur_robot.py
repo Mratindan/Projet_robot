@@ -1,12 +1,11 @@
-import modele
 import threading
 import time
 from abc import ABC, abstractmethod
 from modele import Robot_simple
 
-class Actions_elementaires(threading.Thread, ABC):
+class Controleur_carre(threading.Thread):
     """
-    La classe mère de tous les contrôleurs. (Ne pas oublier les import lors de la copie dans un autre fichier)
+    La classe mère de tous les contrôleurs.
     """
 
     def __init__(self, robot):
@@ -16,41 +15,9 @@ class Actions_elementaires(threading.Thread, ABC):
         self.done = False 
 
 
-    @abstractmethod
     def update(self):
-        pass           
-
-
-    def run(self):     
-        while True:
-            #print(threading.current_thread)
-            self.update()
-            time.sleep(0.3)
-            if self.done:
-                break
-    
-
-    def aller_tout_droit(self, distance):
-        self.robot.se_deplacer()
-    
-
-    def tourner_angle_droit(self):
-        """
-        Permet de donner l'ordre au robot de tourner à 90° dans le sens des aiguilles d'une montre.
-        """
-        
-
-
-class Controleur_carre(Actions_elementaires) :
-    """Le controleur qui permet au robot de faire un carré, en attendant qu'il y ait les import nécessaires pour utiliser les fichiers du module controleur ici."""
-
-    def __init__(self, robot):
-        Controleur_robot.__init__(self, robot)
-
-
-    def update(self):
-       self.tracer_carre()
-       self.cpt += 1            
+        self.tracer_carre()
+        self.cpt += 1            
 
 
     def tracer_carre(self):
@@ -82,3 +49,12 @@ class Controleur_carre(Actions_elementaires) :
             self.robot.change_dir(0, 0)
             self.robot.crayon = False
             self.done = True
+
+
+    def run(self):       
+        while True:
+            print("(Thread du controleur) cpt = ", self.cpt)
+            self.update()
+            time.sleep(0.3)
+            if self.done:
+                break

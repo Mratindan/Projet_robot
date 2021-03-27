@@ -3,17 +3,20 @@ import time
 from .robot_simple import Robot_simple
 from random import randint
 from outils import Point, Vecteur
+from controleur import Controleur_carre
 
 class Obstacle:
-    "Definition de la classe Obstacle"
+    """
+    Definition de la classe Obstacle
+    """
 
     def __init__(self, abscisse, ordonnee,height,width):
-        self.position = outils_mathematiques.Point(abscisse, ordonnee)
+        self.position = Point(abscisse, ordonnee)
         self.height = height
         self.width = width
 
     def __init__(self, abscisse, ordonnee):
-        self.position = outils_mathematiques.Point(abscisse, ordonnee)
+        self.position = Point(abscisse, ordonnee)
         self.height = 0
         self.width = 0
 
@@ -29,7 +32,7 @@ class Roue:
 
 class Arene(threading.Thread) :
     """
-    Le modèle de l'arène, en attendant qu'il y ait les import nécessaires pour utiliser un objet arene ici. 
+    Le modèle de l'arène.
     """
 
     def __init__(self, width, height, robot, controleur):
@@ -64,25 +67,9 @@ class Arene(threading.Thread) :
             self.liste_obstacles.append(Obstacle(randint(0,self.width),randint(0,self.height),randint(5,10),randint(5,10)))
             i += 1
 
-    def placer_obstacles(self, pos_largeur, pos_hauteur):
-        """
-        int * int
-        Permet de placer un obstacle dans l'arène
-        """
-        print("La case est deja occupee, impossible de placer quoi que ce soit en ({},{})".format(posLargeur,
-                                                                                                      posHauteur))
-        self.terrain[posLargeur][posHauteur] = 'O'
-        return
-
     def supprimerObstacle(self):
         """
         None -> None
         Permet de retirer le dernier obstacle de liste_obstacles
         """
         self.list_obstacles.pop()
-
-    def update(self):
-
-        """
-        Met à jour la position du robot selon les instructions du controleur.
-        """

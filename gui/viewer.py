@@ -2,17 +2,16 @@ from tkinter import *
 from tkinter import ttk
 import time
 import threading
-from modele import Arene, Robot_simple
+from modele import Robot_simple, Arene
 from controleur import Controleur_carre
 
 class Viewer :
 
     def __init__(self, arene):
         """
-        simulation : Tk
         Initialise une fenêtre graphique 
         """
-
+        
         self.simulation = Tk()
 
         # Variables nécessaires pour faire tourner la simulation
@@ -33,7 +32,7 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "Play", command = self.lancer)
+        self.play = ttk.Button(self.cadre, text = "Play") #command = self.lancer)
         self.stop = ttk.Button(self.cadre, text = "Stop") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
