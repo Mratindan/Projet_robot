@@ -15,6 +15,9 @@ class Actions_elementaires(threading.Thread):
         self.robot = robot 
         self.posx = 0
         self.posy = 0
+        self.liste = []
+        self.len_liste = 0
+        self.i = 0
         self.done = False
 
             
@@ -24,6 +27,15 @@ class Actions_elementaires(threading.Thread):
         """
         self.posx = self.robot.x
         self.posy = self.robot.y
+        print("La position du robot a été enregistrée par le contrôleur comme étant (", self.posx, ", ", self.posy, ")")
+        return 1
+
+
+    def robot_avance(self, dx, dy):
+        """
+        Donne l'ordre au robot d'avancer dans une direction donnée par dx et dy.
+        """
+        self.robot.change_dir(dx, dy)
         return 1
 
 
@@ -35,11 +47,13 @@ class Actions_elementaires(threading.Thread):
         return 1
     
 
-    def robot_avance(self, dx, dy):
-        """
-        Donne l'ordre au robot d'avancer dans une direction donnée par dx et dy.
-        """
-        self.robot.change_dir(dx, dy)
+    def robot_dessine(self):
+        self.robot.crayon = True
+        return 1
+    
+
+    def robot_dessine_stop(self):
+        self.robot.crayon = False
         return 1
 
 
@@ -55,16 +69,24 @@ class Actions_elementaires(threading.Thread):
             return -1
         else :
             return 1    
+        
+    
+    def next(self):
+        if (self.i < self.len_liste) and (self.liste[self.i]() == 1):
+            if (self.i == self.len_liste - 1):
+                self.done = True
+            else :
+                self.i += 1
     
 
     def update(self):
-        pass
+        self.done = True
        
 
     def run(self):     
         while True:
             self.update()
-            time.sleep(0.3)
+            time.sleep(0.2)
             if self.done:
                 break
 
@@ -76,13 +98,25 @@ class Controleur_carre(Actions_elementaires):
 
     def __init__(self, robot):
         Actions_elementaires.__init__(self, robot)
-        self.save_position()
-        print("La position du robot a été enregistrée par le controleur comme étant (", self.posx, ", ", self.posy, ")")
-        self.robot_avance(1, 0)
-        self.robot.crayon = True
+        self.liste = [
+            lambda : self.robot_dessine(),
+            lambda : self.save_position(),  
+            lambda : self.robot_avance(1, 0),
+            lambda : self.parcourir(20),
+            lambda : self.save_position(),  
+            lambda : self.robot_avance(0, 1),
+            lambda : self.parcourir(20),
+            lambda : self.save_position(),  
+            lambda : self.robot_avance(-1, 0),
+            lambda : self.parcourir(20),
+            lambda : self.save_position(),  
+            lambda : self.robot_avance(0, -1),
+            lambda : self.parcourir(20),
+            lambda : self.robot_stop(),
+            lambda : self.robot_dessine_stop()
+        ]
+        self.len_liste = len(self.liste)
+        
 
-    
     def update(self):
-        if self.parcourir(20) == 1 :
-            self.done = True
-            self.robot_stop()
+        self.next()

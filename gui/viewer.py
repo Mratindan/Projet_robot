@@ -32,8 +32,8 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "...") #command = self.lancer)
-        self.stop = ttk.Button(self.cadre, text = "...") #command = self.stop
+        self.play = ttk.Button(self.cadre, text = "") #command = self.lancer)
+        self.stop = ttk.Button(self.cadre, text = "") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
         self.simulation.bind("<space>", lambda e: self.stop.invoke())
@@ -78,18 +78,12 @@ class Viewer :
         self.dessin_arene.coords(self.dessin_robot, self.robot.x, self.robot.y, self.robot.x + self.robot.width, self.robot.y + self.robot.height)
         self.after_id = self.dessin_arene.after(50, self.update)
 
-    
-    def run(self):
-        """
-        Eventuellement à supprimer. Seulement utile si on a besoin de plusieurs sortes de méthodes update.
-        """
-        self.update()
 
     def lancer(self):
         """
         Lance l'interface graphique de la simulation
         """
-        self.run()
+        self.update()
         self.simulation.mainloop()
     
     def stop(self):
