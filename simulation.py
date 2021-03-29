@@ -12,7 +12,7 @@ def start_simulation(arene, interface_graphique) :
 wall_e = Robot_simple(200, 200)
 
 # Controleur
-ctrl = Controleur_carre(wall_e)
+ctrl = Controleur_carre(wall_e, 20)
 
 # Arene
 arene = Arene(600, 600, wall_e, ctrl)

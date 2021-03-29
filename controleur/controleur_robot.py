@@ -95,22 +95,22 @@ class Controleur_carre(Actions_elementaires):
     Cette classe définit la stratégie permettant de dessiner un carré.
     """
 
-    def __init__(self, robot):
+    def __init__(self, robot, longueur_carre):
         Actions_elementaires.__init__(self, robot)
         self.liste = [
             lambda : self.robot_dessine(),
-            lambda : self.save_position(),  
-            lambda : self.robot_avance(1, 0),
-            lambda : self.parcourir(20),
+            lambda : self.save_position(),  # Factorisation des trois actions save_position + avance +  parcourir ??? avec deux params pour la direction
+            lambda : self.robot_avance(1, 0),  
+            lambda : self.parcourir(longueur_carre),
             lambda : self.save_position(),  
             lambda : self.robot_avance(0, 1),
-            lambda : self.parcourir(20),
+            lambda : self.parcourir(longueur_carre),
             lambda : self.save_position(),  
             lambda : self.robot_avance(-1, 0),
-            lambda : self.parcourir(20),
+            lambda : self.parcourir(longueur_carre),
             lambda : self.save_position(),  
             lambda : self.robot_avance(0, -1),
-            lambda : self.parcourir(20),
+            lambda : self.parcourir(longueur_carre),
             lambda : self.robot_stop(),
             lambda : self.robot_dessine_stop()
         ]
