@@ -32,8 +32,8 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "Play") #command = self.lancer)
-        self.stop = ttk.Button(self.cadre, text = "Stop") #command = self.stop
+        self.play = ttk.Button(self.cadre, text = "...") #command = self.lancer)
+        self.stop = ttk.Button(self.cadre, text = "...") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         self.simulation.bind("<Return>", lambda e: self.play.invoke())
         self.simulation.bind("<space>", lambda e: self.stop.invoke())

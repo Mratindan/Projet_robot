@@ -1,5 +1,6 @@
 import threading
 import time
+import math
 from abc import ABC, abstractmethod
 from modele import Robot_simple
 
@@ -13,47 +14,63 @@ class Controleur_carre(threading.Thread):
         self.robot = robot
         self.cpt = 0
         self.done = False 
+        self.posx = 0
+        self.posy = 0
 
-
-    def update(self):
-        self.tracer_carre()
-        self.cpt += 1            
-
-
-    def tracer_carre(self):
-        """
-        Pour faire "dessiner" un carré à un robot.
-        """
-
-        # Déplacement sur le côté haut (vers la droite)
-        if (self.cpt < 20):
-            self.robot.change_dir(1, 0)#on change la direction ici
-            self.robot.crayon = True
             
-        # Déplacement sur le côté droit (vers le bas)
-        if (20 <= self.cpt) and (self.cpt < 40):
-            self.robot.change_dir(0, 1)
-            self.robot.crayon = True
-        
-        # Déplacement sur le côté bas (vers la gauche)
-        if (40 <= self.cpt) and (self.cpt < 60):
-            self.robot.change_dir(-1, 0)
-            self.robot.crayon = True
+    def save_position(self):
+        self.posx = self.robot.x
+        self.posy = self.robot.y
+        return 1
 
-        # Déplacement sur le côté gauche (vers le haut)
-        if (60 <= self.cpt) and (self.cpt < 80):
-            self.robot.change_dir(0, -1)
-            self.robot.crayon = True
 
-        if (self.cpt >= 80):
-            self.robot.change_dir(0, 0)
-            self.robot.crayon = False
+    def robot_stop(self):
+        """
+        Donne l'ordre au robot de s'arrêter.
+        """
+        self.robot.change_dir(0, 0)
+        return 1
+    
+
+    def robot_avance(self, dx, dy):
+        """
+        Donne l'ordre au robot d'avancer dans une direction donnée par dx et dy.
+        """
+        self.robot.change_dir(dx, dy)
+        return 1
+
+
+    def parcourir(self, distance):
+        """
+        distance : int
+        Permet de faire parcourir une distance donnée au robot en pixel dans une direction donnée par dx et dy.
+        La fonction renvoie 1 si la distance voulue a bien été parcourue et -1 sinon.
+        La distance effectivement parcourue est calculée à partir de la dernière position du robot enregistrée par le contrôleur.
+        """
+        distance_parcourue = math.sqrt((self.posx - self.robot.x)**2 + (self.posy - self.robot.y)**2)
+        if (distance_parcourue < distance):
+            return -1
+        else :
+            return 1
+
+
+    def init_parcourir(self):
+        self.save_position()
+        print("La position du robot a été enregistrée par le controleur comme étant (", self.posx, ", ", self.posy, ")")
+        self.robot_avance(1, 0)
+        self.robot.crayon = True
+    
+    
+    def update(self):
+        if self.parcourir(20) == 1 :
             self.done = True
+            self.robot_stop()
+        #self.cpt += 1
+       
 
-
-    def run(self):       
+    def run(self): 
+        self.init_parcourir()      
         while True:
-            print("(Thread du controleur) cpt = ", self.cpt)
             self.update()
             time.sleep(0.3)
             if self.done:

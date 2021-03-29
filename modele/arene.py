@@ -22,7 +22,8 @@ class Obstacle:
 
 
 class Roue:
-
+    """
+    """
     def __init__(self):
         self.moteurAllume=False
         self.vitesseRotation=0.
@@ -47,11 +48,11 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
+        print("Position du robot : ", self.robot.x, ", ", self.robot.y)
         self.robot.se_deplacer()
     
     def run(self):
         while True:
-            #print(threading.current_thread)
             self.update()
             time.sleep(0.1)
             if self.controleur.done:
