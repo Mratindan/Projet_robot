@@ -4,21 +4,24 @@ import math
 from abc import ABC, abstractmethod
 from modele import Robot_simple
 
-class Controleur_carre(threading.Thread):
+
+class Actions_elementaires(threading.Thread):
     """
-    La classe mère de tous les contrôleurs.
+    Cette classe contient toutes les actions élémentaires qui permettent de développer des stratégies.
     """
 
     def __init__(self, robot):
         threading.Thread.__init__(self)
-        self.robot = robot
-        self.cpt = 0
-        self.done = False 
+        self.robot = robot 
         self.posx = 0
         self.posy = 0
+        self.done = False
 
             
     def save_position(self):
+        """
+        Permet au controleur de se souvenir de la position actuelle du robot.
+        """
         self.posx = self.robot.x
         self.posy = self.robot.y
         return 1
@@ -51,27 +54,35 @@ class Controleur_carre(threading.Thread):
         if (distance_parcourue < distance):
             return -1
         else :
-            return 1
-
-
-    def init_parcourir(self):
-        self.save_position()
-        print("La position du robot a été enregistrée par le controleur comme étant (", self.posx, ", ", self.posy, ")")
-        self.robot_avance(1, 0)
-        self.robot.crayon = True
+            return 1    
     
-    
+
     def update(self):
-        if self.parcourir(20) == 1 :
-            self.done = True
-            self.robot_stop()
-        #self.cpt += 1
+        pass
        
 
-    def run(self): 
-        self.init_parcourir()      
+    def run(self):     
         while True:
             self.update()
             time.sleep(0.3)
             if self.done:
                 break
+
+
+class Controleur_carre(Actions_elementaires):
+    """
+    Cette classe définit la stratégie permettant de dessiner un carré.
+    """
+
+    def __init__(self, robot):
+        Actions_elementaires.__init__(self, robot)
+        self.save_position()
+        print("La position du robot a été enregistrée par le controleur comme étant (", self.posx, ", ", self.posy, ")")
+        self.robot_avance(1, 0)
+        self.robot.crayon = True
+
+    
+    def update(self):
+        if self.parcourir(20) == 1 :
+            self.done = True
+            self.robot_stop()
