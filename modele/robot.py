@@ -6,7 +6,8 @@ class Robot:
     "Definition d'un robot"
     
     def __init__(self, a, b):
-        "a et b ne doivent pas valoir 0 tous les deux"
+        """a et b ne doivent pas valoir 0 tous les deux"""
+        assert(a != 0) or (b != 0)
         print("Creation d'un robot")
         self.position = Point(a, b)
         self.positionNorme=0.

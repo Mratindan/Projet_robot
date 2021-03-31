@@ -7,6 +7,7 @@ class Point:
 	"Classe permettant de définir des points "
 
 	def __init__(self,x,y):
+        """Initialise un point aux coordonées (x,y)"""
 		self.x = x
 		self.y = y
 
@@ -27,10 +28,12 @@ class Vecteur:
     "Classe vecteur permettant de définir les déplacements de notre futur robot"
 
     def __init__(self,point1,point2):
+        """Définition d'un vecteur à partir de 2 points"""
         self.point1 = point1
         self.point2 = point2
 
     def __init__(self,x,y):
+        """Définition d'un vecteur à partir de coordonées"""
         self.point1 = x
         self.point2 = y
 
