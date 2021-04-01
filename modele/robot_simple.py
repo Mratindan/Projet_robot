@@ -13,11 +13,11 @@ class Robot_simple :
         self.height = 10
         self.v_roue_gauche = 0
         self.v_roue_droite = 0
-        self.diametre_roue = 0 # 66.5
-        self.diametre_robot = 0 # 117
-        self.last_update = time.localtime()
+        self.diametre_roue = 5 # 66.5
+        self.diametre_robot = 10 # 117
+        self.last_update = 0
         self.last_se_deplacer = 0
-        self.crayon = False # Définit si le robot utilise un crayon ou pas
+        self.crayon = True # Définit si le robot utilise un crayon ou pas
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
@@ -45,20 +45,24 @@ class Robot_simple :
         """
         Retourne la distance parcourue par le robot depuis la dernière mise à jour.
         """
-        angle = (time.localtime() - last_time) * self.v_roue_droite
+        angle = (time.time() - last_time) * self.v_roue_droite
         distance = (2 * math.pi * diametre_roue/2 * angle) / 360
         return distance
 
     def reset_time(self):
-        self.last_update = time.localtime()
+        self.last_update = time.time()
+    
+    def reset_se_deplacer_time(self):
+        self.last_se_deplacer = time.time()
+
 
     def angle_parcouru(self, last_time):
         """
         Retourne l'angle parcouru
         """
-        angle = (time.localtime - self.last_time) * self.v_roue_droite
-        distance = (2 * math.pi * diametre_roue/2 * angle) / 360
-        angle = (360 * distance) / (2 * math.pi * diametre_robot/2)
+        angle = (time.time() - last_time) * self.v_roue_droite
+        distance = (2 * math.pi * self.diametre_roue/2 * angle) / 360
+        angle = (360 * distance) / (2 * math.pi * self.diametre_robot/2)
 
         return angle
 
@@ -72,10 +76,12 @@ class Robot_simple :
             # si le robot tourne sur lui-même vers la droite
             if (self.v_roue_droite < 0): 
                 self.angle += self.angle_parcouru(self.last_se_deplacer)
+                self.reset_se_deplacer_time()
                 return None
             # si le robot tourne sur lui-même vers la gauche
             else :
                 self.angle -= self.angle_parcouru(self.last_se_deplacer)
+                self.reset_se_deplacer_time()
                 return None
             
         # si le robot avance tout droit
@@ -83,6 +89,7 @@ class Robot_simple :
             distance = self.distance_parcourue(self.last_se_deplacer)
             self.x += distance * math.cos() * self.angle
             self.y += distance * math.sin() * self.angle
+            self.reset_se_deplacer_time()
 
             return None
         
