@@ -50,13 +50,13 @@ class Arene(threading.Thread) :
         """
         print("Position du robot : ", self.robot.x, ", ", self.robot.y)
         self.robot.se_deplacer()
+        print("L'ARENE DEMANDE AU ROBOT DE SE DEPLACER")
     
     def run(self):
-        while True:
+        while not (self.controleur.done()):
+            print("L'ARENE DEMANDE UNE MISE A JOUR !")
             self.update()
             time.sleep(0.1)
-            if self.controleur.done:
-                break
 
     def initialiser_obstacles(self, n):
         """

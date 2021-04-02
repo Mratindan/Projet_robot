@@ -18,6 +18,7 @@ class Robot_simple :
         self.last_update = 0
         self.last_se_deplacer = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
+        self.echelle = 100 # 1 metre pour le robot IRL = 100 pixel dans la simulation
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
@@ -29,13 +30,13 @@ class Robot_simple :
         """
         self.set_vitesse(vitesse, vitesse)
     
-    def tourner_droite(self, vitesse):
+    def tourne_droite(self, vitesse):
         """
         Pour le proxy
         """
         self.set_vitesse(vitesse, -vitesse)
     
-    def tourner_gauche(self, vitesse):
+    def tourne_gauche(self, vitesse):
         """
         Pour le proxy
         """
@@ -46,7 +47,7 @@ class Robot_simple :
         Retourne la distance parcourue par le robot depuis la dernière mise à jour.
         """
         angle = (time.time() - last_time) * self.v_roue_droite
-        distance = (2 * math.pi * diametre_roue/2 * angle) / 360
+        distance = (2 * math.pi * self.diametre_roue/2 * angle) / 360
         return distance
 
     def reset_time(self):
@@ -69,8 +70,9 @@ class Robot_simple :
     
     def se_deplacer(self):
         """
-        Permet au robot de se déplacer
+        Permet de simuler le déplacement du robot à partir de sa vitesse
         """
+        print("VITESSE DE LA ROUE GAUCHE : ", self.v_roue_gauche, "; VITESSE DE LA ROUE DROITE : ", self.v_roue_droite)
         # si le robot tourne sur lui-même
         if (-self.v_roue_droite == self.v_roue_gauche):
             # si le robot tourne sur lui-même vers la droite
@@ -87,8 +89,8 @@ class Robot_simple :
         # si le robot avance tout droit
         if (self.v_roue_droite == self.v_roue_gauche):
             distance = self.distance_parcourue(self.last_se_deplacer)
-            self.x += distance * math.cos() * self.angle
-            self.y += distance * math.sin() * self.angle
+            self.x += distance * math.cos(math.radians(self.angle)) * self.echelle
+            self.y += distance * math.sin(math.radians(self.angle)) * self.echelle 
             self.reset_se_deplacer_time()
 
             return None

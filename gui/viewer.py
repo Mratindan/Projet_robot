@@ -35,8 +35,8 @@ class Viewer :
         self.play = ttk.Button(self.cadre, text = "") #command = self.lancer)
         self.stop = ttk.Button(self.cadre, text = "") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
-        self.simulation.bind("<Return>", lambda e: self.play.invoke())
-        self.simulation.bind("<space>", lambda e: self.stop.invoke())
+        #self.simulation.bind("<Return>", lambda e: self.play.invoke())
+        #self.simulation.bind("<space>", lambda e: self.stop.invoke())
 
         # Placement des widgets
         self.cadre.grid(column = 0, row = 0, sticky = (N, S, E, W))
