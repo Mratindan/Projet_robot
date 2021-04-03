@@ -3,7 +3,6 @@ import time
 from .robot_simple import Robot_simple
 from random import randint
 from outils import Point, Vecteur
-from controleur import Controleur_carre
 
 class Obstacle:
     """
@@ -20,16 +19,6 @@ class Obstacle:
         self.height = 0
         self.width = 0
 
-
-class Roue:
-    """
-    """
-    def __init__(self):
-        self.moteurAllume=False
-        self.vitesseRotation=0.
-
-    def set_vitesse(self):
-        return
 
 class Arene(threading.Thread) :
     """
@@ -48,13 +37,10 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
-        print("Position du robot : ", self.robot.x, ", ", self.robot.y)
         self.robot.se_deplacer()
-        print("L'ARENE DEMANDE AU ROBOT DE SE DEPLACER")
     
     def run(self):
         while not (self.controleur.done()):
-            print("L'ARENE DEMANDE UNE MISE A JOUR !")
             self.update()
             time.sleep(0.1)
 

@@ -3,7 +3,6 @@ from tkinter import ttk
 import time
 import threading
 from modele import Robot_simple, Arene
-from controleur import Controleur_carre
 
 class Viewer :
 
@@ -18,7 +17,6 @@ class Viewer :
         self.after_id = None
         self.arene = arene
         self.robot = self.arene.robot
-        self.is_started = False # Permet de savoir si les threads controleur et arene ont été lancé (à partir de cette interface graphique) ou pas
 
         # Nommage de la fenêtre principale de l'application
         self.simulation.title("Gopigo Simulator")
@@ -32,7 +30,7 @@ class Viewer :
         # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
         # Les boutons
-        self.play = ttk.Button(self.cadre, text = "") #command = self.lancer)
+        self.play = ttk.Button(self.cadre, text = "") #command = self.lancer
         self.stop = ttk.Button(self.cadre, text = "") #command = self.stop
         # Association de certaines touches du clavier à des commandes (en alternative aux boutons)
         #self.simulation.bind("<Return>", lambda e: self.play.invoke())
@@ -52,15 +50,16 @@ class Viewer :
             self.cadre.columnconfigure(i, weight = 1)
 
         # Initialisation des dessins du robot et des obstacles 
-        self.dessin_robot = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.width, self.robot.y + self.robot.height, fill = 'red', outline = 'red')
+        self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
+        #self.dessin_robot_tete = self.dessin_arene.create_line(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y, fill = 'black', width = 5)
         #self.dessiner_obstacles
     
-    def dessiner_obstacles():
+    def dessiner_obstacles(self):
         """
         Dessine les obstacles à partir de la liste self.arene.list_obstacles
         """
         for obstacle in self.arene.list_obstacles :
-            self.dessin_arene.create_rectangle(self.obstacle.position.x, self.obstacle.position.y, self.obstacle.position.x + self.obstacle.width, self.obstacle.position.y + self.obstacle.height, fill = 'green', outline = 'red')
+            self.dessin_arene.create_rectangle(self.obstacle.position.x, self.obstacle.position.y, self.obstacle.position.x + self.obstacle.width, self.obstacle.position.y + self.obstacle.height, fill = 'black', outline = 'black')
     
     def outil_crayon(self):
         """
@@ -75,7 +74,8 @@ class Viewer :
         """
 
         self.outil_crayon()
-        self.dessin_arene.coords(self.dessin_robot, self.robot.x, self.robot.y, self.robot.x + self.robot.width, self.robot.y + self.robot.height)
+        self.dessin_arene.coords(self.dessin_robot_corps, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot)
+        #self.dessin_arene.coords(self.dessin_robot_tete, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y)
         self.after_id = self.dessin_arene.after(50, self.update)
 
 
