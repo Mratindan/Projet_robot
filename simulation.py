@@ -1,8 +1,7 @@
 from modele import Robot_simple
-from controleur import Carre, Controleur
+from controleur import Proxy_simu, Proxy_irl, Carre, Controleur
 from modele import Arene
 from gui import Viewer 
-
 
 def start_simulation(arene, interface_graphique) :
     arene.controleur.start()
@@ -12,8 +11,11 @@ def start_simulation(arene, interface_graphique) :
 # Notre robot
 wall_e = Robot_simple(200, 200)
 
+# Notre proxy
+wall_e_simu = Proxy_simu(wall_e)
+
 # Notre action à donner au contrôleur
-dessine = Carre(wall_e)
+dessine = Carre(wall_e_simu)
 
 # Controleur
 ctrl = Controleur(dessine)

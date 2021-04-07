@@ -1,8 +1,6 @@
 import threading
 import time
 import math
-from modele import Robot_simple
-
 
 class Controleur(threading.Thread):
     def __init__(self, action):
@@ -26,8 +24,7 @@ class Controleur(threading.Thread):
             
 
 class SequenceActions:
-    def __init__(self,robot,liste):
-        self.robot = robot
+    def __init__(self, liste):
         self.liste = liste
         self.i = 0
 
@@ -47,66 +44,66 @@ class SequenceActions:
         self.liste[self.i].demarre()
 
 class ParcourirAction:
-    def __init__(self,robot,distance):
-        self.robot = robot
+    def __init__(self, proxy, distance):
+        self.proxy = proxy
         self.distance = distance
         self.vitesse = 3
 
     def done(self):
-        distance_parcourue = self.robot.distance_parcourue(self.robot.last_update)
+        distance_parcourue = self.proxy.distance_parcourue(self.proxy.last_update)
         return distance_parcourue > self.distance
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.avance_tout_droit(self.vitesse)
+        self.proxy.avance_tout_droit(self.vitesse)
         
 
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
 
 class TournerDroiteAction:
-    def __init__(self,robot,angle):
-        self.robot = robot
+    def __init__(self, proxy, angle):
+        self.proxy = proxy
         self.angle = angle
         self.vitesse = 10
 
     def done(self):
-        angle_parcouru = self.robot.angle_parcouru_droite(self.robot.last_update)
+        angle_parcouru = self.proxy.angle_parcouru_droite(self.proxy.last_update)
         return angle_parcouru > self.angle
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.tourne_droite(self.vitesse)
+        self.proxy.tourne_droite(self.vitesse)
 
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
 
 class TournerGaucheAction:
-    def __init__(self,robot,angle):
-        self.robot = robot
+    def __init__(self, proxy, angle):
+        self.proxy = proxy
         self.angle = angle
         self.vitesse = 15
 
     def done(self):
-        angle_parcouru = self.robot.angle_parcouru_gauche(self.robot.last_update)
+        angle_parcouru = self.proxy.angle_parcouru_gauche(self.proxy.last_update)
         return angle_parcouru > self.angle
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.tourne_gauche(self.vitesse)
+        self.proxy.tourne_gauche(self.vitesse)
 
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
 
 class Carre(SequenceActions):
-    def __init__(self,robot):
-        SequenceActions.__init__(self, robot, None)
-        parcourir = ParcourirAction(robot, 0.2)
-        tourner_droite = TournerDroiteAction(robot, 90)
+    def __init__(self, proxy):
+        SequenceActions.__init__(self, None)
+        parcourir = ParcourirAction(proxy, 0.2)
+        tourner_droite = TournerDroiteAction(proxy, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
