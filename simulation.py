@@ -3,6 +3,7 @@ from controleur import Carre, Controleur
 from modele import Arene
 from gui import Viewer 
 
+
 def start_simulation(arene, interface_graphique) :
     arene.controleur.start()
     arene.start()
