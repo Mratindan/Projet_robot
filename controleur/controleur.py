@@ -147,3 +147,13 @@ class Exo2_TriangleEqui(SequenceActions):
         parcourir = ParcourirAction(robot, 0.3)
         tourner_droite = TournerDroiteAction(robot, 120)
         self.liste = [parcourir, tourner_droite] * 2 + [parcourir]
+
+class Exo2_Polygone(SequenceActions):
+    def __init__(self, robot, n):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.2)
+        angle = math.degrees(((n - 2) * math.pi) / n)
+        tourner_droite = TournerDroiteAction(robot, 180 - angle)
+        self.liste = [parcourir, tourner_droite] * (n - 1) + [parcourir]
+
+

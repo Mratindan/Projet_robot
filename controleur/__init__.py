@@ -1,1 +1,1 @@
-from .controleur import Controleur, Exo1, Exo2_TriangleEqui
+from .controleur import Controleur, Exo1, Exo2_TriangleEqui, Exo2_Polygone
