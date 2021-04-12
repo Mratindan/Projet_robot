@@ -1,5 +1,5 @@
 from modele import Robot_simple
-from controleur import Carre, Controleur
+import controleur
 from modele import Arene
 from gui import Viewer 
 
@@ -13,10 +13,10 @@ def start_simulation(arene, interface_graphique) :
 wall_e = Robot_simple(200, 200)
 
 # Notre action à donner au contrôleur
-dessine = Carre(wall_e,6)
+dessine = controleur.Polygone(wall_e,5)
 
 # Controleur
-ctrl = Controleur(dessine)
+ctrl = controleur.Controleur(dessine)
 
 # Arene
 arene = Arene(600, 600, wall_e, ctrl)

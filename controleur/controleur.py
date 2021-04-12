@@ -70,7 +70,7 @@ class TournerDroiteAction:
     def __init__(self,robot,angle):
         self.robot = robot
         self.angle = angle
-        self.vitesse = 10
+        self.vitesse = 13
 
     def done(self):
         angle_parcouru = self.robot.angle_parcouru_droite(self.robot.last_update)
@@ -107,6 +107,14 @@ class TournerGaucheAction:
 class Carre(SequenceActions):
     def __init__(self,robot,cotes):
         SequenceActions.__init__(self, robot, None)
-        parcourir = ParcourirAction(robot, 1)
-        tourner_droite = TournerDroiteAction(robot, ((cotes-2)*math.pi)/cotes)
+        parcourir = ParcourirAction(robot, 0.5)
+        tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+
+
+class Polygone(SequenceActions):
+    def __init__(self,robot,cotes):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.5)
+        tourner_droite = TournerDroiteAction(robot, (cotes-2)*((math.pi)/cotes)*180)
+        self.liste = [parcourir, tourner_droite] * (cotes-1) + [parcourir]
