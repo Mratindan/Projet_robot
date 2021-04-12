@@ -1,10 +1,16 @@
 Exercice 1 :
 J'ai modifié le fichier controleur/controleur.py
-La fonctionnalité du crayon était déjà plus ou moins implémenté grâce à un attribut crayon pour le Robot_simple.
+La fonctionnalité du crayon était déjà présente grâce à un attribut crayon pour le Robot_simple et une fonction outil_crayon que j'avais implémenté dans le fichier gui/viewer.py.
+L'attribut crayon est à True par défaut habituellement car ça permet de mieux visualiser les déplacements du robot.
 J'ai simplement ajouté une stratégie PointilleAction qui permet d'exploiter cet attribut.
 Elle prend une distance à parcourir en paramètre (en plus du robot) et fait faire des pointillés au robot sur cette distance.
 On peut l'utiliser avec la séquence Exo1.
 
 Exercice 2:
+Q1.
+Je n'ai pas ajouté de stratégie mais une nouvelle séquence Exo2_TriangleEqui dans le fichier controleur.
+Attention la rotation du robot prend du temps (on pourrait augmenter la vitesse de rotation mais elle serait alors moins précise)
+Q2.
+
 
 

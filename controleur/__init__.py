@@ -1,1 +1,1 @@
-from .controleur import Carre, Controleur, Exo1
+from .controleur import Controleur, Exo1, Exo2_TriangleEqui

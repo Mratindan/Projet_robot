@@ -144,4 +144,6 @@ class Exo1(SequenceActions):
 class Exo2_TriangleEqui(SequenceActions):
     def __init__(self, robot):
         SequenceActions.__init__(self, robot, None)
-        
+        parcourir = ParcourirAction(robot, 0.3)
+        tourner_droite = TournerDroiteAction(robot, 120)
+        self.liste = [parcourir, tourner_droite] * 2 + [parcourir]
