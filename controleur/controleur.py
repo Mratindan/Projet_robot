@@ -116,5 +116,13 @@ class Polygone(SequenceActions):
     def __init__(self,robot,cotes):
         SequenceActions.__init__(self, robot, None)
         parcourir = ParcourirAction(robot, 0.5)
-        tourner_droite = TournerDroiteAction(robot, (cotes-2)*((math.pi)/cotes)*180)
+        tourner_droite = TournerDroiteAction(robot, ((cotes-2)*cotes))
         self.liste = [parcourir, tourner_droite] * (cotes-1) + [parcourir]
+
+
+class Triangle(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.5)
+        tourner_droite = TournerDroiteAction(robot, 120)
+        self.liste = [parcourir, tourner_droite] * 2 + [parcourir]

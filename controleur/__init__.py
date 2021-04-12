@@ -1,1 +1,1 @@
-from .controleur import Carre, Controleur,Polygone
+from .controleur import Carre, Controleur,Polygone,Triangle
