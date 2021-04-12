@@ -46,6 +46,10 @@ class SequenceActions:
         self.i = 0
         self.liste[self.i].demarre()
 
+class ConditionActions:
+    def __init__(self, action_principale, action_alternative, condition):
+
+
 class ParcourirAction:
     def __init__(self,robot,distance):
         self.robot = robot
@@ -64,6 +68,20 @@ class ParcourirAction:
 
     def demarre(self):
         self.robot.reset_time()
+
+class StopAction:
+    def __init__(self,robot,distance):
+        self.robot = robot
+    
+    def done(self):
+        return (self.robot.v_roue_droite <= 0) and (self.robot.v_roue_gauche <= 0)
+
+    def update(self):
+        if self.done():
+            return None
+    
+    def demarre(self):
+        pass
 
 
 class TournerDroiteAction:
@@ -156,4 +174,11 @@ class Exo2_Polygone(SequenceActions):
         tourner_droite = TournerDroiteAction(robot, 180 - angle)
         self.liste = [parcourir, tourner_droite] * (n - 1) + [parcourir]
 
+class Exo2_ApprocheMur(ConditionActions):
+    def __init__(self, robot):
+        ConditionActions.__init__(self, robot, None, None, None)
+        condition = self.robot.proche_mur
+        action1 = ParcourirAction(robot, 1000)
+        action2 = StopAction(robot)
+        
 

@@ -44,6 +44,14 @@ class Arene(threading.Thread) :
             self.update()
             time.sleep(0.1)
 
+    def est_proche_mur(self, d):
+        """
+        Renvoie True si le robot simulé est à d pixels d'un mur et false sinon.
+        """
+        if (self.robot.y > d) and (self.robot.y < (self.height - d)) and (self.robot.x > d) and (self.robot.x < (width - d)) :
+            self.robot.proche_mur = True
+
+
     def initialiser_obstacles(self, n):
         """
         None -> None

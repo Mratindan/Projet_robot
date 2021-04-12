@@ -21,15 +21,9 @@ wall_e = Robot_simple(200, 200)
 #arene = Arene(600, 600, wall_e, ctrl_exo2q1)
 
 # Exercice 2.2
-robot = Robot_simple(200, 300)
-exo2q2 = Exo2_Polygone(robot, 8)
-ctrl_exo2q2 = Controleur(exo2q2)
-arene = Arene(600, 600, robot, ctrl_exo2q2)
-
-
-
-
-
+#exo2q2 = Exo2_Polygone(wall_e, 8)
+#ctrl_exo2q2 = Controleur(exo2q2)
+#arene = Arene(600, 600, wall_e, ctrl_exo2q2)
 
 interface_graphique = Viewer(arene)
 start_simulation(arene, interface_graphique)

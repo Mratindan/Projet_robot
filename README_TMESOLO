@@ -14,5 +14,10 @@ Q1.
 Je n'ai pas ajouté de stratégie mais une nouvelle séquence Exo2_TriangleEqui dans le fichier controleur.
 Q2.
 J'ai ajouté la séquence Exo2_Polygone dans le fichier controleur.
+Q3.
+Pour cette question c'est compliqué car les fonctionnalités dont j'aurais besoin ne sont pas encore implémentés (j'allais travailler dessus ce soir et demain).
+Mais ce que j'ai fait et que j'aurais voulu finir c'est ajouter un attribut bool au robot proche_mur et une méthode dans l'arène qui modifie cet attribut si le robot est proche d'un des murs.
+Puis j'aurais eu besoin de ConditionActions et StopAction dans le fichier controleur en plus d'une stratégie qui Combine ConditionActions et SequenceActions.
+Et j'aurais pu faire la stratégie demandée.
 
 

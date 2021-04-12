@@ -17,6 +17,7 @@ class Robot_simple :
         self.last_se_deplacer = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 pixel dans la simulation
+        self.proche_mur = False
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
@@ -75,7 +76,6 @@ class Robot_simple :
 
         return angle
 
-    
     def se_deplacer(self):
         """
         Permet de simuler le déplacement du robot à partir de sa vitesse
