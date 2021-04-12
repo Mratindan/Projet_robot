@@ -104,15 +104,27 @@ class TournerGaucheAction:
         self.robot.reset_time()
 
 class Robot2I013:
-    def __init__(self,robot,string):
+    def __init__(self,robot,distance):
         self.robot = robot
-    
-    def cray(self):
-        if string==down:
-            self.robot.crayon=True
-        if string==up:
-            self.robot.crayon=False
+        self.distance = distance
+        self.vitesse = 3
         
+    def done(self):
+        distance_parcourue = self.robot.distance_parcourue(self.robot.last_update)
+        return distance_parcourue > self.distance
+    
+    def update(self):
+        if self.done(): 
+            if self.robot.crayon==True:
+                self.robot.crayon=False
+            else :
+                self.robot.crayon=True
+            return None
+        self.robot.avance_tout_droit(self.vitesse)
+        
+    def demarre(self):
+        self.robot.reset_time()
+
 class Carre(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
@@ -121,10 +133,15 @@ class Carre(SequenceActions):
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
 
 class Pointille(SequenceActions):
-    def __init__(self, robot):
+    def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
-        parcourir = ParcourirAction(robot, 0.2)
-        crayup=Robot2I013(robot, False)
-        craydown=Robot2I013(robot, True)
-        self.liste=[parcourir, crayup, parcourir, craydown] * 5
+        parcourir = Robot2I013(robot, 0.5)
+        self.liste = [parcourir] * 5
+        
+class Triangle(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.5)
+        tourner_droite = TournerDroiteAction(robot, 120)
+        self.liste = [parcourir, tourner_droite] * 3
     
