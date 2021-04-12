@@ -1,3 +1,4 @@
+# coding: utf-8
 from modele import Robot_simple
 from controleur import Carre, Controleur
 from modele import Arene

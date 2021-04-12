@@ -13,3 +13,8 @@ on va utiliser le cos et le sinus de cet angle
  xR += dDist*cos(dAngl);
  yR += dDist*sin(dAngl);
  orientation += dAngl;
+
+ #Q.2.2
+  l’angle entre 2 cotés d’un polygone de degré n est (n−2)π/n)
+
+ (cote-2)*((math.pi)/cote)*180

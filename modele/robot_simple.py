@@ -1,5 +1,7 @@
+# coding: utf-8
 import time
 import math
+
 
 class Robot_simple :
     def __init__(self, x, y):
@@ -17,7 +19,11 @@ class Robot_simple :
         self.last_se_deplacer = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 pixel dans la simulation
-    
+        self.signal = 0
+
+    def get_signal(self):
+        return signal
+
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
         self.v_roue_droite = v_roue_d

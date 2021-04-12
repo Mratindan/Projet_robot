@@ -119,3 +119,19 @@ class Carre(SequenceActions):
         parcourir = ParcourirAction(robot, 0.2)
         tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+
+class TriangleEq(SequenceActions):
+    def __init__(self, robot, arete):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.2)
+        tourner_droite = TournerDroiteAction(robot, 60)
+        tourner_gauche = TournerGaucheAction(robot, 60)
+
+        self.liste = [parcourir, tourner_droite, tourner_gauche] * 3 + [parcourir]
+
+class Polygone(SequenceActions):
+    def __init__(self,robot,cote):
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.2)
+        tourner_droite = TournerDroiteAction(robot, (cote-2)*((math.pi)/cote)*180)
+        self.liste = [parcourir, tourner_droite] * (cote - 1) + [parcourir]
