@@ -103,6 +103,30 @@ class TournerGaucheAction:
     def demarre(self):
         self.robot.reset_time()
 
+class PointilleAction:
+    def __init__(self,robot,distance):
+        self.robot = robot
+        self.distance = distance
+        self.vitesse = 2
+        self.cpt = 0
+
+    def done(self):
+        distance_parcourue = self.robot.distance_parcourue(self.robot.last_update)
+        return distance_parcourue > self.distance
+
+    def update(self):
+        if self.done(): 
+            return None
+        self.cpt += 1
+        if self.cpt % 5 == 0 :
+            self.robot.crayon = True
+        else :
+            self.robot.crayon = False
+        self.robot.avance_tout_droit(self.vitesse)
+        
+
+    def demarre(self):
+        self.robot.reset_time()
 
 class Carre(SequenceActions):
     def __init__(self,robot):
@@ -110,3 +134,14 @@ class Carre(SequenceActions):
         parcourir = ParcourirAction(robot, 0.2)
         tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+
+class Exo1(SequenceActions):
+    def __init__(self, robot):
+        SequenceActions.__init__(self, robot, None)
+        pointille = PointilleAction(robot, 1)
+        self.liste = [pointille]
+
+class Exo2_TriangleEqui(SequenceActions):
+    def __init__(self, robot):
+        SequenceActions.__init__(self, robot, None)
+        

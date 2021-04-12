@@ -1,1 +1,1 @@
-from .controleur import Carre, Controleur
+from .controleur import Carre, Controleur, Exo1

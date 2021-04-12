@@ -15,7 +15,7 @@ class Robot_simple :
         self.diametre_robot = 10 # 117
         self.last_update = 0
         self.last_se_deplacer = 0
-        self.crayon = True # Définit si le robot utilise un crayon ou pas
+        self.crayon = False # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 pixel dans la simulation
     
     def set_vitesse(self, v_roue_g, v_roue_d):

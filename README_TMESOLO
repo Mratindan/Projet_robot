@@ -1,0 +1,10 @@
+Exercice 1 :
+J'ai modifié le fichier controleur/controleur.py
+La fonctionnalité du crayon était déjà plus ou moins implémenté grâce à un attribut crayon pour le Robot_simple.
+J'ai simplement ajouté une stratégie PointilleAction qui permet d'exploiter cet attribut.
+Elle prend une distance à parcourir en paramètre (en plus du robot) et fait faire des pointillés au robot sur cette distance.
+On peut l'utiliser avec la séquence Exo1.
+
+Exercice 2:
+
+
