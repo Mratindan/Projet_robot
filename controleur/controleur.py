@@ -110,3 +110,13 @@ class Carre(SequenceActions):
         parcourir = ParcourirAction(robot, 0.2)
         tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+
+class Robot2I013:
+    def __init__(self, robot):
+        self.robot=robot
+        
+    def down(self):
+        self.robot.crayon=False
+    
+    def up(self):
+        self.robot.crayon=True
