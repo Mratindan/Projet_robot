@@ -1,8 +1,15 @@
+# Exercice 1 – Modifications graphiques
+ajouter une classe avec dans contoleur avec les deux methode up et down
+
 # Exercice 2 – Stratégies Simples
 #Q2.1
 un triangle equilateral angle = 60
 on va utiliser le cos et le sinus de cet angle
-x= x
+
  dDist: la distance parcourue par chaque roue
  dAngl: variation sur l’angle entre deux appels de fonctions
  les conditions initiales: x0 et y0 etl’orientation initiale
+ dAngl = 60
+ xR += dDist*cos(dAngl);
+ yR += dDist*sin(dAngl);
+ orientation += dAngl;
