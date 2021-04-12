@@ -48,6 +48,7 @@ class SequenceActions:
 
 class ConditionActions:
     def __init__(self, action_principale, action_alternative, condition):
+        pass
 
 
 class ParcourirAction:
