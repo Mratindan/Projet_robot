@@ -24,6 +24,15 @@ class Controleur(threading.Thread):
             self.update()
             time.sleep(0.2)
             
+class Robot2I013:
+    def __init__(self, robot):
+        self.robot = robot
+
+    def down(self):
+        self.robot.crayon = False
+
+    def up(self):
+        self.robot.crayon = True
 
 class SequenceActions:
     def __init__(self,robot,liste):
