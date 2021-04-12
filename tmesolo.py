@@ -2,6 +2,7 @@ from modele import Robot_simple
 from controleur import Carre, Controleur
 from modele import Arene
 from gui import Viewer 
+from math import pi
 
 
 def start_simulation(arene, interface_graphique) :
@@ -9,11 +10,10 @@ def start_simulation(arene, interface_graphique) :
     arene.start()
     interface_graphique.lancer()
 
-# Notre robot
+#On crée notre robot
 wall_e = Robot_simple(200, 200)
 
-# Notre action à donner au contrôleur
-dessine = Carre(wall_e,6)
+dessine = Carree(wall_e,5)
 
 # Controleur
 ctrl = Controleur(dessine)

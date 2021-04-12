@@ -105,8 +105,8 @@ class TournerGaucheAction:
 
 
 class Carre(SequenceActions):
-    def __init__(self,robot):
+    def __init__(self,robot,cotes):
         SequenceActions.__init__(self, robot, None)
-        parcourir = ParcourirAction(robot, 0.2)
-        tourner_droite = TournerDroiteAction(robot, 90)
+        parcourir = ParcourirAction(robot, 1)
+        tourner_droite = TournerDroiteAction(robot, ((cotes-2)*math.pi)/cotes)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
