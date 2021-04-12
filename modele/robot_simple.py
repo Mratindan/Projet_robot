@@ -108,3 +108,8 @@ class Robot_simple :
         
         raise Exception()
         
+    def down(self):
+        self.crayon=True
+    
+    def up(self):
+        self.crayon=False

@@ -103,7 +103,16 @@ class TournerGaucheAction:
     def demarre(self):
         self.robot.reset_time()
 
-
+class Robot2I013:
+    def __init__(self,robot,string):
+        self.robot = robot
+    
+    def cray(self):
+        if string==down:
+            self.robot.crayon=True
+        if string==up:
+            self.robot.crayon=False
+        
 class Carre(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
@@ -111,12 +120,11 @@ class Carre(SequenceActions):
         tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
 
-class Robot2I013:
+class Pointille(SequenceActions):
     def __init__(self, robot):
-        self.robot=robot
-        
-    def down(self):
-        self.robot.crayon=False
+        SequenceActions.__init__(self, robot, None)
+        parcourir = ParcourirAction(robot, 0.2)
+        crayup=Robot2I013(robot, False)
+        craydown=Robot2I013(robot, True)
+        self.liste=[parcourir, crayup, parcourir, craydown] * 5
     
-    def up(self):
-        self.robot.crayon=True
