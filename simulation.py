@@ -1,4 +1,4 @@
-from modele import *
+from modele import Robot, Robot_simple
 from controleur import *
 from gui import Viewer
 

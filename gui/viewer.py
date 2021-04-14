@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import time
 import threading
-from modele import *
+from modele import Arene, Robot, Robot_simple
 
 class Viewer :
 

@@ -1,8 +1,7 @@
 import math
 import time
-from Projet_robot.outils.Point import Point
-from Projet_robot.outils.Vecteur import Vecteur
-from Projet_robot.modele.Polynome import Polynome
+from outils import Point, Vecteur
+from modele import Polynome
 
 class Robot:
     "Definition d'un robot"

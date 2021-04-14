@@ -1,7 +1,7 @@
 import threading
 import time
 import math
-from modele import *
+from modele import Robot, Robot_simple
 
 
 class Controleur(threading.Thread):

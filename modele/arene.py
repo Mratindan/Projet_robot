@@ -1,6 +1,6 @@
 import threading
 import time
-from modele import *
+from modele import Robot, Robot_simple
 from random import randint
 from outils import Point, Vecteur
 
