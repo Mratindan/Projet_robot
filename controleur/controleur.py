@@ -48,34 +48,23 @@ class ConditionActions:
     def __init__(self, action_principale, action_alternative, condition):
         self.action_principale = action_principale
         self.action_alternative = action_alternative
-        print("ConditionActions a été initialisé")
 
     def done(self):
-        print("ConditionActions...l'action principale est terminée : ", self.action_principale.done())
-        print("ConditionActions...l'action alternative est terminée : ", self.action_alternative.done())
         return self.action_principale.done() or self.action_alternative.done()
 
     def update(self):
-        print("ConditionActions essaie de se mettre à jour...")
         if self.done(): 
-            print("ConditionActions est terminé")
             return None
-        print("Condition[0] : ", self.condition[0]())
         if self.condition[0]():
-            print("La condition de ConditionActions est vérifiée")
             if not self.action_alternative.est_en_cours:
-                print("ConditionActions démarre la condition alternative")
                 self.action_alternative.demarre()
                 self.action_alternative.est_en_cours = True
-            print("ConditionActions demande la mise à jour de l'action alternative")
             self.action_alternative.update()
         else : 
-            print("ConditionActions demande la mise à jour de l'action principale")
             self.action_principale.update()
 
     def demarre(self):
         self.action_principale.demarre()
-        print("L'action principale de ConditionActions a démarré")
 
 
 class ParcourirAction:
@@ -144,7 +133,6 @@ class StopAction:
         if not self.est_en_cours :
             return False
         distance_parcourue = self.proxy.distance_parcourue(self.t)
-        print("StopAction : la distance parcourue depuis le démarrage de StopAction est : ", distance_parcourue)
         return distance_parcourue == 0
     
     def update(self):
