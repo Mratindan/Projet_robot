@@ -17,6 +17,12 @@ class Proxy_simu:
     
     def tourne_gauche(self, vitesse):
         self.robot.set_vitesse(-vitesse, vitesse)
+
+    def stop(self):
+        self.robot.set_vitesse(0, 0)
+
+    def proximite_mur(self):
+        return self.robot.proche_mur
     
     def distance_parcourue(self, last_time):
         """
@@ -46,12 +52,20 @@ class Proxy_irl:
         pass
 
     def avance_tout_droit(self, vitesse):
-        pass
+        self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT + self.robot.MOTOR_RIGHT, vitesse)
     
     def tourne_droite(self, vitesse):
-        pass
+        self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, vitesse)
+        self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, -vitesse)
     
     def tourne_gauche(self, vitesse):
+        self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, -vitesse)
+        self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, vitesse)
+
+    def stop(self):
+        self.robot.stop()
+
+    def proximite_mur(self):
         pass
 
     def distance_parcourue(self, last_time):

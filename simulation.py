@@ -1,5 +1,5 @@
 from modele import Robot_simple
-from controleur import Proxy_simu, Proxy_irl, Carre, Controleur
+from controleur import Proxy_simu, Proxy_irl, Carre, AvanceJusquAuMur, TourneAvanceStop, Controleur
 from modele import Arene
 from gui import Viewer 
 
@@ -9,16 +9,16 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-wall_e = Robot_simple(200, 200)
+wall_e = Robot_simple(200, 550)
 
 # Notre proxy
 wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-dessine = Carre(wall_e_simu)
+approche_mur = TourneAvanceStop(wall_e_simu)
 
 # Controleur
-ctrl = Controleur(dessine)
+ctrl = Controleur(approche_mur)
 
 # Arene
 arene = Arene(600, 600, wall_e, ctrl)

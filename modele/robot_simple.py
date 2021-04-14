@@ -16,7 +16,8 @@ class Robot_simple :
         self.diametre_robot = 10 # 117
         self.last_update = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
-        self.echelle = 100 # 1 metre pour le robot IRL = 100 pixel dans la simulation
+        self.echelle = 100 # 1 metre pour le robot IRL = 100 unités dans la simulation
+        self.proche_mur = False
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
@@ -31,7 +32,8 @@ class Robot_simple :
         """
 
         angle = (time.time() - last_time) * self.v_roue_droite
-        distance = (2 * math.pi * self.diametre_roue/2 * angle) / 360
+        distance = (math.pi * self.diametre_roue * angle) / 360
+
         return distance
 
     def angle_parcouru_droite(self, last_time):
@@ -39,20 +41,20 @@ class Robot_simple :
         Retourne l'angle parcouru vers la droite
         """
         angle = (time.time() - last_time) * self.v_roue_gauche
-        distance = (2 * math.pi * self.diametre_roue/2 * angle) / 360
-        angle = (360 * distance) / (2 * math.pi * self.diametre_robot/2)
+        distance = (math.pi * self.diametre_roue * angle) / 360
+        angle_parcouru = (360 * distance) / (math.pi * self.diametre_robot)
 
-        return angle
+        return angle_parcouru
 
     def angle_parcouru_gauche(self, last_time):
         """
         Retourne l'angle parcouru vers la gauche
         """
         angle = (time.time() - last_time) * self.v_roue_droite
-        distance = (2 * math.pi * self.diametre_roue/2 * angle) / 360
-        angle = (360 * distance) / (2 * math.pi * self.diametre_robot/2)
+        distance = (math.pi * self.diametre_roue * angle) / 360
+        angle_parcouru = (360 * distance) / (math.pi * self.diametre_robot)
 
-        return angle
+        return angle_parcouru
 
     def se_deplacer(self):
         """
