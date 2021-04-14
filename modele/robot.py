@@ -1,7 +1,9 @@
 import math
+import time
 from Projet_robot.outils.Point import Point
 from Projet_robot.outils.Vecteur import Vecteur
 from Projet_robot.modele.Polynome import Polynome
+
 class Robot:
     "Definition d'un robot"
     
@@ -18,6 +20,10 @@ class Robot:
         self.accelerationVecteur=Vecteur(0,0)
         self.positionVecteurTemps=Vecteur(0,0)
         self.vitesseVecteurTemps=Vecteur(0,0)
+        self.crayon=True
+        self.last_time=0
+        self.somme_temps=0
+        self.diametre_robot=10
         
     def deplace(self, dx, dy):
         """
@@ -35,17 +41,20 @@ class Robot:
         """
         print("Position du robot [", self.position.x, ",", self.position.y, "]")
             
-    def changePosition(self,acceleration,angle,temps):
+    def changePosition(self,acceleration,angle):
         """
-        float*float*float->None
-        change le vecteur mouvement du robot
-        l'angle est lu dans le sens des aiguilles d'une montre ?
+        float*float->None
+        change le vecteur position du robot
+        l'angle est lu dans le sens des aiguilles d'une montre
         """
-        self.position.x=self.positionVecteur.point1.calcul(temps)
-        self.position.y=self.positionVecteur.point2.calcul(temps)
+        if(self.last_time==0):
+            self.last_time=time.time()
+        self.somme_temps+=self.last_time
+        self.position.x=self.positionVecteur.point1.calcul(self.somme_temps)
+        self.position.y=self.positionVecteur.point2.calcul(self.somme_temps)
         self.positionVecteurTemps=Vecteur(self.position.x,self.position.y)
         self.positionNorme=math.sqrt(pow(self.positionVecteurTemps.point1,2)+pow(self.positionVecteurTemps.point2,2))
-        self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(temps),self.vitesseVecteur.point2.calcul(temps))
+        self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
         self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))
         self.acceleration=acceleration
         self.accelerationVecteur.point1=(acceleration/self.positionNorme)*((self.positionVecteurTemps.point1)*math.cos(math.radians(angle))+(self.positionVecteurTemps.point2)*math.sin(math.radians(angle)))
@@ -53,4 +62,15 @@ class Robot:
         #utiliser methode rotation de la classe vecteur? (tester d'abord)
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
+        self.last_time=time.time()
         
+    def deplacement(self):
+        """
+        change les coordonnees x et y à chaque appel
+        """
+        if(self.last_time==0):
+            self.last_time=time.time()
+        self.somme_temps+=self.last_time
+        self.position.x=self.positionVecteur.point1.calcul(self.somme_temps)
+        self.position.y=self.positionVecteur.point2.calcul(self.somme_temps)
+        self.last_time=time.time()

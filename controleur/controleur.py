@@ -1,7 +1,7 @@
 import threading
 import time
 import math
-from modele import Robot_simple
+from modele import *
 
 
 class Controleur(threading.Thread):
@@ -110,3 +110,29 @@ class Carre(SequenceActions):
         parcourir = ParcourirAction(robot, 0.2)
         tourner_droite = TournerDroiteAction(robot, 90)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+        
+class Trajectoire:
+    def __init__(self,robot,duree,acc,ang):
+        self.robot=robot
+        self.duree=duree
+        self.acc=acc
+        self.ang=ang
+        self.sum_time=robot.somme_temps
+
+    def done(self):
+        somme=self.robot.somme_temps-self.sum_time
+        return somme>self.duree
+    
+    def update(self):
+        if self.done(): 
+            return None
+        #?
+    def demarre(self):
+        self.robot.changePosition(self.acc,self.ang)
+    
+class Test(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        trajec=Trajectoire(robot,10,9,30)
+        trajec2=Trajectoire(robot,10,7,80)
+        self.liste=[trajec]+[trajec2]

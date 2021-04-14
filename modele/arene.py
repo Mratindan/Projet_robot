@@ -1,6 +1,6 @@
 import threading
 import time
-from .robot_simple import Robot_simple
+from modele import *
 from random import randint
 from outils import Point, Vecteur
 
@@ -37,7 +37,8 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
-        self.robot.se_deplacer()
+        #self.robot.se_deplacer()
+        self.robot.deplacement()
     
     def run(self):
         while not (self.controleur.done()):
