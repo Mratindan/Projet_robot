@@ -3,9 +3,10 @@ import time
 import math
 
 class Controleur(threading.Thread):
-    def __init__(self, action):
+    def __init__(self, proxy, action):
         threading.Thread.__init__(self)
         self.action = action
+        self.proxy = proxy
 
     def done(self):
         return self.action.done()
@@ -24,9 +25,10 @@ class Controleur(threading.Thread):
             
 
 class SequenceActions:
-    def __init__(self, liste):
+    def __init__(self, proxy, liste):
         self.liste = liste
         self.i = 0
+        self.proxy = proxy
 
     def done(self):
         return self.i >= len(self.liste)
@@ -45,9 +47,11 @@ class SequenceActions:
 
 
 class ConditionActions:
-    def __init__(self, action_principale, action_alternative, condition):
+    def __init__(self, proxy, action_principale, action_alternative, condition):
         self.action_principale = action_principale
         self.action_alternative = action_alternative
+        self.condition = condition
+        self.proxy = proxy
 
     def done(self):
         return self.action_principale.done() or self.action_alternative.done()
@@ -55,7 +59,7 @@ class ConditionActions:
     def update(self):
         if self.done(): 
             return None
-        if self.condition[0]():
+        if self.condition():
             if not self.action_alternative.est_en_cours:
                 self.action_alternative.demarre()
                 self.action_alternative.est_en_cours = True
@@ -127,22 +131,17 @@ class StopAction:
     def __init__(self, proxy):
         self.proxy = proxy
         self.est_en_cours = False
-        self.t = None
 
     def done(self):
         if not self.est_en_cours :
             return False
-        distance_parcourue = self.proxy.distance_parcourue(self.t)
-        return distance_parcourue == 0
+        return True
     
     def update(self):
         if self.done():
             return None
-        if (time.time() - self.t) > 2 :
-            self.t = time.time()
     
     def demarre(self):
-        self.t = time.time()
         self.proxy.stop()
 
 class AvanceJusquAuMur(ConditionActions):
@@ -150,7 +149,7 @@ class AvanceJusquAuMur(ConditionActions):
         ConditionActions.__init__(self, None, None, None)
         self.action_principale = ParcourirAction(proxy, 1000, 5)
         self.action_alternative = StopAction(proxy)
-        self.condition = [lambda : proxy.proximite_mur()]
+        self.condition = test_proximite_mur
 
 class Carre(SequenceActions):
     def __init__(self, proxy, longueur_cote, vitesse_deplacement, vitesse_rotation):
@@ -165,3 +164,6 @@ class TourneAvanceStop(SequenceActions):
         tourne = TournerDroiteAction(proxy, 180, 15)
         avance_stop = AvanceJusquAuMur(proxy)
         self.liste = [tourne, avance_stop]
+
+def test_proximite_mur(proxy):
+    return proxy.proximite_mur()

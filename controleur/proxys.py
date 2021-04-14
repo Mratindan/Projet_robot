@@ -47,18 +47,33 @@ class Proxy_irl:
         self.robot = robot
         self.last_update = 0
         self.last_position_robot = 0
+        self.last_action = 0
     
     def reset_time(self):
-        pass
+        self.robot.offset_motor_encode(self.robot.MOTOR_LEFT,self.robot.read_encoders()[0])
+        self.robot.offset_motor_encode(self.robot.MOTOR_RIGHT,self.robot.read_encoders()[1])
 
     def avance_tout_droit(self, vitesse):
+        """
+        Action 1
+        """
+        self.last_action = 1
         self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT + self.robot.MOTOR_RIGHT, vitesse)
+
     
     def tourne_droite(self, vitesse):
+        """
+        Action 2
+        """
+        self.last_action = 2
         self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, vitesse)
         self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, -vitesse)
     
     def tourne_gauche(self, vitesse):
+        """
+        Action 3
+        """
+        self.last_action = 3
         self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, -vitesse)
         self.robot.set_motor_dps(self, self.robot.MOTOR_LEFT, vitesse)
 
@@ -66,10 +81,13 @@ class Proxy_irl:
         self.robot.stop()
 
     def proximite_mur(self):
-        pass
+        self.robot.get_distance()
 
     def distance_parcourue(self, last_time):
-        pass
+        if last_action != 1 :
+            raise Exception("Distance_parcourue : la dernière action n'était pas avance_tout_droit")
+        rg, rd = self.robot.get_motor_position()
+
 
     def angle_parcouru_droite(self, last_time):
         pass
