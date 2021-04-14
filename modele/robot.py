@@ -58,7 +58,6 @@ class Robot:
         self.acceleration=acceleration
         self.accelerationVecteur.point1=(acceleration/self.positionNorme)*((self.positionVecteurTemps.point1)*math.cos(math.radians(angle))+(self.positionVecteurTemps.point2)*math.sin(math.radians(angle)))
         self.accelerationVecteur.point2=(acceleration/self.positionNorme)*(-(self.positionVecteurTemps.point1)*math.sin(math.radians(angle))+(self.positionVecteurTemps.point2)*math.cos(math.radians(angle)))
-        #utiliser methode rotation de la classe vecteur? (tester d'abord)
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
         self.last_time=time.time()

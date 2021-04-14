@@ -126,7 +126,7 @@ class Trajectoire:
     def update(self):
         if self.done(): 
             return None
-        #?
+        
     def demarre(self):
         self.robot.changePosition(self.acc,self.ang)
     
