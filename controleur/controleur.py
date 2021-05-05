@@ -59,10 +59,9 @@ class ConditionActions:
     def update(self):
         if self.done(): 
             return None
-        if self.condition():
+        if self.condition(self.proxy):
             if not self.action_alternative.est_en_cours:
                 self.action_alternative.demarre()
-                self.action_alternative.est_en_cours = True
             self.action_alternative.update()
         else : 
             self.action_principale.update()
@@ -143,24 +142,22 @@ class StopAction:
     
     def demarre(self):
         self.proxy.stop()
+        self.est_en_cours = True
 
 class AvanceJusquAuMur(ConditionActions):
     def __init__(self, proxy):
-        ConditionActions.__init__(self, None, None, None)
-        self.action_principale = ParcourirAction(proxy, 1000, 5)
-        self.action_alternative = StopAction(proxy)
-        self.condition = test_proximite_mur
+        ConditionActions.__init__(self, proxy,  ParcourirAction(proxy, 1000, 5), StopAction(proxy), test_proximite_mur)
 
 class Carre(SequenceActions):
     def __init__(self, proxy, longueur_cote, vitesse_deplacement, vitesse_rotation):
-        SequenceActions.__init__(self, None)
+        SequenceActions.__init__(self, proxy, None)
         parcourir = ParcourirAction(proxy, longueur_cote, vitesse_deplacement)
         tourner_droite = TournerDroiteAction(proxy, 90, vitesse_rotation)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
 
 class TourneAvanceStop(SequenceActions):
     def __init__(self, proxy):
-        SequenceActions.__init__(self, None)
+        SequenceActions.__init__(self, proxy, None)
         tourne = TournerDroiteAction(proxy, 180, 15)
         avance_stop = AvanceJusquAuMur(proxy)
         self.liste = [tourne, avance_stop]

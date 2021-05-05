@@ -1,4 +1,9 @@
 from modele import Robot_simple
+try:
+    from Robot2I013 import Robot2I013
+    raise Exception("Le robot 2I013 n'existe pas.")
+except Exception as e:
+    from robotmockup import Robot2I013Mockup
 from controleur import Proxy_simu, Proxy_irl, Carre, AvanceJusquAuMur, TourneAvanceStop, Controleur
 from modele import Arene
 from gui import Viewer 
@@ -18,7 +23,7 @@ wall_e_simu = Proxy_simu(wall_e)
 approche_mur = TourneAvanceStop(wall_e_simu)
 
 # Controleur
-ctrl = Controleur(approche_mur)
+ctrl = Controleur(wall_e_simu, approche_mur)
 
 # Arene
 arene = Arene(600, 600, wall_e, ctrl)
