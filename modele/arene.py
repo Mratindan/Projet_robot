@@ -37,8 +37,7 @@ class Arene(threading.Thread) :
         """
         Met à jour le modèle
         """
-        #self.robot.se_deplacer()
-        self.robot.deplacement()
+        self.robot.se_deplacer()
     
     def run(self):
         while not (self.controleur.done()):

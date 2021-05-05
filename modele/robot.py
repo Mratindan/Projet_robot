@@ -62,7 +62,7 @@ class Robot:
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
         self.last_time=time.time()
         
-    def deplacement(self):
+    def se_deplacer(self):
         """
         change les coordonnees x et y à chaque appel
         """
