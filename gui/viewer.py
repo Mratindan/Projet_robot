@@ -50,8 +50,7 @@ class Viewer :
             self.cadre.columnconfigure(i, weight = 1)
 
         # Initialisation des dessins du robot et des obstacles 
-        #self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
-        self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.position.x, self.robot.position.y, self.robot.position.x + self.robot.diametre_robot, self.robot.position.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
+        self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
         #self.dessin_robot_tete = self.dessin_arene.create_line(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y, fill = 'black', width = 5)
         #self.dessiner_obstacles
     
@@ -67,8 +66,7 @@ class Viewer :
         Crayon pour un robot, dessine à l'endroit où il se trouve
         """
         if self.robot.crayon :
-            #self.dessin_arene.create_line(self.robot.x, self.robot.y, self.robot.x + 1, self.robot.y + 1, fill='green', width=3)
-            self.dessin_arene.create_line(self.robot.position.x, self.robot.position.y, self.robot.position.x + 1, self.robot.position.y + 1, fill='green', width=3)
+            self.dessin_arene.create_line(self.robot.x, self.robot.y, self.robot.x + 1, self.robot.y + 1, fill='green', width=3)
         
     def update(self):
         """ 
@@ -76,8 +74,7 @@ class Viewer :
         """
 
         self.outil_crayon()
-        #self.dessin_arene.coords(self.dessin_robot_corps, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot)
-        self.dessin_arene.coords(self.dessin_robot_corps, self.robot.position.x, self.robot.position.y, self.robot.position.x + self.robot.diametre_robot, self.robot.position.y + self.robot.diametre_robot)
+        self.dessin_arene.coords(self.dessin_robot_corps, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot)
         #self.dessin_arene.coords(self.dessin_robot_tete, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y)
         self.after_id = self.dessin_arene.after(50, self.update)
 

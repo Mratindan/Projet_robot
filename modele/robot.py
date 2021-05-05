@@ -10,7 +10,8 @@ class Robot:
         """a et b ne doivent pas valoir 0 tous les deux"""
         assert(a != 0) or (b != 0)
         print("Creation d'un robot")
-        self.position = Point(a, b)
+        self.x=a
+        self.y=b
         self.positionNorme=0.
         self.vitesse = 0.
         self.acceleration=0.
@@ -29,16 +30,16 @@ class Robot:
         int * int --> None
         Déplace le robot de dx en abscisse et dy en ordonnée.
         """
-        self.position.x += dx
-        self.position.y += dy
-        print("Le robot s'est deplace en [", self.position.x, ",", self.position.y, "]")
+        self.x += dx
+        self.y += dy
+        print("Le robot s'est deplace en [", self.x, ",", self.y, "]")
         
     def affichePosition(self):
         """
         None --> None
         Affiche la position du robot.
         """
-        print("Position du robot [", self.position.x, ",", self.position.y, "]")
+        print("Position du robot [", self.x, ",", self.y, "]")
             
     def changePosition(self,acceleration,angle):
         """
@@ -49,9 +50,9 @@ class Robot:
         if(self.last_time==0):
             self.last_time=time.time()
         self.somme_temps+=self.last_time
-        self.position.x=self.positionVecteur.point1.calcul(self.somme_temps)
-        self.position.y=self.positionVecteur.point2.calcul(self.somme_temps)
-        self.positionVecteurTemps=Vecteur(self.position.x,self.position.y)
+        self.x=self.positionVecteur.point1.calcul(self.somme_temps)
+        self.y=self.positionVecteur.point2.calcul(self.somme_temps)
+        self.positionVecteurTemps=Vecteur(self.x,self.y)
         self.positionNorme=math.sqrt(pow(self.positionVecteurTemps.point1,2)+pow(self.positionVecteurTemps.point2,2))
         self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
         self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))
@@ -69,6 +70,6 @@ class Robot:
         if(self.last_time==0):
             self.last_time=time.time()
         self.somme_temps+=self.last_time
-        self.position.x=self.positionVecteur.point1.calcul(self.somme_temps)
-        self.position.y=self.positionVecteur.point2.calcul(self.somme_temps)
+        self.x=self.positionVecteur.point1.calcul(self.somme_temps)
+        self.y=self.positionVecteur.point2.calcul(self.somme_temps)
         self.last_time=time.time()

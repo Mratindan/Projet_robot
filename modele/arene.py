@@ -9,7 +9,7 @@ class Obstacle:
     Definition de la classe Obstacle
     """
 
-    def __init__(self, abscisse, ordonnee,height,width):
+    def __init__(self, abscisse, ordonnee, height, width):
         self.position = Point(abscisse, ordonnee)
         self.height = height
         self.width = width
