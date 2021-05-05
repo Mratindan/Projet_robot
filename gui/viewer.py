@@ -51,14 +51,15 @@ class Viewer :
 
         # Initialisation des dessins du robot et des obstacles 
         self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
-        #self.dessiner_obstacles
+        self.dessiner_obstacles()
     
     def dessiner_obstacles(self):
         """
         Dessine les obstacles à partir de la liste self.arene.list_obstacles
         """
-        for obstacle in self.arene.list_obstacles :
-            self.dessin_arene.create_rectangle(self.obstacle.position.x, self.obstacle.position.y, self.obstacle.position.x + self.obstacle.width, self.obstacle.position.y + self.obstacle.height, fill = 'black', outline = 'black')
+        print("Hi")
+        for obstacle in self.arene.liste_obstacles :
+            self.dessin_arene.create_rectangle(obstacle.x, obstacle.y, obstacle.x + obstacle.width, obstacle.y + obstacle.height, fill = 'black', outline = 'black')
     
     def outil_crayon(self):
         """

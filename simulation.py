@@ -20,13 +20,14 @@ wall_e = Robot_simple(200, 100)
 wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-approche_mur = TourneAvanceStop(wall_e_simu, 0, 10)
+action = TourneAvanceStop(wall_e_simu, 0, 10)
+#action = Carre(wall_e_simu, 30, 6, 20)
 
 # Controleur
-ctrl = Controleur(wall_e_simu, approche_mur)
+ctrl = Controleur(wall_e_simu, action)
 
 # Arene
-arene = Arene(600, 600, wall_e, ctrl)
+arene = Arene(600, 600, wall_e, ctrl, 5)
 
 # Viewer
 interface_graphique = Viewer(arene)

@@ -10,14 +10,16 @@ class Obstacle:
     """
 
     def __init__(self, abscisse, ordonnee,height,width):
-        self.position = Point(abscisse, ordonnee)
+        self.x = abscisse
+        self.y = ordonnee
         self.height = height
         self.width = width
 
     def __init__(self, abscisse, ordonnee):
-        self.position = Point(abscisse, ordonnee)
-        self.height = 0
-        self.width = 0
+        self.x = abscisse
+        self.y = ordonnee
+        self.height = 10
+        self.width = 10
 
 
 class Arene(threading.Thread) :
@@ -25,13 +27,14 @@ class Arene(threading.Thread) :
     Le modèle de l'arène.
     """
 
-    def __init__(self, width, height, robot, controleur):
+    def __init__(self, width, height, robot, controleur, nb_obstacles):
         threading.Thread.__init__(self)
         self.width = width
         self.height = height
         self.robot = robot
         self.controleur = controleur
-        self.list_obstacles = []
+        self.liste_obstacles = []
+        self.initialiser_obstacles(nb_obstacles)
 
     def update(self):
         """
@@ -55,15 +58,25 @@ class Arene(threading.Thread) :
         else :
             self.robot.proche_mur = False
 
+    def proximite_obstacles(self):
+        """
+        Met à jour l'état du robot en fonction de sa proximité avec les murs de l'arène.
+        """
+        for obstacle in liste_obstacles :
+            d = self.robot.diametre_robot
+            if (self.robot.y < d) or (self.robot.y > (self.height - d)) or (self.robot.x < d) or (self.robot.x > (self.width - d)) :
+                self.robot.proche_mur = True
+            else :
+                self.robot.proche_mur = False
+
+
     def initialiser_obstacles(self, n):
         """
         None -> None
         Crée et ajoute n obstacles avec une position aléatoire à la liste liste_obstacles. (Mettre des valeurs arbritaires pour la taille pour l'instant)
         """
-        i = 0
-        while(i < n):
-            self.liste_obstacles.append(Obstacle(randint(0,self.width),randint(0,self.height),randint(5,10),randint(5,10)))
-            i += 1
+        for i in range(0, n):
+            self.liste_obstacles.append(Obstacle(randint(0, self.width - 11), randint(0, self.height - 11)))
 
     def supprimerObstacle(self):
         """
