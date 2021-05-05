@@ -51,7 +51,6 @@ class Viewer :
 
         # Initialisation des dessins du robot et des obstacles 
         self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
-        #self.dessin_robot_tete = self.dessin_arene.create_line(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y, fill = 'black', width = 5)
         #self.dessiner_obstacles
     
     def dessiner_obstacles(self):
@@ -75,7 +74,6 @@ class Viewer :
 
         self.outil_crayon()
         self.dessin_arene.coords(self.dessin_robot_corps, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot)
-        #self.dessin_arene.coords(self.dessin_robot_tete, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y)
         self.after_id = self.dessin_arene.after(50, self.update)
 
 

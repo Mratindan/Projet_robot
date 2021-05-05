@@ -38,11 +38,22 @@ class Arene(threading.Thread) :
         Met à jour le modèle
         """
         self.robot.se_deplacer()
+        self.proximite_mur()
     
     def run(self):
         while not (self.controleur.done()):
             self.update()
             time.sleep(0.1)
+
+    def proximite_mur(self):
+        """
+        Met à jour l'état du robot en fonction de sa proximité avec les murs de l'arène.
+        """
+        d = self.robot.diametre_robot
+        if (self.robot.y < d) or (self.robot.y > (self.height - d)) or (self.robot.x < d) or (self.robot.x > (self.width - d)) :
+            self.robot.proche_mur = True
+        else :
+            self.robot.proche_mur = False
 
     def initialiser_obstacles(self, n):
         """

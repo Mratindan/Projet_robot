@@ -1,13 +1,12 @@
 import threading
 import time
 import math
-from modele import Robot_simple
-
 
 class Controleur(threading.Thread):
-    def __init__(self, action):
+    def __init__(self, proxy, action):
         threading.Thread.__init__(self)
         self.action = action
+        self.proxy = proxy
 
     def done(self):
         return self.action.done()
@@ -26,10 +25,10 @@ class Controleur(threading.Thread):
             
 
 class SequenceActions:
-    def __init__(self,robot,liste):
-        self.robot = robot
+    def __init__(self, proxy, liste):
         self.liste = liste
         self.i = 0
+        self.proxy = proxy
 
     def done(self):
         return self.i >= len(self.liste)
@@ -46,67 +45,122 @@ class SequenceActions:
         self.i = 0
         self.liste[self.i].demarre()
 
-class ParcourirAction:
-    def __init__(self,robot,distance):
-        self.robot = robot
-        self.distance = distance
-        self.vitesse = 3
+
+class ConditionActions:
+    def __init__(self, proxy, action_principale, action_alternative, condition):
+        self.action_principale = action_principale
+        self.action_alternative = action_alternative
+        self.condition = condition
+        self.proxy = proxy
 
     def done(self):
-        distance_parcourue = self.robot.distance_parcourue(self.robot.last_update)
+        return self.action_principale.done() or self.action_alternative.done()
+
+    def update(self):
+        if self.done(): 
+            return None
+        if self.condition(self.proxy):
+            if not self.action_alternative.est_en_cours:
+                self.action_alternative.demarre()
+            self.action_alternative.update()
+        else : 
+            self.action_principale.update()
+
+    def demarre(self):
+        self.action_principale.demarre()
+
+
+class ParcourirAction:
+    def __init__(self, proxy, distance, vitesse):
+        self.proxy = proxy
+        self.distance = distance
+        self.vitesse = vitesse
+        #self.distance_total = 0
+
+    def done(self):
+        distance_parcourue = self.proxy.distance_parcourue(self.proxy.last_update)
         return distance_parcourue > self.distance
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.avance_tout_droit(self.vitesse)
+        self.proxy.avance_tout_droit(self.vitesse)
+        #self.proxy.last_update = self.proxy.reset_time()
         
-
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
 
 class TournerDroiteAction:
-    def __init__(self,robot,angle):
-        self.robot = robot
+    def __init__(self, proxy, angle, vitesse):
+        self.proxy = proxy
         self.angle = angle
-        self.vitesse = 10
+        self.vitesse = vitesse
 
     def done(self):
-        angle_parcouru = self.robot.angle_parcouru_droite(self.robot.last_update)
+        angle_parcouru = self.proxy.angle_parcouru_droite(self.proxy.last_update)
         return angle_parcouru > self.angle
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.tourne_droite(self.vitesse)
+        self.proxy.tourne_droite(self.vitesse)
 
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
 
 class TournerGaucheAction:
-    def __init__(self,robot,angle):
-        self.robot = robot
+    def __init__(self, proxy, angle, vitesse):
+        self.proxy = proxy
         self.angle = angle
-        self.vitesse = 15
+        self.vitesse = vitesse
 
     def done(self):
-        angle_parcouru = self.robot.angle_parcouru_gauche(self.robot.last_update)
+        angle_parcouru = self.proxy.angle_parcouru_gauche(self.proxy.last_update)
         return angle_parcouru > self.angle
 
     def update(self):
         if self.done(): 
             return None
-        self.robot.tourne_gauche(self.vitesse)
+        self.proxy.tourne_gauche(self.vitesse)
 
     def demarre(self):
-        self.robot.reset_time()
+        self.proxy.reset_time()
 
+class StopAction:
+    def __init__(self, proxy):
+        self.proxy = proxy
+        self.est_en_cours = False
+
+    def done(self):
+        return self.est_en_cours
+    
+    def update(self):
+        if self.done():
+            return None
+    
+    def demarre(self):
+        self.proxy.stop()
+        self.est_en_cours = True
+
+class AvanceJusquAuMur(ConditionActions):
+    def __init__(self, proxy):
+        ConditionActions.__init__(self, proxy,  ParcourirAction(proxy, 1000, 5), StopAction(proxy), test_proximite_mur)
 
 class Carre(SequenceActions):
-    def __init__(self,robot):
-        SequenceActions.__init__(self, robot, None)
-        parcourir = ParcourirAction(robot, 0.2)
-        tourner_droite = TournerDroiteAction(robot, 90)
+    def __init__(self, proxy, longueur_cote, vitesse_deplacement, vitesse_rotation):
+        SequenceActions.__init__(self, proxy, None)
+        parcourir = ParcourirAction(proxy, longueur_cote, vitesse_deplacement)
+        tourner_droite = TournerDroiteAction(proxy, 90, vitesse_rotation)
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
+
+class TourneAvanceStop(SequenceActions):
+    def __init__(self, proxy, angle, vitesse):
+        SequenceActions.__init__(self, proxy, None)
+        tourne = TournerDroiteAction(proxy, angle, vitesse)
+        avance_stop = AvanceJusquAuMur(proxy)
+        self.liste = [tourne, avance_stop]
+
+def test_proximite_mur(proxy):
+    return proxy.proximite_mur()

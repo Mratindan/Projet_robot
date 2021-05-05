@@ -1,8 +1,12 @@
 from modele import Robot_simple
-from controleur import Carre, Controleur
+try:
+    from Robot2I013 import Robot2I013
+    raise Exception("Le robot 2I013 n'existe pas.")
+except Exception as e:
+    from robotmockup import Robot2I013Mockup
+from controleur import Proxy_simu, Proxy_irl, Carre, AvanceJusquAuMur, TourneAvanceStop, Controleur
 from modele import Arene
 from gui import Viewer 
-
 
 def start_simulation(arene, interface_graphique) :
     arene.controleur.start()
@@ -10,13 +14,16 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-wall_e = Robot_simple(200, 200)
+wall_e = Robot_simple(200, 100)
+
+# Notre proxy
+wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-dessine = Carre(wall_e)
+approche_mur = TourneAvanceStop(wall_e_simu, 0, 10)
 
 # Controleur
-ctrl = Controleur(dessine)
+ctrl = Controleur(wall_e_simu, approche_mur)
 
 # Arene
 arene = Arene(600, 600, wall_e, ctrl)
