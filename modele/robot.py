@@ -21,6 +21,7 @@ class Robot:
         self.positionVecteurTemps=Vecteur(0,0)
         self.vitesseVecteurTemps=Vecteur(0,0)
         self.crayon=True
+        self.last_update=0
         self.last_time=0
         self.somme_temps=0
         self.diametre_robot=10
@@ -47,9 +48,7 @@ class Robot:
         change le vecteur position du robot
         l'angle est lu dans le sens des aiguilles d'une montre
         """
-        if(self.last_time==0):
-            self.last_time=time.time()
-        self.somme_temps+=self.last_time
+        self.somme_temps=time.time()-self.last_update
         self.x=self.positionVecteur.point1.calcul(self.somme_temps)
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
         self.positionVecteurTemps=Vecteur(self.x,self.y)
@@ -61,15 +60,11 @@ class Robot:
         self.accelerationVecteur.point2=(acceleration/self.positionNorme)*(-(self.positionVecteurTemps.point1)*math.sin(math.radians(angle))+(self.positionVecteurTemps.point2)*math.cos(math.radians(angle)))
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
-        self.last_time=time.time()
         
     def se_deplacer(self):
         """
         change les coordonnees x et y à chaque appel
         """
-        if(self.last_time==0):
-            self.last_time=time.time()
-        self.somme_temps+=self.last_time
+        self.somme_temps=time.time()-self.last_update
         self.x=self.positionVecteur.point1.calcul(self.somme_temps)
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
-        self.last_time=time.time()

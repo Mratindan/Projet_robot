@@ -117,18 +117,21 @@ class Trajectoire:
         self.duree=duree
         self.acc=acc
         self.ang=ang
-        self.sum_time=robot.somme_temps
 
     def done(self):
-        somme=self.robot.somme_temps-self.sum_time
+        somme=time.time()-self.robot.last_update
         return somme>self.duree
     
     def update(self):
         if self.done(): 
             return None
+        self.robot.se_deplacer()
         
     def demarre(self):
+        if self.robot.last_update!=0:
+            self.robot.last_update=time.time()
         self.robot.changePosition(self.acc,self.ang)
+        
     
 class Test(SequenceActions):
     def __init__(self,robot):
