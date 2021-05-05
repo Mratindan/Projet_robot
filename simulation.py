@@ -8,24 +8,19 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-#wall_e = Robot_simple(200, 200)
-wall_e2=Robot(200, 200)
+wall_e = Robot_simple(200, 200)
+
 # Notre action à donner au contrôleur
-#dessine = Carre(wall_e)
-dessine2=Test(wall_e2)
+dessine = Carre(wall_e)
 
 # Controleur
-#ctrl = Controleur(dessine)
-ctrl2=Controleur(dessine2)
+ctrl = Controleur(dessine)
 
 # Arene
-#arene = Arene(600, 600, wall_e, ctrl)
-arene2=Arene(600, 600, wall_e2, ctrl2)
+arene = Arene(600, 600, wall_e, ctrl)
 
 # Viewer
-#interface_graphique = Viewer(arene)
-interface_graphique2=Viewer(arene2)
+interface_graphique = Viewer(arene)
 
 # On lance la simulation
-#start_simulation(arene, interface_graphique)
-start_simulation(arene2, interface_graphique2)
+start_simulation(arene, interface_graphique)
