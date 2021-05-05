@@ -1,3 +1,6 @@
+import time
+import math
+
 class Robot2I013Mockup:
     """ 
     Classe d'encapsulation du robot et des senseurs.

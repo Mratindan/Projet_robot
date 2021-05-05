@@ -75,6 +75,7 @@ class ParcourirAction:
         self.proxy = proxy
         self.distance = distance
         self.vitesse = vitesse
+        #self.distance_total = 0
 
     def done(self):
         distance_parcourue = self.proxy.distance_parcourue(self.proxy.last_update)
@@ -84,6 +85,7 @@ class ParcourirAction:
         if self.done(): 
             return None
         self.proxy.avance_tout_droit(self.vitesse)
+        #self.proxy.last_update = self.proxy.reset_time()
         
     def demarre(self):
         self.proxy.reset_time()
@@ -132,9 +134,7 @@ class StopAction:
         self.est_en_cours = False
 
     def done(self):
-        if not self.est_en_cours :
-            return False
-        return True
+        return self.est_en_cours
     
     def update(self):
         if self.done():
@@ -156,9 +156,9 @@ class Carre(SequenceActions):
         self.liste = [parcourir, tourner_droite] * 3 + [parcourir]
 
 class TourneAvanceStop(SequenceActions):
-    def __init__(self, proxy):
+    def __init__(self, proxy, angle, vitesse):
         SequenceActions.__init__(self, proxy, None)
-        tourne = TournerDroiteAction(proxy, 180, 15)
+        tourne = TournerDroiteAction(proxy, angle, vitesse)
         avance_stop = AvanceJusquAuMur(proxy)
         self.liste = [tourne, avance_stop]
 

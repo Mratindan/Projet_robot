@@ -14,13 +14,13 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-wall_e = Robot_simple(200, 550)
+wall_e = Robot_simple(200, 100)
 
 # Notre proxy
 wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-approche_mur = TourneAvanceStop(wall_e_simu)
+approche_mur = TourneAvanceStop(wall_e_simu, 0, 10)
 
 # Controleur
 ctrl = Controleur(wall_e_simu, approche_mur)
