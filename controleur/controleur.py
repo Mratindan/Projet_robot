@@ -1,7 +1,7 @@
 import threading
 import time
 import math
-from modele import Robot, Robot_simple
+from modele import Robot, Robot_simple, Polynome
 
 
 class Controleur(threading.Thread):
@@ -125,17 +125,15 @@ class Trajectoire:
     def update(self):
         if self.done(): 
             return None
-        self.robot.se_deplacer()
         
     def demarre(self):
-        if self.robot.last_update!=0:
-            self.robot.last_update=time.time()
         self.robot.changePosition(self.acc,self.ang)
+        self.robot.reset_time()
         
-    
 class Test(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
-        trajec=Trajectoire(robot,10,9,30)
-        trajec2=Trajectoire(robot,10,7,80)
-        self.liste=[trajec]+[trajec2]
+        trajec=Trajectoire(robot,3,10,0)
+        trajec2=Trajectoire(robot,2,50,90)
+        trajec3=Trajectoire(robot,3,500,-90)
+        self.liste=[trajec]+[trajec2]+[trajec3]

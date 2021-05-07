@@ -8,7 +8,7 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-wall_e=Robot(200, 200)
+wall_e=Robot(300, 300)
 
 # Notre action à donner au contrôleur
 dessine=Test(wall_e)
