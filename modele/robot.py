@@ -12,8 +12,11 @@ class Robot:
         print("Creation d'un robot")
         self.x=a
         self.y=b
+        self.xa=a
+        self.ya=b
         self.positionNorme=0.
-        self.vitesse = 0.
+        self.positionNormeA=0.
+        self.vitesse=0.
         self.acceleration=0.
         self.positionVecteur=Vecteur(Polynome(0,0,a),Polynome(0,0,b))
         self.vitesseVecteur=Vecteur(Polynome(0,0,0),Polynome(0,0,0))
@@ -53,11 +56,17 @@ class Robot:
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
         self.positionVecteurTemps=Vecteur(self.x,self.y)
         self.positionNorme=math.sqrt(pow(self.positionVecteurTemps.point1,2)+pow(self.positionVecteurTemps.point2,2))
+        self.xa=self.positionVecteur.point1.calcul(self.somme_temps-0.1)
+        self.ya=self.positionVecteur.point2.calcul(self.somme_temps-0.1)
+        if self.xa==self.x and self.ya==self.y:
+            self.xa=0
+            self.ya=0
+        self.positionNormeA=math.sqrt(pow((self.positionVecteurTemps.point1-self.xa),2)+pow((self.positionVecteurTemps.point2-self.ya),2))
         self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
         self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))
         self.acceleration=acceleration
-        self.accelerationVecteur.point1=(acceleration/self.positionNorme)*((self.positionVecteurTemps.point1)*math.cos(math.radians(angle))+(self.positionVecteurTemps.point2)*math.sin(math.radians(angle)))
-        self.accelerationVecteur.point2=(acceleration/self.positionNorme)*(-(self.positionVecteurTemps.point1)*math.sin(math.radians(angle))+(self.positionVecteurTemps.point2)*math.cos(math.radians(angle)))
+        self.accelerationVecteur.point1=(acceleration/self.positionNormeA)*((self.positionVecteurTemps.point1-self.xa)*math.cos(math.radians(angle))+(self.positionVecteurTemps.point2-self.ya)*math.sin(math.radians(angle)))
+        self.accelerationVecteur.point2=(acceleration/self.positionNormeA)*(-(self.positionVecteurTemps.point1-self.xa)*math.sin(math.radians(angle))+(self.positionVecteurTemps.point2-self.ya)*math.cos(math.radians(angle)))
         self.vitesseVecteur=Vecteur(Polynome(0,self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1),Polynome(0,self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2))
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
         

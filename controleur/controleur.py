@@ -134,6 +134,6 @@ class Test(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
         trajec=Trajectoire(robot,3,10,0)
-        trajec2=Trajectoire(robot,2,50,90)
-        trajec3=Trajectoire(robot,3,500,-90)
+        trajec2=Trajectoire(robot,2,100,90)
+        trajec3=Trajectoire(robot,1,1000,90)
         self.liste=[trajec]+[trajec2]+[trajec3]
