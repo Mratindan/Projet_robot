@@ -120,7 +120,7 @@ class Trajectoire:
 
     def done(self):
         somme=time.time()-self.robot.last_update
-        return somme>self.duree
+        return somme>=self.duree
     
     def update(self):
         if self.done(): 
@@ -130,6 +130,29 @@ class Trajectoire:
         self.robot.changePosition(self.acc,self.ang)
         self.robot.reset_time()
         
+class TrajectoireVitesse:
+    def __init__(self,robot,vitesse,acc,ang):
+        self.robot=robot
+        self.vitesse=vitesse
+        self.vitesseIni=0
+        self.acc=acc
+        self.ang=ang
+        
+    def done(self):
+        if self.vitesse>=self.vitesseIni:
+            return self.robot.vitesse>=self.vitesse
+        if self.vitesse<=self.vitesseIni:
+            return self.robot.vitesse<=self.vitesse
+    
+    def update(self):
+        if self.done():
+            return None
+        
+    def demarre(self):
+        self.vitesseIni=self.robot.vitesse
+        self.robot.changePosition(self.acc,self.ang)
+        self.robot.reset_time()
+    
 class Test(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
@@ -137,3 +160,10 @@ class Test(SequenceActions):
         trajec2=Trajectoire(robot,2,100,90)
         trajec3=Trajectoire(robot,1,1000,90)
         self.liste=[trajec]+[trajec2]+[trajec3]
+        
+class Test2(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        trajec=TrajectoireVitesse(robot,50,10,0)
+        trajec2=TrajectoireVitesse(robot,10,-10,0)
+        self.liste=[trajec]+[trajec2]

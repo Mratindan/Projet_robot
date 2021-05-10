@@ -25,7 +25,6 @@ class Robot:
         self.vitesseVecteurTemps=Vecteur(0,0)
         self.crayon=True
         self.last_update=0
-        self.last_time=0
         self.somme_temps=0
         self.diametre_robot=10
         
@@ -71,12 +70,17 @@ class Robot:
         self.positionVecteur=Vecteur(Polynome(0.5*self.accelerationVecteur.point1,self.vitesseVecteurTemps.point1,self.positionVecteurTemps.point1),Polynome(0.5*self.accelerationVecteur.point2,self.vitesseVecteurTemps.point2,self.positionVecteurTemps.point2))
         
     def reset_time(self):
+        """
+        réinistialise le temps de départ
+        """
         self.last_update=time.time()
         
     def se_deplacer(self):
         """
-        change les coordonnees x et y à chaque appel
+        change les coordonnees x et y à chaque appel et met à jour la vitesse
         """
         self.somme_temps=time.time()-self.last_update
         self.x=self.positionVecteur.point1.calcul(self.somme_temps)
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
+        self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
+        self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))
