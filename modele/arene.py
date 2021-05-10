@@ -45,7 +45,7 @@ class Arene(threading.Thread) :
         """
         Met à jour l'état du robot en fonction de sa proximité avec les murs de l'arène.
         """
-        d = self.robot.diametre_robot
+        d = self.robot.diametre_robot + self.robot.diametre_robot/2
         if (self.robot.y < d) or (self.robot.y > (self.height - d)) or (self.robot.x < d) or (self.robot.x > (self.width - d)):
             self.robot.proche_obstacle = True
         else:
