@@ -152,6 +152,26 @@ class TrajectoireVitesse:
         self.vitesseIni=self.robot.vitesse
         self.robot.changePosition(self.acc,self.ang)
         self.robot.reset_time()
+        
+class TrajectoireDistance:
+    def __init__(self,robot,distance,acc,ang):
+        self.robot=robot
+        self.distance=distance
+        self.acc=acc
+        self.ang=ang
+        
+    def done(self):
+        return self.robot.distance>=self.distance
+    
+    def update(self):
+        if self.done():
+            return None
+        self.robot.distance_parcourue()
+        
+    def demarre(self):
+        self.robot.distance=0
+        self.robot.changePosition(self.acc,self.ang)
+        self.robot.reset_time()
     
 class Test(SequenceActions):
     def __init__(self,robot):
@@ -166,4 +186,11 @@ class Test2(SequenceActions):
         SequenceActions.__init__(self, robot, None)
         trajec=TrajectoireVitesse(robot,50,10,0)
         trajec2=TrajectoireVitesse(robot,10,-10,0)
+        self.liste=[trajec]+[trajec2]
+        
+class Test3(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        trajec=TrajectoireDistance(robot,100,10,0)
+        trajec2=TrajectoireDistance(robot,100,-50,0)
         self.liste=[trajec]+[trajec2]

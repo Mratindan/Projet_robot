@@ -14,8 +14,11 @@ class Robot:
         self.y=b
         self.xa=a
         self.ya=b
+        self.xd=0
+        self.yd=0
         self.positionNorme=0.
         self.positionNormeA=0.
+        self.positionNormeD=0.
         self.vitesse=0.
         self.acceleration=0.
         self.positionVecteur=Vecteur(Polynome(0,0,a),Polynome(0,0,b))
@@ -26,6 +29,7 @@ class Robot:
         self.crayon=True
         self.last_update=0
         self.somme_temps=0
+        self.distance=0
         self.diametre_robot=10
         
     def deplace(self, dx, dy):
@@ -75,6 +79,15 @@ class Robot:
         """
         self.last_update=time.time()
         
+    def distance_parcourue(self):
+        """
+        calcule la longueur de la trajectoire
+        """
+        self.somme_temps=time.time()-self.last_update
+        self.xd=self.positionVecteur.point1.calcul(self.somme_temps)-self.positionVecteur.point1.calcul(self.somme_temps-0.1)
+        self.yd=self.positionVecteur.point2.calcul(self.somme_temps)-self.positionVecteur.point2.calcul(self.somme_temps-0.1)
+        self.distance+=abs(math.sqrt(pow(self.xd,2)+pow(self.yd,2)))
+    
     def se_deplacer(self):
         """
         change les coordonnees x et y à chaque appel et met à jour la vitesse
