@@ -1,5 +1,4 @@
 import time
-import math
 
 class Proxy_simu:
     def __init__(self, robot):
@@ -22,7 +21,7 @@ class Proxy_simu:
         self.robot.set_vitesse(0, 0)
 
     def proximite_mur(self):
-        return self.robot.proche_mur
+        return self.robot.proche_obstacle
     
     def distance_parcourue(self, last_time):
         """

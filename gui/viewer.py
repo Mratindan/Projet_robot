@@ -57,7 +57,6 @@ class Viewer :
         """
         Dessine les obstacles à partir de la liste self.arene.list_obstacles
         """
-        print("Hi")
         for obstacle in self.arene.liste_obstacles :
             self.dessin_arene.create_rectangle(obstacle.x, obstacle.y, obstacle.x + obstacle.width, obstacle.y + obstacle.height, fill = 'black', outline = 'black')
     

@@ -75,6 +75,7 @@ class ParcourirAction:
         self.proxy = proxy
         self.distance = distance
         self.vitesse = vitesse
+        self.est_en_cours = False
         #self.distance_total = 0
 
     def done(self):
@@ -89,6 +90,7 @@ class ParcourirAction:
         
     def demarre(self):
         self.proxy.reset_time()
+        self.est_en_cours = True
 
 
 class TournerDroiteAction:
@@ -96,6 +98,7 @@ class TournerDroiteAction:
         self.proxy = proxy
         self.angle = angle
         self.vitesse = vitesse
+        self.est_en_cours = False
 
     def done(self):
         angle_parcouru = self.proxy.angle_parcouru_droite(self.proxy.last_update)
@@ -108,6 +111,7 @@ class TournerDroiteAction:
 
     def demarre(self):
         self.proxy.reset_time()
+        self.est_en_cours = True
 
 
 class TournerGaucheAction:
@@ -115,6 +119,7 @@ class TournerGaucheAction:
         self.proxy = proxy
         self.angle = angle
         self.vitesse = vitesse
+        self.est_en_cours = False
 
     def done(self):
         angle_parcouru = self.proxy.angle_parcouru_gauche(self.proxy.last_update)
@@ -127,6 +132,7 @@ class TournerGaucheAction:
 
     def demarre(self):
         self.proxy.reset_time()
+        self.est_en_cours = True
 
 class StopAction:
     def __init__(self, proxy):
@@ -145,8 +151,8 @@ class StopAction:
         self.est_en_cours = True
 
 class AvanceJusquAuMur(ConditionActions):
-    def __init__(self, proxy):
-        ConditionActions.__init__(self, proxy,  ParcourirAction(proxy, 1000, 5), StopAction(proxy), test_proximite_mur)
+    def __init__(self, proxy, vitesse):
+        ConditionActions.__init__(self, proxy,  ParcourirAction(proxy, 1000, vitesse), StopAction(proxy), test_proximite_mur)
 
 class Carre(SequenceActions):
     def __init__(self, proxy, longueur_cote, vitesse_deplacement, vitesse_rotation):
@@ -159,7 +165,7 @@ class TourneAvanceStop(SequenceActions):
     def __init__(self, proxy, angle, vitesse):
         SequenceActions.__init__(self, proxy, None)
         tourne = TournerDroiteAction(proxy, angle, vitesse)
-        avance_stop = AvanceJusquAuMur(proxy)
+        avance_stop = AvanceJusquAuMur(proxy, vitesse)
         self.liste = [tourne, avance_stop]
 
 def test_proximite_mur(proxy):
