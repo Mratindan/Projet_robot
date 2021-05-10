@@ -2,6 +2,7 @@ import threading
 import time
 import math
 from modele import Robot, Robot_simple, Polynome
+from outils import Point, Vecteur
 
 
 class Controleur(threading.Thread):
@@ -172,7 +173,40 @@ class TrajectoireDistance:
         self.robot.distance=0
         self.robot.changePosition(self.acc,self.ang)
         self.robot.reset_time()
+
+class Stop:
+    def __init__(self,robot,acc,ang):
+        self.robot=robot
+        self.acc=acc
+        self.ang=ang
+        
+    def done(self):
+        return self.robot.vitesse<math.sqrt(pow(self.robot.vitesseVecteur.point1.calcul(time.time()-self.robot.last_update+0.1),2)+pow(self.robot.vitesseVecteur.point2.calcul(time.time()-self.robot.last_update+0.1),2))
     
+    def update(self):
+        if self.done():
+            return None
+        
+    def demarre(self):
+        if self.acc>0:
+            self.acc=-self.acc
+        self.robot.changePosition(self.acc,self.ang)
+        self.robot.reset_time()
+        
+class reset_vitesse:
+    def __init__(self,robot):
+        self.robot=robot
+        
+    def done(self):
+        return True
+    
+    def update(self):
+        if self.done():
+            return None
+        
+    def demarre(self):
+        self.robot.vitesseVecteur=Vecteur(Polynome(0,0,0),Polynome(0,0,0))
+        
 class Test(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
@@ -185,7 +219,7 @@ class Test2(SequenceActions):
     def __init__(self,robot):
         SequenceActions.__init__(self, robot, None)
         trajec=TrajectoireVitesse(robot,50,10,0)
-        trajec2=TrajectoireVitesse(robot,10,-10,0)
+        trajec2=TrajectoireVitesse(robot,1,-10,0)
         self.liste=[trajec]+[trajec2]
         
 class Test3(SequenceActions):
@@ -194,3 +228,12 @@ class Test3(SequenceActions):
         trajec=TrajectoireDistance(robot,100,10,0)
         trajec2=TrajectoireDistance(robot,100,-50,0)
         self.liste=[trajec]+[trajec2]
+        
+class Test4(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        trajec=Trajectoire(robot,3,10,0)
+        trajec2=Stop(robot,-50,0)
+        trajec3=reset_vitesse(robot)
+        trajec4=Trajectoire(robot,5,10,-90)
+        self.liste=[trajec]+[trajec2]+[trajec3]+[trajec4]

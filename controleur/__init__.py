@@ -1,1 +1,1 @@
-from .controleur import Test, Test2, Test3, Carre, Controleur
+from .controleur import Test, Test2, Test3, Test4, Carre, Controleur
