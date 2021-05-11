@@ -21,7 +21,7 @@ class Proxy_simu:
         self.robot.set_vitesse(0, 0)
 
     def proximite_mur(self):
-        return self.robot.proche_obstacle
+        return self.robot.proche_obstacle or self.robot.proche_mur
     
     def distance_parcourue(self, last_time):
         """

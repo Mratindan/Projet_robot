@@ -18,6 +18,7 @@ class Robot_simple :
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 unités dans la simulation
         self.proche_obstacle = False
+        self.proche_mur = False
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g

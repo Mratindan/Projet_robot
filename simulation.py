@@ -20,7 +20,6 @@ wall_e = Robot_simple(200, 300)
 wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-#action = TourneAvanceStop(wall_e_simu, 0, 10)
 action = AvanceJusquAuMur(wall_e_simu, 10)
 
 # Controleur

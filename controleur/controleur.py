@@ -1,6 +1,5 @@
 import threading
 import time
-import math
 
 class Controleur(threading.Thread):
     def __init__(self, proxy, action):
@@ -21,7 +20,7 @@ class Controleur(threading.Thread):
         self.demarre() 
         while not (self.done()):
             self.update()
-            time.sleep(0.2)
+            time.sleep(0.1)
             
 
 class SequenceActions:
