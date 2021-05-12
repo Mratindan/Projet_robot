@@ -95,5 +95,7 @@ class Robot:
         self.somme_temps=time.time()-self.last_update
         self.x=self.positionVecteur.point1.calcul(self.somme_temps)
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
+        self.xa=self.positionVecteur.point1.calcul(self.somme_temps+0.1)
+        self.ya=self.positionVecteur.point2.calcul(self.somme_temps+0.1)
         self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
         self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))
