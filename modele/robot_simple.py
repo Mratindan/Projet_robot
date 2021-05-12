@@ -12,8 +12,8 @@ class Robot_simple :
         self.angle = 0 # La direction dans laquelle pointe la tête du robot
         self.v_roue_gauche = 0
         self.v_roue_droite = 0
-        self.diametre_roue = 5 # 66.5
-        self.diametre_robot = 10 # 117
+        self.diametre_roue = 10 # 66.5
+        self.diametre_robot = 20 # 117
         self.last_update = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 unités dans la simulation
