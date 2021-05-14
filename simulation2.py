@@ -11,7 +11,7 @@ def start_simulation(arene, interface_graphique) :
 wall_e=Robot(300, 300)
 
 # Notre action à donner au contrôleur
-dessine=Test(wall_e)
+dessine=Carre2(wall_e)
 
 # Controleur
 ctrl=Controleur(dessine)

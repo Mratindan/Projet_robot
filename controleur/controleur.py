@@ -142,8 +142,8 @@ class TrajectoireVitesse:
     def done(self):
         if self.vitesse>=self.vitesseIni:
             return self.robot.vitesse>=self.vitesse
-        if self.vitesse<=self.vitesseIni:
-            return self.robot.vitesse<=self.vitesse
+        if self.vitesse<self.vitesseIni:
+            return self.robot.vitesse<self.vitesse
     
     def update(self):
         if self.done():
@@ -193,7 +193,7 @@ class Stop:
         self.robot.changePosition(self.acc,self.ang)
         self.robot.reset_time()
         
-class reset_vitesse:
+class Reset_vitesse:
     def __init__(self,robot):
         self.robot=robot
         
@@ -206,6 +206,27 @@ class reset_vitesse:
         
     def demarre(self):
         self.robot.vitesseVecteur=Vecteur(Polynome(0,0,0),Polynome(0,0,0))
+        
+class Tourner(SequenceActions):
+    def __init__(self,robot,vitesse,angle):
+        SequenceActions.__init__(self, robot, None)
+        trajec=TrajectoireVitesse(robot,vitesse/10,-vitesse/2,0)
+        trajec2=Trajectoire(robot,1,vitesse*3,angle)
+        trajec3=Trajectoire(robot,0.5,-vitesse*3,0)
+        trajec4=TrajectoireVitesse(robot,vitesse,-vitesse/4,0)
+        self.liste=[trajec]+[trajec2]+[trajec3]+[trajec4]
+        
+class Carre2(SequenceActions):
+    def __init__(self,robot):
+        SequenceActions.__init__(self, robot, None)
+        trajec=Trajectoire(robot,1,150,0)
+        trajec2=Trajectoire(robot,0.5,-150,0)
+        trajec3=TrajectoireVitesse(robot,45,-12.5,0)
+        trajec4=Tourner(robot,50,90)
+        trajec5=Tourner(robot,50,90)
+        trajec6=Tourner(robot,50,90)
+        trajec7=TrajectoireVitesse(robot,5,-25,0)
+        self.liste=[trajec]+[trajec2]+[trajec3]+[trajec4]+[trajec5]+[trajec6]+[trajec7]
         
 class Test(SequenceActions):
     def __init__(self,robot):
@@ -234,6 +255,7 @@ class Test4(SequenceActions):
         SequenceActions.__init__(self, robot, None)
         trajec=Trajectoire(robot,3,10,0)
         trajec2=Stop(robot,-50,0)
-        trajec3=reset_vitesse(robot)
+        trajec3=Reset_vitesse(robot)
         trajec4=Trajectoire(robot,5,10,-90)
         self.liste=[trajec]+[trajec2]+[trajec3]+[trajec4]
+        
