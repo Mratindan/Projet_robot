@@ -1,6 +1,6 @@
 import time
 
-class Proxy_simu:
+class Proxy_simu_exp:
     def __init__(self, robot):
         self.robot = robot
         self.last_update = 0
@@ -19,9 +19,6 @@ class Proxy_simu:
 
     def stop(self):
         self.robot.set_vitesse(0, 0)
-
-    def proximite_mur(self):
-        return self.robot.proche_obstacle or self.robot.proche_mur
     
     def distance_parcourue(self, last_time):
         """
@@ -40,8 +37,9 @@ class Proxy_simu:
         Retourne l'angle parcouru vers la gauche
         """
         return self.robot.angle_parcouru_gauche(self.last_update)
-    
-class Proxy_irl:
+        
+
+class Proxy_irl_exp:
     def __init__(self, robot):
         self.robot = robot
         self.last_update = 0
