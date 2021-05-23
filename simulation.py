@@ -20,7 +20,7 @@ wall_e = Robot_simple(200, 300)
 wall_e_simu = Proxy_simu(wall_e)
 
 # Notre action à donner au contrôleur
-action = Carre(wall_e_simu, 0.5, 5, 10)
+action = Carre(wall_e_simu, 0.7, 10, 10)
 
 # Controleur
 ctrl = Controleur(wall_e_simu, action)

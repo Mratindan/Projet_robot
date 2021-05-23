@@ -35,17 +35,7 @@ class Viewer :
         self.sommets_robot = (0, 0, 0, 0, 0, 0, 0, 0)
         self.trouver_sommets()
         self.dessin_robot_corps = self.dessin_arene.create_polygon(self.sommets_robot, fill = "orange", outline = "orange")
-        self.direction_robot = (self.robot.x, self.robot.y, self.robot.x, self.robot.y - 2 * self.robot.diametre_robot)
-        self.dessin_robot_tete = self.dessin_arene.create_line(self.direction_robot, fill = "orange", width = "5", arrow = "last")
         self.dessiner_obstacles()
-
-    def trouver_direction(self, a):
-        """
-        Permet de déterminer les coordonnées du segment qui représente la direction du robot
-        """
-        x0, y0, x1, y1 = self.direction_robot
-        nx1, ny1 = self.rotation_point(x1, y1, x0, y0, a - self.angle_prec)
-        self.direction_robot = (self.robot.x, self.robot.y, nx1, ny1)
 
     def trouver_sommets(self):
         """
@@ -116,9 +106,6 @@ class Viewer :
         else:
             self.pivoter_robot(self.robot.angle)
         self.dessin_arene.coords(self.dessin_robot_corps, self.sommets_robot)
-
-        self.trouver_direction(self.robot.angle)
-        self.dessin_arene.coords(self.dessin_robot_tete, self.direction_robot)
 
         self.angle_prec = self.robot.angle
         self.dessin_arene.after(50, self.update)
