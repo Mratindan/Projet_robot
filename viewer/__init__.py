@@ -1,1 +1,1 @@
-from .viewer import Viewer
+from .viewer2d import Viewer

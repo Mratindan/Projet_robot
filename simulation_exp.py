@@ -1,6 +1,6 @@
-from modele import Robot_Exp, Robot_simple, Arene
+from modele import Robot_Exp, Arene
 from controleur import Test, Test2, Test3, Test4, Tourner, Carre, Carre2, Controleur_Exp
-from gui import Viewer
+from viewer import Viewer
 
 def start_simulation(arene, interface_graphique) :
     arene.controleur.start()

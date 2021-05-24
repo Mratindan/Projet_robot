@@ -1,5 +1,5 @@
 from controleur.controleur import AvanceJusquAuMurPuisNouvelleDirection, ParcourirAction
-from modele import Robot_simple
+from modele import Robot
 try:
     from Robot2I013 import Robot2I013
     raise Exception("Le robot 2I013 n'existe pas.")
@@ -8,7 +8,7 @@ except Exception as e:
 from controleur import Proxy_simu, Proxy_irl, Controleur
 from controleur import Carre, AvanceJusquAuMur, TourneAvanceStop, AvanceJusquAuMurPuisNouvelleDirection, BoucleSurTourne, ParcoursAutonome, ParcourirAction
 from modele import Arene
-from gui import Viewer 
+from viewer import Viewer 
 
 def start_simulation(arene, interface_graphique) :
     arene.controleur.start()
@@ -16,7 +16,7 @@ def start_simulation(arene, interface_graphique) :
     interface_graphique.lancer()
 
 # Notre robot
-wall_e = Robot_simple(200, 300)
+wall_e = Robot(200, 300)
 
 # Notre proxy
 wall_e_simu = Proxy_simu(wall_e)
