@@ -1,7 +1,8 @@
 import unittest
-from Projet_robot.modele.Obstacle import Obstacle
+from modele.arene import Obstacle
 
 class TestObstacle(unittest.TestCase):
+
     def test_obstacle_is_created(self):
         obstacle = Obstacle()
         self.assertIsInstance(obstacle, Obstacle)
