@@ -1,25 +1,22 @@
 import unittest
 
-from Projet_robot.modele.Robot import Robot
+from modele import Robot_simple
+
 
 class TestRobot(unittest.TestCase):
+
     def setUp(self):
-        r = Robot(1, 1)
+        self.test_case_se_deplacer = [
+            (Robot_simple(1,1))
+        ]
 
-    def affiche_Position(self):
-        print(self.Robot.affichePosition())
-    def change_position(self):
-        self.r.changePosition(9, 30, 0)
-        print("x= ")
-        self.r.positionVecteur.point1.affichePolynome('t')
-        print("y= ")
-        self.r.positionVecteur.point2.affichePolynome('t')
-        self.r.changePosition(7,80,5)
-        print("x= ")
-        self.r.positionVecteur.point1.affichePolynome('t')
-        print("y= ")
-        self.r.positionVecteur.point2.affichePolynome('t')
+    def test_se_deplacer(self):
+        for case in self.test_case_se_deplacer:
+            robot = Robot_simple(1,1)
+            robot.set_v_roue_gauche(1)
+            robot.set_v_roue_droite(3)
+            with self.assertRaises(Exception):
+                robot.se_deplacer()
 
-        self.assertEqual(self.r,self.r.changePosition)
 if __name__=='__main__':
     unittest.main()
