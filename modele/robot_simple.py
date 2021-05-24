@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 import math
 from controleur import Proxy_simu
@@ -17,7 +18,12 @@ class Robot_simple :
         self.last_update = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 unités dans la simulation
-    
+    def set_v_roue_gauche(self,v):
+        self.v_roue_gauche = v
+
+    def set_v_roue_droite(self,v):
+        self.v_roue_droite = v
+
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
         self.v_roue_droite = v_roue_d

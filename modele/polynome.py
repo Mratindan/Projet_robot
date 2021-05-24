@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import math
+
 class Polynome:
     "Construit un polynome de degré 2 de forme: a*(x^2)+b*x+c"
     def __init__(self,a,b,c):

@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
 import math
+
+import numpy
+
 
 class Point:
 	"Classe permettant de définir des points "

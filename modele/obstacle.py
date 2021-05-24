@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Obstacle:
 	"""Definition de la classe obstacle"""
 	def __init__(self,largeur,hauteur):
