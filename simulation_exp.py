@@ -12,6 +12,10 @@ wall_e=Robot_Exp(300, 300)
 
 # Notre action à donner au controleur
 dessine=Carre2(wall_e)
+#dessine = Test(wall_e)
+#dessine = Test2(wall_e)
+#dessine = Test3(wall_e)
+#dessine = Test4(wall_e)
 
 # Controleur
 ctrl=Controleur_Exp(dessine)

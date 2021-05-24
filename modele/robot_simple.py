@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
 import math
-from controleur import Proxy_simu
 
 class Robot_simple :
     def __init__(self, x, y):
