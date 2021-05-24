@@ -105,7 +105,6 @@ class ParcourirAction:
 
     def done(self):
         distance_parcourue = self.proxy.distance_parcourue(self.proxy.last_update)
-        print("Distance parcourue :", distance_parcourue)
         return distance_parcourue > self.distance
 
     def update(self):
@@ -127,7 +126,6 @@ class TournerDroiteAction:
 
     def done(self):
         angle_parcouru = self.proxy.angle_parcouru_droite(self.proxy.last_update)
-        print("Angle parcouru : ", angle_parcouru)
         return angle_parcouru > self.angle
 
     def update(self):
