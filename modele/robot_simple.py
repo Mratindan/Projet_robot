@@ -9,16 +9,14 @@ class Robot_simple :
         """
         self.x = x
         self.y = y
-        self.angle = 0 # La direction dans laquelle pointe la tête du robot
+        self.angle = 0 # La direction de la tête du robot
         self.v_roue_gauche = 0
         self.v_roue_droite = 0
-        self.diametre_roue = 5 # 66.5
-        self.diametre_robot = 10 # 117
+        self.diametre_roue = 7 # 66.5
+        self.diametre_robot = 15 # 117
         self.last_update = 0
         self.crayon = True # Définit si le robot utilise un crayon ou pas
         self.echelle = 100 # 1 metre pour le robot IRL = 100 unités dans la simulation
-        self.proche_obstacle = False
-        self.proche_mur = False
     
     def set_vitesse(self, v_roue_g, v_roue_d):
         self.v_roue_gauche = v_roue_g
@@ -68,8 +66,8 @@ class Robot_simple :
         # si le robot avance tout droit
         if (self.v_roue_droite == self.v_roue_gauche):
             distance = self.distance_parcourue(self.last_update)
-            self.x += distance * math.cos(math.radians(self.angle - 90)) * self.echelle
-            self.y += distance * math.sin(math.radians(self.angle - 90)) * self.echelle 
+            self.x += distance * math.cos(math.radians(self.angle)) * self.echelle
+            self.y += distance * math.sin(math.radians(self.angle)) * self.echelle 
             self.reset_time()
 
             return None

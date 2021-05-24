@@ -1,8 +1,7 @@
 import threading
 import time
-from .robot_simple import Robot_simple
+import math
 from random import randint
-from outils import Point, Vecteur
 
 class Obstacle:
     """
@@ -30,42 +29,67 @@ class Arene(threading.Thread) :
         self.liste_obstacles = []
         #self.placer_obstacle(190, 200, 20, 15)
         self.initialiser_obstacles(nb_obstacles, lmax_obstacles)
+        self.robot_dirx = self.robot.x
+        self.robot_diry = self.robot.y
 
     def update(self):
         """
         Met à jour le modèle
         """
         self.robot.se_deplacer()
-        self.proximite_mur()
-        self.proximite_obstacles()
-    
+        print(self.get_distance())
+        print("ANGLE ROBOT : ", self.robot.angle)
+        
     def run(self):
         while not (self.controleur.done()):
             self.update()
             time.sleep(0.01)
 
-    def proximite_mur(self):
-        """
-        Met à jour l'état du robot en fonction de sa proximité avec les murs de l'arène.
-        """
-        d = self.robot.diametre_robot + self.robot.diametre_robot/2
-        if (self.robot.y < d) or (self.robot.y > (self.height - d)) or (self.robot.x < d) or (self.robot.x > (self.width - d)):
-            self.robot.proche_mur = True
-        else:
-            self.robot.proche_mur = False
 
-    def proximite_obstacles(self):
+    def est_exterieur_mur(self, x, y):
         """
-        Met à jour l'état du robot en fonction de sa proximité avec les obstacles de l'arène.
+        Renvoie True si le point de coordonnées (x, y) se trouve à l'extérieur des bords de l'arène et False sinon.
+        """
+        if (x < 0) or (x > self.width) or (y < 0) or (y > self.height):
+            return True
+        else:
+            return False
+
+    def est_interieur_obstacles(self, x, y):
+        """
+        Renvoie True si le point de coordonnées (x, y) se trouve à l'intérieur d'un obstacle de l'arène et False sinon.
         """
         for obstacle in self.liste_obstacles :
-            d = self.robot.diametre_robot + self.robot.diametre_robot/2
-            if ((obstacle.y - d) < self.robot.y < (obstacle.y + obstacle.height + d)) and ((obstacle.x - d) < self.robot.x < (obstacle.x + obstacle.width + d)):
-                self.robot.proche_obstacle = True
-                break
-            else:
-                self.robot.proche_obstacle = False
+            if (obstacle.x <= x <= obstacle.x + obstacle.width) and (obstacle.y <= y <= obstacle.y + obstacle.height):
+                return True
 
+        return False
+
+    def get_distance(self):
+        """
+        Retourne la distance du premier obstacle dans la direction du robot en nombre de pas avec un pas = self.robot.diametre_robot + self.robot.diametre_robot/2
+        """
+        d = self.robot.diametre_robot + self.robot.diametre_robot/2
+        # Direction
+        dir = math.radians(self.robot.angle)
+        # Point se trouvant à une distance d de la position du robot dans cette direction
+        x0 = self.robot.x
+        y0 = self.robot.y
+        x1 = x0
+        y1 = y0
+        pas = 0
+
+        while not (self.est_exterieur_mur(x1, y1) or self.est_interieur_obstacles(x1, y1)):
+            x1 = x0 + d * math.cos(dir)
+            y1 = y0 + d * math.sin(dir)
+            self.robot_dirx = x1
+            self.robot_diry = y1
+            print("get_distance itération", pas, " : ", self.robot_dirx, self.robot_diry)
+            x0 = x1
+            y0 = y1
+            pas += 1
+
+        return pas
 
     def initialiser_obstacles(self, n, lmax):
         """

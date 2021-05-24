@@ -75,7 +75,6 @@ class ParcourirAction:
         self.distance = distance
         self.vitesse = vitesse
         self.est_en_cours = False
-        #self.distance_total = 0
 
     def done(self):
         distance_parcourue = self.proxy.distance_parcourue(self.proxy.last_update)
@@ -85,7 +84,6 @@ class ParcourirAction:
         if self.done(): 
             return None
         self.proxy.avance_tout_droit(self.vitesse)
-        #self.proxy.last_update = self.proxy.reset_time()
         
     def demarre(self):
         self.proxy.reset_time()
@@ -149,9 +147,20 @@ class StopAction:
         self.proxy.stop()
         self.est_en_cours = True
 
+class TournerAction(SequenceActions):
+    def __init__(self, proxy, angle, vitesse):
+        SequenceActions.__init__(self, proxy, None)
+        if (angle >= 0):
+            tourne = TournerDroiteAction(proxy, angle, vitesse)
+        else:
+            while (angle < 0):
+                angle += 360
+            tourne = TournerGaucheAction(proxy, 360 - angle, vitesse)
+        self.liste = [tourne]
+
 class AvanceJusquAuMur(ConditionActions):
     def __init__(self, proxy, vitesse):
-        ConditionActions.__init__(self, proxy,  ParcourirAction(proxy, 1000, vitesse), StopAction(proxy), test_proximite_mur)
+        ConditionActions.__init__(self, proxy, ParcourirAction(proxy, 1000, vitesse), StopAction(proxy), test_proximite_mur)
 
 class Carre(SequenceActions):
     def __init__(self, proxy, longueur_cote, vitesse_deplacement, vitesse_rotation):
@@ -168,4 +177,4 @@ class TourneAvanceStop(SequenceActions):
         self.liste = [tourne, avance_stop]
 
 def test_proximite_mur(proxy):
-    return proxy.proximite_mur()
+    return proxy.proximite_obstacle()

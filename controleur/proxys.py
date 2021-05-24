@@ -4,6 +4,7 @@ class Proxy_simu:
     def __init__(self, robot):
         self.robot = robot
         self.last_update = 0
+        self.arene = None
     
     def reset_time(self):
         self.last_update = time.time()
@@ -20,8 +21,8 @@ class Proxy_simu:
     def stop(self):
         self.robot.set_vitesse(0, 0)
 
-    def proximite_mur(self):
-        return self.robot.proche_obstacle or self.robot.proche_mur
+    def proximite_obstacle(self):
+        return self.arene.get_distance() <= 1
     
     def distance_parcourue(self, last_time):
         """

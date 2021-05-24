@@ -1,7 +1,4 @@
 import math
-#import numpy
-#from Point import Point
-#from numpy import *
 
 class Point:
 	"Classe permettant de définir des points "

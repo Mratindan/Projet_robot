@@ -28,8 +28,21 @@ class Viewer :
         self.dessin_arene.grid(column = 0, row = 0, columnspan = 6, rowspan = 6, sticky = (N, S, E, W))
 
         # Initialisation des dessins du robot et des obstacles 
-        self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
+        self.sommets_robot = (0, 0, 0, 0, 0, 0, 0, 0)
+        self.trouver_sommets()
+        #self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
+        self.dessin_robot_corps = self.dessin_arene.create_polygon(self.sommets_robot, fill = "orange", outline = "orange")
         self.dessiner_obstacles()
+        self.dessin_robot_direction = self.dessin_arene.create_line(self.robot.x, self.robot.y, self.arene.robot_dirx, self.arene.robot_diry, fill = "brown", width = 2, arrow = "last")
+
+    def trouver_sommets(self):
+        """
+        Permet de déterminer les coordonnées des sommets du carré qui représente le robot
+        """
+        x = self.robot.x
+        y = self.robot.y
+        m = self.robot.diametre_robot/2
+        self.sommets_robot = (x - m, y - m, x - m, y + m, x + m, y + m, x + m, y - m)
     
     def dessiner_obstacles(self):
         """
@@ -51,7 +64,9 @@ class Viewer :
         """
 
         self.outil_crayon()
-        self.dessin_arene.coords(self.dessin_robot_corps, self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot)
+        self.trouver_sommets()
+        self.dessin_arene.coords(self.dessin_robot_corps, self.sommets_robot)
+        self.dessin_arene.coords(self.dessin_robot_direction, self.robot.x, self.robot.y, self.arene.robot_dirx, self.arene.robot_diry)
         self.after_id = self.dessin_arene.after(50, self.update)
 
 
@@ -61,11 +76,3 @@ class Viewer :
         """
         self.update()
         self.simulation.mainloop()
-    
-    def stop(self):
-       """
-       Arrête la simulation (Non fonctionnel pour l'instant)
-       """
-       if self.after_id:
-           self.dessin_arene.after_cancel(self.after_id)
-           self.after_id = None

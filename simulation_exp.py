@@ -1,5 +1,5 @@
 from modele import Robot_Exp, Robot_simple, Arene
-from controleur import Test, Test2, Test3, Test4, Tourner, Carre, Carre2, Controleur_Exp, Proxy_irl_exp, Proxy_simu_exp
+from controleur import Test, Test2, Test3, Test4, Tourner, Carre, Carre2, Controleur_Exp
 from gui import Viewer
 
 def start_simulation(arene, interface_graphique) :
@@ -9,9 +9,6 @@ def start_simulation(arene, interface_graphique) :
 
 # Notre robot
 wall_e=Robot_Exp(300, 300)
-
-# Notre proxy
-wall_e_simu = Proxy_simu_exp(wall_e)
 
 # Notre action à donner au controleur
 dessine=Carre2(wall_e)
