@@ -1,34 +1,27 @@
+from math import fabs
 import sys
 import unittest
 import time
-sys.path.append("..")
-
-from Projet_robot.modele.Arene import Arene
-
+import sys, os
+testdir = os.path.dirname(__file__)
+srcdir = '../modele'
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
+from modele.arene import Arene
 class TestArene(unittest.TestCase):
     def setUp(self):
-        self.arene = Arene(30, 15)
+        self.test_case_est_exterieur_mur = [
+            (-1,5,Arene(30,15), True), 
+            (0,0,Arene(30,15),False), 
+            (5,-1,Arene(30,15),True),
+            (5,5,Arene(4,10),True),
+            (5,5,Arene(10,4),True),
+            (5,10,Arene(4,9),True),
+            (5,5,Arene(10,10),True)]                          
 
-    def test_arene_is_created(self):
-        self.assertIsInstance(self.arene, Arene)
-
-    def test_afficher_arene(self):
-        # print(self.arene.afficherArene())
-        self.assertTrue(True)
-
-    def test_arene_est_vide(self):
-        self.assertTrue(True)
-
-    # def test_placer_robot(self):
-
-    def test_placer_obstacle(self):
-        print("Placons un obstacle en (10,10)")
-        # print(self.arene.placerObstacle(10,10))
-        time.sleep(5)
-
-    def test_supprimer_obstacle(self):
-        print("Supprimons maintenant l'obstacle que nous venons de creer")
-        # print(self.arene.supprimerObstacle(10, 10))
-
+    def test_est_exterieur_mur(self): 
+        for case in self.test_case_est_exterieur_mur:
+            arene = case[2]
+            self.assertEquals(arene.est_exterieur_mur(case[0],case[1]), case[3])
+            
 if __name__ =='__main__':
     unittest.main()
