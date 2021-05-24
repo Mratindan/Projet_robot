@@ -22,7 +22,7 @@ class Proxy_simu:
         self.robot.set_vitesse(0, 0)
 
     def proximite_obstacle(self):
-        return self.arene.get_distance() <= 1
+        return self.arene.get_distance() <= 2
     
     def distance_parcourue(self, last_time):
         """

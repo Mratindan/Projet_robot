@@ -31,6 +31,7 @@ class Robot_Exp:
         self.somme_temps=0
         self.distance=0
         self.diametre_robot=10
+        self.angle=0
         
     def deplace(self, dx, dy):
         """
@@ -97,5 +98,9 @@ class Robot_Exp:
         self.y=self.positionVecteur.point2.calcul(self.somme_temps)
         self.xa=self.positionVecteur.point1.calcul(self.somme_temps+0.1)
         self.ya=self.positionVecteur.point2.calcul(self.somme_temps+0.1)
+        self.positionNormeA=math.sqrt(pow((self.xa-self.x),2)+pow((self.ya-self.y),2))
+        if self.positionNormeA==0:
+            self.positionNormeA=1
+        self.angle=math.acos(math.radians(((self.xa-self.x)+(self.ya-self.y))/(self.positionNormeA*math.sqrt(2))))
         self.vitesseVecteurTemps=Vecteur(self.vitesseVecteur.point1.calcul(self.somme_temps),self.vitesseVecteur.point2.calcul(self.somme_temps))
         self.vitesse=math.sqrt(pow(self.vitesseVecteurTemps.point1,2)+pow(self.vitesseVecteurTemps.point2,2))

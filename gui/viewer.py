@@ -18,19 +18,15 @@ class Viewer :
         self.simulation.columnconfigure(0, weight = 1)
         self.simulation.rowconfigure(0, weight = 1)
         
-        # Le cadre principale de l'application
         self.cadre = ttk.Frame(self.simulation)
-        # La toile dans laquelle sera dessinée la simulation
         self.dessin_arene = Canvas(self.cadre, borderwidth = 2, relief = 'ridge', width = self.arene.width, height = self.arene.height, background = "white")
 
-        # Placement des widgets
         self.cadre.grid(column = 0, row = 0, sticky = (N, S, E, W))
         self.dessin_arene.grid(column = 0, row = 0, columnspan = 6, rowspan = 6, sticky = (N, S, E, W))
 
         # Initialisation des dessins du robot et des obstacles 
         self.sommets_robot = (0, 0, 0, 0, 0, 0, 0, 0)
         self.trouver_sommets()
-        #self.dessin_robot_corps = self.dessin_arene.create_rectangle(self.robot.x, self.robot.y, self.robot.x + self.robot.diametre_robot, self.robot.y + self.robot.diametre_robot, fill = 'red', outline = 'red')
         self.dessin_robot_corps = self.dessin_arene.create_polygon(self.sommets_robot, fill = "orange", outline = "orange")
         self.dessiner_obstacles()
         self.dessin_robot_direction = self.dessin_arene.create_line(self.robot.x, self.robot.y, self.arene.robot_dirx, self.arene.robot_diry, fill = "brown", width = 2, arrow = "last")

@@ -37,8 +37,8 @@ class Arene(threading.Thread) :
         Met à jour le modèle
         """
         self.robot.se_deplacer()
-        print(self.get_distance())
-        print("ANGLE ROBOT : ", self.robot.angle)
+        self.get_distance()
+        #print("ANGLE ROBOT : ", self.robot.angle)
         
     def run(self):
         while not (self.controleur.done()):
@@ -84,7 +84,7 @@ class Arene(threading.Thread) :
             y1 = y0 + d * math.sin(dir)
             self.robot_dirx = x1
             self.robot_diry = y1
-            print("get_distance itération", pas, " : ", self.robot_dirx, self.robot_diry)
+            #print("get_distance itération", pas, " : ", self.robot_dirx, self.robot_diry)
             x0 = x1
             y0 = y1
             pas += 1
