@@ -1,1 +1,1 @@
-from .outils_mathematiques import Point, Vecteur
+from .outils_mathematiques import Point, Vecteur, Polynome

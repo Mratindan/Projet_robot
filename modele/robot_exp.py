@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import math
 import time
-from outils import Point, Vecteur
-from modele import Polynome
+from outils import Point, Vecteur, Polynome
 
 class Robot_Exp:
     "Definition d'un robot"
