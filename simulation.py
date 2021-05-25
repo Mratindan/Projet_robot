@@ -1,4 +1,3 @@
-from controleur.controleur import AvanceJusquAuMurPuisNouvelleDirection, ParcourirAction
 from modele import Robot
 try:
     from Robot2I013 import Robot2I013
@@ -6,7 +5,7 @@ try:
 except Exception as e:
     from robotmockup import Robot2I013Mockup
 from controleur import Proxy_simu, Proxy_irl, Controleur
-from controleur import Carre, AvanceJusquAuMur, TourneAvanceStop, AvanceJusquAuMurPuisNouvelleDirection, BoucleSurTourne, ParcoursAutonome, ParcourirAction
+from controleur import Carre, AvanceJusquAuMur, TourneAvanceStop, AvanceJusquAuMurPuisNouvelleDirection, BoucleSurTourne, ParcoursAutonome
 from modele import Arene
 from viewer import Viewer 
 

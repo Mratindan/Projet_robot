@@ -5,6 +5,8 @@ import math
 class Robot :
     def __init__(self, x, y):
         """ 
+        :x: float
+        :y: float
         Représente un robot avec une position initiale (x, y) 
         """
         self.x = x
@@ -20,20 +22,29 @@ class Robot :
 
     def set_v_roue_gauche(self,v):
         self.v_roue_gauche = v
-        
+
     def set_v_roue_droite(self,v):
         self.v_roue_droite = v
     
     def set_vitesse(self, v_roue_g, v_roue_d):
+        """
+        :v_roue_g: int
+        :v_roue_d: int
+        Permet de définir la vitesse des roues gauche et droite du robot.
+        """
         self.v_roue_gauche = v_roue_g
         self.v_roue_droite = v_roue_d
     
     def reset_time(self):
+        """
+        Permet de se souvenir de l'instant où cette méthode a été appelé dans l'attribut last_update.
+        """
         self.last_update = time.time()
 
     def distance_parcourue(self, last_time):
         """
-        Retourne la distance parcourue par le robot depuis la dernière mise à jour.
+        :last_time: float, doit correspondre à un temps
+        Retourne la distance parcourue par le robot depuis last_time.
         """
 
         angle = (time.time() - last_time) * self.v_roue_droite
@@ -43,7 +54,7 @@ class Robot :
 
     def angle_parcouru_droite(self, last_time):
         """
-        Retourne l'angle parcouru vers la droite
+        Retourne l'angle parcouru vers la droite depuis last_time.
         """
         angle = (time.time() - last_time) * self.v_roue_gauche
         distance = (math.pi * self.diametre_roue * angle) / 360
@@ -53,7 +64,7 @@ class Robot :
 
     def angle_parcouru_gauche(self, last_time):
         """
-        Retourne l'angle parcouru vers la gauche
+        Retourne l'angle parcouru vers la gauche depuis last_time.
         """
         angle = (time.time() - last_time) * self.v_roue_droite
         distance = (math.pi * self.diametre_roue * angle) / 360

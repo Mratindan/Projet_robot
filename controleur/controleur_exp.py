@@ -1,8 +1,7 @@
 import threading
 import time
 import math
-from modele import Polynome
-from outils import Vecteur
+from outils import Vecteur, Polynome
 
 
 class Controleur_Exp(threading.Thread):

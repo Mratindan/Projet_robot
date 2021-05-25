@@ -5,16 +5,16 @@ class Viewer :
 
     def __init__(self, arene):
         """
-        Initialise une fenêtre graphique 
+        :arene: L'objet Arene à visualiser.
+        Initialise la fenêtre graphique correspondant à l'arène. 
         """
         
         self.simulation = Tk()
 
-        self.after_id = None
         self.arene = arene
         self.robot = self.arene.robot
 
-        self.simulation.title("Gopigo Simulator")
+        self.simulation.title("GoPiGo Simulator")
         self.simulation.columnconfigure(0, weight = 1)
         self.simulation.rowconfigure(0, weight = 1)
         
@@ -63,7 +63,7 @@ class Viewer :
         self.trouver_sommets()
         self.dessin_arene.coords(self.dessin_robot_corps, self.sommets_robot)
         self.dessin_arene.coords(self.dessin_robot_direction, self.robot.x, self.robot.y, self.arene.robot_dirx, self.arene.robot_diry)
-        self.after_id = self.dessin_arene.after(50, self.update)
+        self.dessin_arene.after(50, self.update)
 
 
     def lancer(self):
